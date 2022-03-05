@@ -1,0 +1,51 @@
+// Variables
+
+// Color overrides
+$teal: #23b0b3 !default;
+$violet: #4904a4 !default;
+$light-gold: #eac862 !default;
+$font-grey: #515769 !default;
+$black: black;
+$charcoal: #1C1C1C;
+$white: #fff;
+
+// Set primary color to teal
+$primary: $violet !default;
+
+// Font overrides
+$font-family-sans-serif: "Hind", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+$font-family-sans-serif-secondary: "Contrail One", -apple-system,
+  BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+  "Noto Color Emoji" !default;
+
+$font-family-base: $font-family-sans-serif !default;
+
+$headings-font-family: $font-family-sans-serif !default;
+
+$subtitles-font-family: $font-family-sans-serif-secondary !default;
+
+// Custom variables
+$navbar-height: 72px;
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+//Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+//Small tablets (portrait view)
+$screen-md-min: 768px;
+
+//Tablets and small desktops
+$screen-lg-min: 992px;
+
+//Large tablets and desktops
+$screen-xl-min: 1200px;

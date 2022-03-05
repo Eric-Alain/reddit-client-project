@@ -1,9 +1,15 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    title: `Eric Alain | Reddit Client Project`,
+    description: `An attempt at the Reddit Client Project by Codecademy using Gastby, React and Redux.`,
+    author: `Eric Alain`,
+    keywords: `Eric, Alain, Reddit Client Project, Codecademy, APIs`,
+    locale: `en_CA`,
+    siteUrl: `https://www.ericalain.ca`,
+    lang: "en",
+  },
+  flags: {
+    PARALLEL_SOURCING: true,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -31,6 +37,7 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    `gatsby-plugin-sass`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

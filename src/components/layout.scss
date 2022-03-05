@@ -1,0 +1,25 @@
+// Import fonts
+//@import "~@fontsource/hind/index.css";
+//@import "~@fontsource/contrail-one/index.css";
+
+// Import Font Awesome Icons
+/*@import '~@fortawesome/fontawesome-svg-core/styles.css';
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";*/
+
+// Import custom variables (overrides Bootstrap default variables)
+@import "../sass/variables.scss";
+
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// Import custom styles
+/*@import "../sass/global.scss";
+@import "../sass/navbar.scss";
+@import "../sass/masthead.scss";
+@import "../sass/about.scss";
+@import "../sass/skills.scss";
+@import "../sass/work.scss";
+@import "../sass/modal.scss";
+@import "../sass/carousel.scss";
+@import "../sass/contact.scss";*/
