@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Eric Alain | Reddit Client Project`,
+    title: `Reddit Client Project`,
     description: `An attempt at the Reddit Client Project by Codecademy using Gastby, React and Redux.`,
     author: `Eric Alain`,
     keywords: `Eric, Alain, Reddit Client Project, Codecademy, APIs`,
