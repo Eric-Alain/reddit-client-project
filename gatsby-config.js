@@ -12,6 +12,20 @@ module.exports = {
     PARALLEL_SOURCING: true,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-react-redux`,
+      options: {
+        pathToCreateStoreModule: "./src/state/createStore",
+        serialize: {
+          space: 0,
+          isJSON: true,
+          unsafe: false,
+          ignoreFunction: true,
+        },
+        cleanupOnClient: true,
+        windowKey: "__PRELOADED_STATE__",
+      },
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {

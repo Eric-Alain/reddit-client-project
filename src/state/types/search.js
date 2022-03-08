@@ -1,0 +1,1 @@
+export const SEARCH_TYPED = "SEARCH_TYPED"
