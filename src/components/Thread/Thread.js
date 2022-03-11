@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 //import PropTypes from "prop-types"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData } from '/src/state/actions/data'
@@ -15,14 +15,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Thread = () => {
   const dispatch = useDispatch()
-  const threadData = useRef(null)
 
   useEffect(() => {
     fetch('https://www.reddit.com/search.json?q=web%20dev')
       .then(response => response.json())
       .then(data => {
         dispatch(fetchData(data))
-        threadData.current = data
       })
   }, [dispatch])
 
@@ -50,36 +48,41 @@ const Thread = () => {
                       alt=''
                     />
                     <hr />
-                    <Row className='align-items-end'>
-                      <Col xs='4'>
+                    <Row className='align-items-start justify-content-between'>
+                      <Col xs='8'>
                         <Row>
-                          <Col xs='auto'>
-                            <FontAwesomeIcon icon={['fab', 'reddit-square']} size='3x' />
+                          <Col xs='auto' className='pe-2'>
+                            <FontAwesomeIcon icon={['fab', 'reddit-square']} size='1x' />
                           </Col>
                           <Col xs='auto' className='ps-0'>
-                            <a href={`https://www.reddit.com/user/${child.data.author}`}>
-                              {child.data.author}
-                              <br />
-                              <a href={`https://www.reddit.com/${child.data.subreddit_name_prefixed}`}>{child.data.subreddit_name_prefixed}</a>
-                            </a>
-                            : <small>{nFormatter(child.data.subreddit_subscribers, 1)}</small>
+                            <small>
+                              <a href={`https://www.reddit.com/user/${child.data.author}`}>{child.data.author}</a> |{' '}
+                              <a href={`https://www.reddit.com/${child.data.subreddit_name_prefixed}`}>{child.data.subreddit_name_prefixed}</a>:{' '}
+                              {nFormatter(child.data.subreddit_subscribers, 1)}
+                            </small>
                           </Col>
                         </Row>
                       </Col>
-                      <Col xs='4'>
-                        <Row>
-                          <Col xs='auto'>
-                            <FontAwesomeIcon icon={['far', 'calendar-days']} size='3x' />
+                      <Col xs='auto'>
+                        <Row className='justify-content-end'>
+                          <Col xs='auto' className='pe-2'>
+                            <FontAwesomeIcon icon={['far', 'calendar-days']} size='1x' />
                           </Col>
-                          <Col xs='auto'>{renderDate(child.data.created_utc)}</Col>
+                          <Col xs='auto' className='ps-0'>
+                            <small>{renderDate(child.data.created_utc)}</small>
+                          </Col>
                         </Row>
                       </Col>
-                      <Col xs='4'>
-                        <Row>
-                          <Col xs='auto'>
-                            <FontAwesomeIcon icon={['far', 'calendar-days']} size='3x' />
+                      <Col xs='auto'>
+                        <Row className='justify-content-end'>
+                          <Col xs='auto' className='pe-2'>
+                            <FontAwesomeIcon icon={['far', 'message']} size='1x' />
                           </Col>
-                          <Col xs='auto'>{child.data.num_comments}</Col>
+                          <Col xs='auto' className='ps-0'>
+                            <small>
+                              <a href={`https://www.reddit.com${child.data.permalink}`}>{child.data.num_comments}</a>
+                            </small>
+                          </Col>
                         </Row>
                       </Col>
                     </Row>

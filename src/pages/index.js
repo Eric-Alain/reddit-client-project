@@ -7,10 +7,10 @@ import Thread from '../components/Thread/Thread'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
 import { faRedditSquare } from '@fortawesome/free-brands-svg-icons'
-import { faCalendarDays } from '@fortawesome/free-regular-svg-icons'
+import { faCalendarDays, faMessage } from '@fortawesome/free-regular-svg-icons'
 
 config.autoAddCss = false
-library.add(faSearch, faRedditSquare, faList, faCalendarDays)
+library.add(faSearch, faRedditSquare, faList, faCalendarDays, faMessage)
 
 const IndexPage = () => (
   <Layout>
