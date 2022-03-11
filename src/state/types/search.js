@@ -1,1 +1,1 @@
-export const SEARCH_TYPED = "SEARCH_TYPED"
+export const SEARCH_TYPED = 'SEARCH_TYPED'

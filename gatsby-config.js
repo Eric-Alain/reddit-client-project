@@ -6,25 +6,25 @@ module.exports = {
     keywords: `Eric, Alain, Reddit Client Project, Codecademy, APIs`,
     locale: `en_CA`,
     siteUrl: `https://www.ericalain.ca`,
-    lang: "en",
+    lang: 'en'
   },
   flags: {
-    PARALLEL_SOURCING: true,
+    PARALLEL_SOURCING: true
   },
   plugins: [
     {
       resolve: `gatsby-plugin-react-redux`,
       options: {
-        pathToCreateStoreModule: "./src/state/createStore",
+        pathToCreateStoreModule: './src/state/createStore',
         serialize: {
           space: 0,
           isJSON: true,
           unsafe: false,
-          ignoreFunction: true,
+          ignoreFunction: true
         },
         cleanupOnClient: true,
-        windowKey: "__PRELOADED_STATE__",
-      },
+        windowKey: '__PRELOADED_STATE__'
+      }
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
@@ -32,8 +32,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
@@ -48,12 +48,12 @@ module.exports = {
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
+        icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
+      }
     },
-    `gatsby-plugin-sass`,
+    `gatsby-plugin-sass`
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-  ],
+  ]
 }

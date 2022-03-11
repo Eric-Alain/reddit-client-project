@@ -1,8 +1,8 @@
-import { SEARCH_TYPED } from "/src/state/types/search"
+import { SEARCH_TYPED } from '/src/state/types/search'
 
 export const initialState = {
   query: null,
-  lastEntry: null,
+  lastEntry: null
 }
 
 const searchReducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ const searchReducer = (state = initialState, action) => {
     case SEARCH_TYPED:
       return {
         ...state,
-        query: payload,
+        query: payload
       }
 
     default:
