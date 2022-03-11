@@ -1,7 +1,8 @@
-import { FETCH_DATA } from '/src/state/types/data'
+import { FETCH_DATA, LIMIT_DATA_RESULTS } from '/src/state/types/data'
 
 export const initialState = {
-  reddit: {}
+  reddit: {},
+  limit: 5
 }
 
 const dataReducer = (state = initialState, action) => {
@@ -12,6 +13,11 @@ const dataReducer = (state = initialState, action) => {
       return {
         ...state,
         reddit: payload
+      }
+    case LIMIT_DATA_RESULTS:
+      return {
+        ...state,
+        limit: payload
       }
 
     default:

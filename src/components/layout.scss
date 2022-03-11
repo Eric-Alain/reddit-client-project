@@ -1,20 +1,18 @@
 // Import fonts
-//@import "~@fontsource/hind/index.css";
-//@import "~@fontsource/contrail-one/index.css";
+@import '~@fontsource/league-spartan/index.css';
 
 // Import Font Awesome Icons
 @import '~@fortawesome/fontawesome-svg-core/styles.css';
-@import "~@fortawesome/fontawesome-free/css/all.css";
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
 // Import custom variables (overrides Bootstrap default variables)
-@import "../sass/variables.scss";
+@import '../sass/variables.scss';
 
 // Import Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
 // Import custom styles
-@import "../sass/global.scss";
-@import "../sass/header.scss";
-@import "../sass/footer.scss";
-
+@import '../sass/global.scss';
+@import '../sass/header.scss';
+@import '../sass/footer.scss';

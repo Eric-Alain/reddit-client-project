@@ -1,3 +1,20 @@
 header {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
+
+  .search-btn {
+    background: none;
+    outline: none;
+    border: none;
+    color: $charcoal;
+    padding: 0;
+    line-height: 0;
+    @include transition(all ease-in 0.2s);
+
+    &:hover {
+      color: $charcoal;
+      background: none;
+      filter: drop-shadow(3px 3px 2px rgb(0 0 0 / 0.6));
+      @include transition(all ease-in 0.2s);
+    }
+  }
 }

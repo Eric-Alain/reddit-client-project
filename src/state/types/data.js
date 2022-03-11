@@ -1,1 +1,2 @@
 export const FETCH_DATA = 'FETCH_DATA'
+export const LIMIT_DATA_RESULTS = 'LIMIT_DATA_RESULTS'

@@ -1,4 +1,4 @@
-@import "mixins";
+@import 'mixins';
 
 // Global styling for this template
 .z-n2 {
@@ -19,6 +19,10 @@
 
 .z-2 {
   z-index: 2;
+}
+
+html {
+  font-size: 18px;
 }
 
 html,
@@ -85,4 +89,12 @@ body {
 
 .opacity-0 {
   @include Opacity(0);
+}
+
+.lh-0 {
+  line-height: 0 !important;
+}
+
+.lh-1 {
+  line-height: 1 !important;
 }

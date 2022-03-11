@@ -1,58 +1,6 @@
-// eg: @include cubic-transition($delay: 0, $duration: 300ms, $property: (all));
-@mixin cubic-transition($delay, $duration, $property) {
-  transition: {
-    duration: $duration;
-    property: $property;
-    timing-function: cubic-bezier(0.7, 1, 0.7, 1);
-  }
-}
-
-@mixin font-transition($delay, $duration, $property) {
-  transition: {
-    duration: $duration;
-    property: $property;
-    timing-function: ease-in-out;
-  }
-}
-
-@mixin respond-above($breakpoint) {
-  // If the breakpoint exists in the map.
-  @if map-has-key($breakpoints, $breakpoint) {
-    // Get the breakpoint value.
-    $breakpoint-value: map-get($breakpoints, $breakpoint);
-
-    // Write the media query.
-    @media (min-width: $breakpoint-value) {
-      @content;
-    }
-
-    // If the breakpoint doesn't exist in the map.
-  } @else {
-    // Log a warning.
-    @warn 'Invalid breakpoint: #{$breakpoint}.';
-  }
-}
-
-@mixin respond($breakpoint) {
-  @if $breakpoint==tablet {
-    @media only screen and (max-width: 600px) {
-      @content;
-    }
-  }
-  @if $breakpoint==mobile {
-    @media only screen and (max-width: 480px) {
-      @content;
-    }
-  }
-}
-
-@mixin isChrome() {
-  @media screen and (-webkit-min-device-pixel-ratio: 0) {
-    @content;
-  }
-}
-
-//Breakpoint mixins
+/*************/
+/*BREAKPOINTS*/
+/*************/
 
 //Small devices
 @mixin sm {
@@ -89,47 +37,16 @@
   }
 }
 
+/*********/
+/*EFFECTS*/
+/*********/
+
 //Opacity
 @mixin Opacity($value){
   $IEValue: $value*100;
   opacity: $value;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
   filter: alpha(opacity=$IEValue);
-}
-
-//Small devices
-@mixin sm {
-  @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
-}
-
-//Medium devices
-@mixin md {
-  @media (min-width: #{$screen-md-min}) {
-    @content;
-  }
-}
-
-//Large devices
-@mixin lg {
-  @media (min-width: #{$screen-lg-min}) {
-    @content;
-  }
-}
-
-//Extra large devices
-@mixin xl {
-  @media (min-width: #{$screen-xl-min}) {
-    @content;
-  }
-}
-
-//Custom devices
-@mixin rwd($screen) {
-  @media (min-width: '#{$screen}px') {
-    @content;
-  }
 }
 
 //Smooth transitions
