@@ -1,20 +1,63 @@
 header {
-  margin-bottom: 3rem;
+  @include sm {
+    margin-bottom: 3rem;
+  }
 
-  .search-btn {
-    background: none;
-    outline: none;
-    border: none;
-    color: $charcoal;
-    padding: 0;
-    line-height: 0;
-    @include transition(all ease-in 0.2s);
+  nav {
+    background: $primary;
 
-    &:hover {
-      color: $charcoal;
-      background: none;
-      filter: drop-shadow(3px 3px 2px rgb(0 0 0 / 0.6));
+    h2,
+    .navbar-text,
+    a {
+      color: $secondary !important;
+    }
+    a {
       @include transition(all ease-in 0.2s);
+      &:hover {
+        color: $quadrary !important;
+        @include transition(all ease-in 0.2s);
+      }
+    }
+
+    .navbar-toggler {
+      border: 2px solid $quadrary !important;
+      svg {        
+        color: $quadrary;
+        @include transition(all ease-in 0.2s);
+      }
+      
+      &:focus {
+        box-shadow: 0 0 20px $tertiary !important;
+        @include transition(all ease-in 0.2s);
+      }
+
+      &:hover {
+        background: $primary;
+        svg {          
+          color: $tertiary;
+          @include transition(all ease-in 0.2s);
+        }
+        @include transition(all ease-in 0.2s);
+      }
+
+      @include transition(all ease-in 0.2s);
+    }
+
+    .search-btn {
+      background: none;
+      outline: none;
+      border: none;
+      color: $charcoal;
+      padding: 0;
+      line-height: 0;
+      @include transition(all ease-in 0.2s);
+
+      &:hover {
+        color: $charcoal;
+        background: none;
+        filter: drop-shadow(3px 3px 2px rgb(0 0 0 / 0.6));
+        @include transition(all ease-in 0.2s);
+      }
     }
   }
 }

@@ -5,12 +5,12 @@ import Sidebar from '../components/Sidebar/Sidebar'
 import Thread from '../components/Thread/Thread'
 
 import { config, library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faList } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faList, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faRedditSquare } from '@fortawesome/free-brands-svg-icons'
 import { faCalendarDays, faMessage } from '@fortawesome/free-regular-svg-icons'
 
 config.autoAddCss = false
-library.add(faSearch, faRedditSquare, faList, faCalendarDays, faMessage)
+library.add(faSearch, faRedditSquare, faList, faCalendarDays, faMessage, faBars, faTimes)
 
 const IndexPage = () => (
   <Layout>

@@ -1,42 +1,43 @@
-// Variables
+/***********/
+/*VARIABLES*/
+/***********/
 
 // Color overrides
-$teal: #23b0b3 !default;
-$violet: #4904a4 !default;
-$light-gold: #eac862 !default;
-$font-grey: #515769 !default;
-$black: black;
-$charcoal: #1C1C1C;
 $white: #fff;
+$black: black;
+$charcoal: #1c1c1c;
 
-// Set primary color to teal
-$primary: $violet !default;
+// Palette definitions
+$dark-navy: #223843 !default;
+$ice-white: #eff1f3 !default;
+$ice: #d6efff !default;
+$lavender: #dbd3d8 !default;
+$blush: #d8b4a0 !default;
+$salmon: #fe654f !default;
+$sand: #fed18c !default;
+
+// Set color names to palette ranks
+$primary: $dark-navy !default;
+$secondary: $ice-white !default;
+$tertiary: $salmon !default;
+$quadrary: $sand !default;
+
+$gradient-1: $sand !default;
+$gradient-2: $salmon !default;
+$gradient-3: $dark-navy !default;
+$gradient-4: $sand !default;
+
+$gradient-list-1: $gradient-1 0%, $gradient-1 33%, $gradient-2 66%, $gradient-2 100%;
+$gradient-list-2: $gradient-3 0%, $gradient-4 100%;
 
 // Font overrides
-$font-family-sans-serif: "League Spartan", -apple-system, BlinkMacSystemFont, "Segoe UI",
-  Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
-
-$font-family-sans-serif-secondary: "Contrail One", -apple-system,
-  BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
-  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-  "Noto Color Emoji" !default;
+$font-family-sans-serif: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
 
 $font-family-base: $font-family-sans-serif !default;
 
-$headings-font-family: $font-family-sans-serif !default;
-
-$subtitles-font-family: $font-family-sans-serif-secondary !default;
-
-// Custom variables
+// Dimension variables
 $navbar-height: 72px;
-
-$breakpoints: (
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px
-);
 
 //Small tablets and large smartphones (landscape view)
 $screen-sm-min: 576px;

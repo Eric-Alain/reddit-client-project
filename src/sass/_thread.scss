@@ -1,0 +1,9 @@
+#thread {
+  a {
+    @include transition(all ease 0.2s);
+    &:hover {
+      color: $tertiary;
+      @include transition(all ease 0.2s);
+    }
+  }
+}

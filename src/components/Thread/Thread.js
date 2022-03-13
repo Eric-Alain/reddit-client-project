@@ -30,7 +30,7 @@ const Thread = () => {
 
   return (
     <>
-      <Col xs={{ span: 12, order: 2 }} sm={{ span: 7, order: 1 }} md={{ span: 8, order: 1 }} xl={{ span: 9, order: 1 }} id='thread' className='border'>
+      <Col xs={{ span: 12, order: 2 }} sm={{ span: 7, order: 1 }} md={{ span: 8, order: 1 }} xl={{ span: 9, order: 1 }} id='thread' className='border-1 bg-2'>
         <main>
           <Row>
             <Col xs='12'>
@@ -56,8 +56,8 @@ const Thread = () => {
                         alt=''
                       />
                       <hr />
-                      <Row className='align-items-start justify-content-start justify-content-md-between'>
-                        <Col xs='12' md='8'>
+                      <Row className='align-items-start justify-content-start justify-content-lg-between'>
+                        <Col xs='12' lg="7" xl='8'>
                           <Row>
                             <Col xs='auto' className='pe-2'>
                               <FontAwesomeIcon icon={['fab', 'reddit-square']} size='1x' />
@@ -71,8 +71,8 @@ const Thread = () => {
                             </Col>
                           </Row>
                         </Col>
-                        <Col xs='12' md='auto'>
-                          <Row className='justify-content-start justify-content-md-end'>
+                        <Col xs='12' lg='auto'>
+                          <Row className='justify-content-start justify-content-lg-end'>
                             <Col xs='auto' className='pe-2'>
                               <FontAwesomeIcon icon={['far', 'calendar-days']} size='1x' />
                             </Col>
@@ -81,8 +81,8 @@ const Thread = () => {
                             </Col>
                           </Row>
                         </Col>
-                        <Col xs='12' md='auto'>
-                          <Row className='justify-content-start justify-content-md-end'>
+                        <Col xs='12' lg='auto'>
+                          <Row className='justify-content-start justify-content-lg-end'>
                             <Col xs='auto' className='pe-2'>
                               <FontAwesomeIcon icon={['far', 'message']} size='1x' />
                             </Col>

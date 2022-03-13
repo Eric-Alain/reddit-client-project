@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchTyped } from '/src/state/actions/search'
 import { fetchData, limitDataResults } from '/src/state/actions/data'
+import { toggleExpanded } from '/src/state/actions/toggles'
 
 //Bootstrap
 import Button from 'react-bootstrap/Button'
@@ -22,6 +23,12 @@ const Header = ({ author, siteUrl, title }) => {
   //Redux vars
   const dispatch = useDispatch()
   const searchString = useSelector(state => state.search.query)
+  const expanded = useSelector(state => state.toggles.expanded)
+
+  const handleToggle = () => {
+    console.log(expanded)
+    dispatch(toggleExpanded(!expanded))
+  }
 
   //Handle search bar input change
   const handleOnChange = event => {
@@ -62,11 +69,11 @@ const Header = ({ author, siteUrl, title }) => {
 
   return (
     <header>
-      <Navbar collapseOnSelect expand='md' bg='dark' variant='dark'>
-        <Container className='d-flex align-items-end px-0'>
+      <Navbar collapseOnSelect expand='md'>
+        <Container className='d-flex align-items-end px-sm-0 position-relative'>
           <Row>
             <Col xs='12'>
-              <Navbar.Brand href='#top'>{title}</Navbar.Brand>
+              <h2>{title}</h2>
             </Col>
             <Col xs='12'>
               <Navbar.Text>
@@ -76,7 +83,9 @@ const Header = ({ author, siteUrl, title }) => {
               </Navbar.Text>
             </Col>
           </Row>
-          <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+          <Navbar.Toggle className="position-absolute top-0 right-0" aria-controls='responsive-navbar-nav' onClick={handleToggle}>
+            <FontAwesomeIcon icon={expanded ? ['fas', 'times'] : ['fas', 'bars']} size='lg' />
+          </Navbar.Toggle>
           <Navbar.Collapse className='justify-content-end' id='responsive-navbar-nav'>
             <Nav className='w-50'>
               <InputGroup>

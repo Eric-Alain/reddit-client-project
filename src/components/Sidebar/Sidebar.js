@@ -53,7 +53,7 @@ const Sidebar = () => {
   }
 
   return (
-    <Col xs={{ span: 12, order: 1 }} sm={{ span: 5, order: 2 }} md={{ span: 4, order: 2 }} xl={{ span: 3, order: 2 }} id='sidebar' className='border pb-3'>
+    <Col xs={{ span: 12, order: 1 }} sm={{ span: 5, order: 2 }} md={{ span: 4, order: 2 }} xl={{ span: 3, order: 2 }} id='sidebar' className='border-1 bg-2 pb-3'>
       <aside>
         <Row className='mx-1 justify-content-between justify-content-md-start'>
           <Col xs='12' className='px-0'>
@@ -63,17 +63,12 @@ const Sidebar = () => {
           {subreddits !== undefined
             ? subreddits.map((subreddit, i) => {
                 return (
-                  <Col xs='6' sm='12' key={i} className='mb-3 p-1 border subreddit-pill'>
-                    <button onClick={() => handleClick(subreddit.display_name_prefixed)}>
+                  <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill border-1'>
+                    <button className='w-100' onClick={() => handleClick(subreddit.display_name_prefixed)}>
                       <Row className='justify-content-start align-items-center'>
-                        <Col xs='auto' className='pe-0'>
+                        <Col xs='auto' className='ps-2 pe-0'>
                           <Img
-                            className='subreddit-img'
-                            style={{
-                              backgroundColor: 'grey',
-                              width: '24',
-                              height: '24'
-                            }}
+                            className='subreddit-img border-t bw-2 outline-4 ow-2'
                             src={
                               subreddit.icon_img !== '' && subreddit.icon_img !== null && subreddit.icon_img !== undefined
                                 ? subreddit.icon_img
@@ -82,7 +77,7 @@ const Sidebar = () => {
                             alt=''
                           />
                         </Col>
-                        <Col xs='auto' className='ps-1 ps-md-auto'>
+                        <Col xs='auto' className='ps-2 ps-md-auto'>
                           <small>{subreddit.display_name}</small>
                         </Col>
                       </Row>

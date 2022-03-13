@@ -8,6 +8,26 @@
       @include xl {
         font-size: 1rem;
       }
+      background: $primary;
+      p,
+      small {
+        color: $quadrary;
+      }
+
+      @include transition(all ease 0.2s);
+      &:hover {
+        background: fade-out($tertiary, 0.4) ;
+
+        p,
+        small {
+          color: $black;
+        }
+        .subreddit-img {
+          outline-color: $primary;
+        }
+        @include transition(all ease 0.2s);
+      }
+
       button {
         outline: none;
         border: none;
@@ -20,8 +40,8 @@
       width: 22px;
 
       @include xl {
-        height: 40px;
-        width: 40px;
+        height: 32px;
+        width: 32px;
       }
     }
 

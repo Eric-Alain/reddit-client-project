@@ -80,7 +80,7 @@
 /*********/
 
 //Opacity
-@mixin Opacity($value){
+@mixin opacity($value){
   $IEValue: $value*100;
   opacity: $value;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
@@ -94,4 +94,12 @@
   -ms-transition: $args;
   -o-transition: $args;
   transition: $args;
+}
+
+//Linear gradient
+@mixin gradient($direction, $list) { 
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);  
 }
