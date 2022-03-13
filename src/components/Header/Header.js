@@ -22,7 +22,7 @@ const Header = ({ author, siteUrl, title }) => {
   //Redux vars
   const dispatch = useDispatch()
   const searchString = useSelector(state => state.search.query)
-  console.log(searchString)
+
   //Handle search bar input change
   const handleOnChange = event => {
     dispatch(searchTyped(event.target.value))
@@ -40,7 +40,7 @@ const Header = ({ author, siteUrl, title }) => {
         .then(data => {
           dispatch(fetchData(data))
         })
-      dispatch(searchTyped(null))
+      dispatch(searchTyped(""))
       dispatch(limitDataResults(4))
     } else return
   }
@@ -56,7 +56,7 @@ const Header = ({ author, siteUrl, title }) => {
       .then(data => {
         dispatch(fetchData(data))
       })
-    dispatch(searchTyped(null))
+    dispatch(searchTyped(""))
     dispatch(limitDataResults(4))
   }
 
@@ -81,7 +81,7 @@ const Header = ({ author, siteUrl, title }) => {
             <Nav className='w-50'>
               <InputGroup>
                 <FormControl
-                  defaultValue={searchString}
+                  value={searchString}
                   onChange={handleOnChange}
                   onKeyDown={handleKeyDown}
                   placeholder='Search...'

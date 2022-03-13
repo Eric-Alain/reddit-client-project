@@ -2,36 +2,74 @@
 /*BREAKPOINTS*/
 /*************/
 
+/*"Greater than" statements*/
+
 //Small devices
 @mixin sm {
-  @media (min-width: #{$sm}) {
+  @media (min-width: #{$screen-sm-min}) {
     @content;
   }
 }
 
 //Medium devices
 @mixin md {
-  @media (min-width: #{$md}) {
+  @media (min-width: #{$screen-md-min}) {
     @content;
   }
 }
 
 //Large devices
 @mixin lg {
-  @media (min-width: #{$lg}) {
+  @media (min-width: #{$screen-lg-min}) {
     @content;
   }
 }
 
 //Extra large devices
 @mixin xl {
-  @media (min-width: #{$xl}) {
+  @media (min-width: #{$screen-xl-min}) {
     @content;
   }
 }
 
 //Custom devices
 @mixin rwd($screen) {
+  @media (min-width: '#{$screen}px') {
+    @content;
+  }
+}
+
+/*"Lesser than" statements*/
+//Small devices
+@mixin lt-sm {
+  @media (max-width: #{$screen-sm-min - 1px}) {
+    @content;
+  }
+}
+
+//Medium devices
+@mixin lt-md {
+  @media (max-width: #{$screen-md-min - 1px}) {
+    @content;
+  }
+}
+
+//Large devices
+@mixin lt-lg {
+  @media (max-width: #{$screen-lg-min - 1px}) {
+    @content;
+  }
+}
+
+//Extra large devices
+@mixin lt-xl {
+  @media (max-width: #{$screen-xl-min - 1px}) {
+    @content;
+  }
+}
+
+//Custom devices
+@mixin lt-rwd($screen) {
   @media (min-width: '#{$screen}px') {
     @content;
   }

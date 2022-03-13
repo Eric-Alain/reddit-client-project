@@ -1,7 +1,7 @@
 import { SEARCH_TYPED } from '/src/state/types/search'
 
 export const initialState = {
-  query: null,
+  query: "",
   lastEntry: null
 }
 

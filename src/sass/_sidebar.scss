@@ -1,0 +1,33 @@
+#sidebar {
+  aside {
+    .subreddit-pill {
+      @include lt-sm {
+        width: 49.5%;
+      }
+      font-size: 0.85rem;
+      @include xl {
+        font-size: 1rem;
+      }
+      button {
+        outline: none;
+        border: none;
+        background: none;
+      }
+    }
+
+    .subreddit-img {
+      height: 22px;
+      width: 22px;
+
+      @include xl {
+        height: 40px;
+        width: 40px;
+      }
+    }
+
+    .subreddit-pill,
+    .subreddit-img {
+      border-radius: 1.5rem;
+    }
+  }
+}
