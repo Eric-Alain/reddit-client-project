@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row'
 
 const Footer = ({ author, siteUrl }) => (
   <footer>
-    <Container className='px-0'>
+    <Container className='px-sm-0'>
       <Row>
         <Col xs='6'>
           <p>

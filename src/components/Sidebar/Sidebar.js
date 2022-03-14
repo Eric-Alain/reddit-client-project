@@ -9,6 +9,7 @@ import { fetchData, limitDataResults } from '/src/state/actions/data'
 import { unique } from '/src/utils/utils'
 
 import Img from 'react-cool-img'
+import { Puff } from 'react-loading-icons'
 
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -53,39 +54,41 @@ const Sidebar = () => {
   }
 
   return (
-    <Col xs={{ span: 12, order: 1 }} sm={{ span: 5, order: 2 }} md={{ span: 4, order: 2 }} xl={{ span: 3, order: 2 }} id='sidebar' className='border-1 bg-2 pb-3'>
+    <Col xs={{ span: 12, order: 1 }} sm={{ span: 5, order: 2 }} md={{ span: 4, order: 2 }} xl={{ span: 3, order: 2 }} id='sidebar' className='sidebar-border bg-2 pb-3'>
       <aside>
         <Row className='mx-1 justify-content-between justify-content-md-start'>
           <Col xs='12' className='px-0'>
             <h2 className='mt-3 mb-2'>Subreddits</h2>
             <hr className='mt-0' />
           </Col>
-          {subreddits !== undefined
-            ? subreddits.map((subreddit, i) => {
-                return (
-                  <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill border-1'>
-                    <button className='w-100' onClick={() => handleClick(subreddit.display_name_prefixed)}>
-                      <Row className='justify-content-start align-items-center'>
-                        <Col xs='auto' className='ps-2 pe-0'>
-                          <Img
-                            className='subreddit-img border-t bw-2 outline-4 ow-2'
-                            src={
-                              subreddit.icon_img !== '' && subreddit.icon_img !== null && subreddit.icon_img !== undefined
-                                ? subreddit.icon_img
-                                : 'https://logodownload.org/wp-content/uploads/2018/02/reddit-logo-16.png'
-                            }
-                            alt=''
-                          />
-                        </Col>
-                        <Col xs='auto' className='ps-2 ps-md-auto'>
-                          <small>{subreddit.display_name}</small>
-                        </Col>
-                      </Row>
-                    </button>
-                  </Col>
-                )
-              })
-            : 'Loading...'}
+          {subreddits !== undefined ? (
+            subreddits.map((subreddit, i) => {
+              return (
+                <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill border-1'>
+                  <button className='w-100' onClick={() => handleClick(subreddit.display_name_prefixed)}>
+                    <Row className='justify-content-start align-items-center'>
+                      <Col xs='auto' className='ps-2 pe-0'>
+                        <Img
+                          className='subreddit-img border-t bw-2 outline-4 ow-2'
+                          src={
+                            subreddit.icon_img !== '' && subreddit.icon_img !== null && subreddit.icon_img !== undefined
+                              ? subreddit.icon_img
+                              : 'https://logodownload.org/wp-content/uploads/2018/02/reddit-logo-16.png'
+                          }
+                          alt=''
+                        />
+                      </Col>
+                      <Col xs='auto' className='ps-2 ps-md-auto'>
+                        <small>{subreddit.display_name}</small>
+                      </Col>
+                    </Row>
+                  </button>
+                </Col>
+              )
+            })
+          ) : (
+            <Puff className='loading' />
+          )}
         </Row>
       </aside>
     </Col>

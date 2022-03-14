@@ -103,3 +103,11 @@
   background: -o-linear-gradient($direction, $list);
   background: linear-gradient($direction, $list);  
 }
+
+//Modify placeholder text styles
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
+}

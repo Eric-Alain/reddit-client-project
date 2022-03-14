@@ -1,4 +1,22 @@
 #sidebar {
+  border: 1px solid $primary;
+  border-bottom: none;
+  border-radius: 0;
+  
+
+  @include sm {
+    border: 1px solid $primary;
+    border-left: none;
+    border-radius: 0 0.28rem 0.28rem 0;
+  }
+
+  .loading {
+    g {
+      stroke: $primary;
+    }
+  }
+
+
   aside {
     .subreddit-pill {
       @include lt-sm {
@@ -16,11 +34,11 @@
 
       @include transition(all ease 0.2s);
       &:hover {
-        background: fade-out($tertiary, 0.4) ;
+        background: $quadrary;
 
         p,
         small {
-          color: $black;
+          color: $primary;
         }
         .subreddit-img {
           outline-color: $primary;

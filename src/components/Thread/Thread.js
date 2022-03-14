@@ -6,8 +6,8 @@ import { fetchData, limitDataResults } from '/src/state/actions/data'
 import { htmlDecode, renderDate, nFormatter } from '/src/utils/utils'
 
 import Img from 'react-cool-img'
+import { Puff } from 'react-loading-icons'
 
-import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
@@ -30,7 +30,7 @@ const Thread = () => {
 
   return (
     <>
-      <Col xs={{ span: 12, order: 2 }} sm={{ span: 7, order: 1 }} md={{ span: 8, order: 1 }} xl={{ span: 9, order: 1 }} id='thread' className='border-1 bg-2'>
+      <Col xs={{ span: 12, order: 2 }} sm={{ span: 7, order: 1 }} md={{ span: 8, order: 1 }} xl={{ span: 9, order: 1 }} id='thread' className='bg-2'>
         <main>
           <Row>
             <Col xs='12'>
@@ -38,72 +38,73 @@ const Thread = () => {
               <hr className='my-0' />
             </Col>
 
-            {data !== undefined
-              ? data.children.slice(0, limit ? limit : data.children.length).map((child, i) => {
-                  return (
-                    <Col xs='12' className='py-3 mb-3' key={i}>
-                      <h3>
-                        <a href={child.data.url}>{child.data.title}</a>
-                      </h3>
-                      <Img
-                        className='w-100'
-                        style={{
-                          backgroundColor: 'grey',
-                          width: '480',
-                          height: '320'
-                        }}
-                        src={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'http://placekitten.com/g/480/320'}
-                        alt=''
-                      />
-                      <hr />
-                      <Row className='align-items-start justify-content-start justify-content-lg-between'>
-                        <Col xs='12' lg="7" xl='8'>
-                          <Row>
-                            <Col xs='auto' className='pe-2'>
-                              <FontAwesomeIcon icon={['fab', 'reddit-square']} size='1x' />
-                            </Col>
-                            <Col xs='auto' className='ps-0'>
-                              <small>
-                                <a href={`https://www.reddit.com/user/${child.data.author}`}>{child.data.author}</a> |{' '}
-                                <a href={`https://www.reddit.com/${child.data.subreddit_name_prefixed}`}>{child.data.subreddit_name_prefixed}</a>:{' '}
-                                {nFormatter(child.data.subreddit_subscribers, 1)}
-                              </small>
-                            </Col>
-                          </Row>
-                        </Col>
-                        <Col xs='12' lg='auto'>
-                          <Row className='justify-content-start justify-content-lg-end'>
-                            <Col xs='auto' className='pe-2'>
-                              <FontAwesomeIcon icon={['far', 'calendar-days']} size='1x' />
-                            </Col>
-                            <Col xs='auto' className='ps-0'>
-                              <small>{renderDate(child.data.created_utc)}</small>
-                            </Col>
-                          </Row>
-                        </Col>
-                        <Col xs='12' lg='auto'>
-                          <Row className='justify-content-start justify-content-lg-end'>
-                            <Col xs='auto' className='pe-2'>
-                              <FontAwesomeIcon icon={['far', 'message']} size='1x' />
-                            </Col>
-                            <Col xs='auto' className='ps-0'>
-                              <small>
-                                <a href={`https://www.reddit.com${child.data.permalink}`}>{child.data.num_comments}</a>
-                              </small>
-                            </Col>
-                          </Row>
-                        </Col>
-                      </Row>
-                    </Col>
-                  )
-                })
-              : 'Loading...'}
+            {data !== undefined ? (
+              data.children.slice(0, limit ? limit : data.children.length).map((child, i) => {
+                return (
+                  <Col xs='12' className='py-3 mb-3' key={i}>
+                    <h3>
+                      <a href={child.data.url}>{child.data.title}</a>
+                    </h3>
+                    <Img
+                      className='w-100'
+                      style={{
+                        backgroundColor: 'grey',
+                        width: '480',
+                        height: '320'
+                      }}
+                      src={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'http://placekitten.com/g/480/320'}
+                      alt=''
+                    />
+                    <hr />
+                    <Row className='align-items-start justify-content-start justify-content-lg-between'>
+                      <Col xs='12' lg='7' xl='8'>
+                        <Row>
+                          <Col xs='auto' className='pe-2'>
+                            <FontAwesomeIcon icon={['fab', 'reddit-square']} size='1x' />
+                          </Col>
+                          <Col xs='auto' className='ps-0'>
+                            <small>
+                              <a href={`https://www.reddit.com/user/${child.data.author}`}>{child.data.author}</a> |{' '}
+                              <a href={`https://www.reddit.com/${child.data.subreddit_name_prefixed}`}>{child.data.subreddit_name_prefixed}</a>:{' '}
+                              {nFormatter(child.data.subreddit_subscribers, 1)}
+                            </small>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col xs='12' lg='auto'>
+                        <Row className='justify-content-start justify-content-lg-end'>
+                          <Col xs='auto' className='pe-2'>
+                            <FontAwesomeIcon icon={['far', 'calendar-days']} size='1x' />
+                          </Col>
+                          <Col xs='auto' className='ps-0'>
+                            <small>{renderDate(child.data.created_utc)}</small>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col xs='12' lg='auto'>
+                        <Row className='justify-content-start justify-content-lg-end'>
+                          <Col xs='auto' className='pe-2'>
+                            <FontAwesomeIcon icon={['far', 'message']} size='1x' />
+                          </Col>
+                          <Col xs='auto' className='ps-0'>
+                            <small>
+                              <a href={`https://www.reddit.com${child.data.permalink}`}>{child.data.num_comments}</a>
+                            </small>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Col>
+                )
+              })
+            ) : <Puff className='loading' />
+            }
 
             <Col xs='12' className='text-center py-3'>
               <hr />
-              <Button variant='outline-dark' className='my-2' onClick={() => dispatch(limitDataResults(limit + 5))}>
+              <button className='more-btn my-2 p-2 rounded' onClick={() => dispatch(limitDataResults(limit + 5))}>
                 Show more results...
-              </Button>
+              </button>
             </Col>
           </Row>
         </main>

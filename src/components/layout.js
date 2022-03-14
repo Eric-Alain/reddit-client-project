@@ -29,7 +29,6 @@ const Layout = ({ children }) => {
       <Container>
         <Row>{children}</Row>
       </Container>
-
       <Footer author={data.site.siteMetadata?.author || `Eric Alain`} siteUrl={data.site.siteMetadata?.siteUrl || `https://www.ericalain.ca`} />
     </>
   )

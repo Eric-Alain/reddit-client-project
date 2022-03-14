@@ -1,9 +1,43 @@
 #thread {
+  border: 1px solid $primary;
+  border-radius: 0;
+
+  @include sm {
+    border-radius: 0.28rem 0 0 0.28rem;
+  }
+
+  .loading {
+    margin-top: 1rem;
+    g {
+      stroke: $primary;
+    }
+  }
+
   a {
     @include transition(all ease 0.2s);
     &:hover {
       color: $tertiary;
       @include transition(all ease 0.2s);
     }
+  }
+
+  .more-btn {
+    outline: none;
+    border: 2px solid $primary;
+    background: $primary;
+    color: $quadrary;
+
+    &:hover {
+      background: $quadrary;
+      color: $primary;
+      @include transition(all ease 0.2s);
+    }
+
+    &:focus {
+      box-shadow: 0 0 20px $tertiary !important;
+      @include transition(all ease-in 0.2s);
+    }
+
+    @include transition(all ease 0.2s);
   }
 }

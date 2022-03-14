@@ -16,6 +16,11 @@ body {
   scroll-behavior: smooth;
 }
 
+// Placeholder text override
+@include placeholder {
+  color: $quadrary !important;
+}
+
 // Background override
 .bg-none {
   background: transparent !important;
@@ -150,6 +155,38 @@ body {
 
 .left-0 {
   left: 0;
+}
+
+.vw-100 {
+  width: 100vw;
+}
+
+.vw-75 {
+  width: 75vw;
+}
+
+.vw-50 {
+  width: 50vw;
+}
+
+.vw-25 {
+  width: 25vw;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.vh-75 {
+  height: 75vh;
+}
+
+.vh-50 {
+  height: 50vh;
+}
+
+.vh-25 {
+  height: 25vh;
 }
 
 // Color classes
