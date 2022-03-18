@@ -1,4 +1,7 @@
+//React
 import * as React from 'react'
+
+//3rd party
 import PropTypes from 'prop-types'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
@@ -27,8 +30,8 @@ const Footer = ({ author, siteUrl }) => (
 )
 
 Footer.propTypes = {
-  author: PropTypes.string,
-  siteUrl: PropTypes.string
+  author: PropTypes.string.isRequired,
+  siteUrl: PropTypes.string.isRequired
 }
 
 export default Footer

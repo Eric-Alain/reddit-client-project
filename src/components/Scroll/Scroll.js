@@ -1,10 +1,11 @@
+//React
 import React from 'react'
 
-//Fontawesome
+//3rd party
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Scroll = () => {
-
+  //Handler
   const handleClick = () => {
     window[`scrollTo`]({ top: 0, behavior: `smooth` })
   }

@@ -1,12 +1,14 @@
-//React, Redux
+//React
 import React from 'react'
-import PropTypes from 'prop-types'
+
+//Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { searchTyped } from '/src/state/actions/search'
 import { fetchData, limitDataResults } from '/src/state/actions/data'
 import { toggleExpanded } from '/src/state/actions/toggles'
 
-//Bootstrap
+//3rd party
+import PropTypes from 'prop-types'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import FormControl from 'react-bootstrap/FormControl'
@@ -14,26 +16,23 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Row from 'react-bootstrap/Row'
-
-//Fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Header = ({ author, siteUrl, title }) => {
-  //Redux vars
+  //Redux
   const dispatch = useDispatch()
-  const searchString = useSelector(state => state.search.query)
   const expanded = useSelector(state => state.toggles.expanded)
+  const searchString = useSelector(state => state.search.query)
 
+  //Handlers
   const handleToggle = () => {
     dispatch(toggleExpanded(!expanded))
   }
 
-  //Handle search bar input change
   const handleOnChange = event => {
     dispatch(searchTyped(event.target.value))
   }
 
-  //Handle when user hits "Enter" key in search bar
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
       if (searchString === '' || searchString === undefined || searchString === null) {
@@ -50,7 +49,6 @@ const Header = ({ author, siteUrl, title }) => {
     } else return
   }
 
-  //Handle when user clicks search button beside search bar
   const handleClick = () => {
     if (searchString === '' || searchString === undefined || searchString === null) {
       alert('Please enter a query.')
@@ -71,7 +69,7 @@ const Header = ({ author, siteUrl, title }) => {
         <Container className='position-relative'>
           <Row className='vw-100'>
             <Col xs='12' className='px-md-0'>
-              <h2 className="mb-0">{title}</h2>
+              <h2 className='mb-0'>{title}</h2>
             </Col>
             <Col xs='12' sm='6' md='7' className='ps-md-0 align-self-end'>
               <Navbar.Text>
@@ -113,9 +111,9 @@ const Header = ({ author, siteUrl, title }) => {
 }
 
 Header.propTypes = {
-  author: PropTypes.string,
-  siteUrl: PropTypes.string,
-  title: PropTypes.string
+  author: PropTypes.string.isRequired,
+  siteUrl: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 }
 
 export default Header

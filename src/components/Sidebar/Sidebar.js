@@ -1,22 +1,38 @@
+//React
 import React, { useEffect } from 'react'
-//import PropTypes from "prop-types"
 
+//Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSubreddits } from '/src/state/actions/subreddits'
 import { searchTyped } from '/src/state/actions/search'
 import { fetchData, limitDataResults } from '/src/state/actions/data'
 
+//Utils
 import { unique } from '/src/utils/utils'
 
+//3rd party
 import Img from 'react-cool-img'
 import { Puff } from 'react-loading-icons'
-
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
 const Sidebar = () => {
+  //Redux
   const dispatch = useDispatch()
+  const subreddits = useSelector(state => state.subreddits.children)
 
+  //Handler
+  const handleClick = str => {
+    fetch(encodeURI(`https://www.reddit.com/${str}.json`))
+      .then(response => response.json())
+      .then(data => {
+        dispatch(fetchData(data))
+      })
+    dispatch(searchTyped(''))
+    dispatch(limitDataResults(5))
+  }
+
+  //UseEffect
   useEffect(() => {
     fetch('https://www.reddit.com/r/popular.json?geo_filter=CA&limit=30')
       .then(response => response.json())
@@ -41,18 +57,6 @@ const Sidebar = () => {
       })
   }, [dispatch])
 
-  const subreddits = useSelector(state => state.subreddits.children)
-
-  const handleClick = str => {
-    fetch(encodeURI(`https://www.reddit.com/${str}.json`))
-      .then(response => response.json())
-      .then(data => {
-        dispatch(fetchData(data))
-      })
-    dispatch(searchTyped(''))
-    dispatch(limitDataResults(5))
-  }
-
   return (
     <Col xs={{ span: 12, order: 1 }} sm={{ span: 5, order: 2 }} md={{ span: 4, order: 2 }} xl={{ span: 3, order: 2 }} id='sidebar' className='sidebar-border bg-2 pb-3'>
       <aside>
@@ -61,6 +65,7 @@ const Sidebar = () => {
             <h2 className='mt-3 mb-2'>Subreddits</h2>
             <hr className='mt-0' />
           </Col>
+          {/*Map data to DOM once available, limit results based on state limit*/}
           {subreddits !== undefined ? (
             subreddits.map((subreddit, i) => {
               return (
@@ -87,16 +92,13 @@ const Sidebar = () => {
               )
             })
           ) : (
+            /*If data unavailable, insert a placeholder element*/
             <Puff className='loading' />
           )}
         </Row>
       </aside>
     </Col>
   )
-}
-
-Sidebar.propTypes = {
-  /*author: PropTypes.string,*/
 }
 
 export default Sidebar

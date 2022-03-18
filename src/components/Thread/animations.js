@@ -3,7 +3,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 export const animations = refs => {
   gsap.registerPlugin(ScrollTrigger)
-
   refs.forEach((el) => {
     gsap.fromTo(
       el.querySelector('.thread-img'),

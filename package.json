@@ -1,5 +1,5 @@
 {
-  "name": "Reddit Client Project",
+  "name": "reddit-client-project",
   "private": true,
   "description": "An attempt at the Reddit Client Project by Codecademy using Gastby, React and Redux.",
   "version": "0.1.0",
