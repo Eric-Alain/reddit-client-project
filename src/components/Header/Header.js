@@ -25,7 +25,6 @@ const Header = ({ author, siteUrl, title }) => {
   const expanded = useSelector(state => state.toggles.expanded)
 
   const handleToggle = () => {
-    console.log(expanded)
     dispatch(toggleExpanded(!expanded))
   }
 

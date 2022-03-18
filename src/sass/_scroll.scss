@@ -1,0 +1,25 @@
+#scroll-top {
+  position: fixed;
+  bottom: 0.25rem;
+  right: 0.25rem;
+  
+  button {
+    outline: none;
+    border: 2px solid $primary;
+    background: $primary;
+    color: $quadrary;
+
+    &:hover {
+      background: $quadrary;
+      color: $primary;
+      @include transition(all ease 0.2s);
+    }
+
+    &:focus {
+      box-shadow: 0 0 20px $tertiary !important;
+      @include transition(all ease-in 0.2s);
+    }
+
+    @include transition(all ease 0.2s);
+  }
+}

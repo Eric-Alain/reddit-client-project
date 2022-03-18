@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
 import Header from './Header/Header'
+import Scroll from './Scroll/Scroll'
 import Footer from './Footer/Footer'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -29,6 +30,7 @@ const Layout = ({ children }) => {
       <Container>
         <Row>{children}</Row>
       </Container>
+      <Scroll/>
       <Footer author={data.site.siteMetadata?.author || `Eric Alain`} siteUrl={data.site.siteMetadata?.siteUrl || `https://www.ericalain.ca`} />
     </>
   )

@@ -49,8 +49,8 @@ const Sidebar = () => {
       .then(data => {
         dispatch(fetchData(data))
       })
-    dispatch(searchTyped(null))
-    dispatch(limitDataResults(4))
+    dispatch(searchTyped(''))
+    dispatch(limitDataResults(5))
   }
 
   return (

@@ -1,7 +1,9 @@
-import { TOGGLE_EXPAND } from '/src/state/types/toggles'
+import { TOGGLE_EXPAND, SET_MODAL_DATA, TOGGLE_MODAL } from '/src/state/types/toggles'
 
 export const initialState = {
-  expanded: false
+  expanded: false,
+  modalData: {},
+  showModal: false
 }
 
 const togglesReducer = (state = initialState, action) => {
@@ -12,6 +14,18 @@ const togglesReducer = (state = initialState, action) => {
       return {
         ...state,
         expanded: payload
+      }
+
+    case SET_MODAL_DATA:
+      return {
+        ...state,
+        modalData: payload
+      }
+
+    case TOGGLE_MODAL:
+      return {
+        ...state,
+        showModal: payload
       }
 
     default:

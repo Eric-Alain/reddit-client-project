@@ -1,8 +1,7 @@
 import { SEARCH_TYPED } from '/src/state/types/search'
 
 export const initialState = {
-  query: "",
-  lastEntry: null
+  query: ''
 }
 
 const searchReducer = (state = initialState, action) => {

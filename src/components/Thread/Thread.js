@@ -1,21 +1,38 @@
-import React, { useEffect } from 'react'
-//import PropTypes from "prop-types"
+//React
+import React, { useEffect, useRef } from 'react'
+
+//Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData, limitDataResults } from '/src/state/actions/data'
+import { setModalData, toggleModal } from '/src/state/actions/toggles'
 
+//Utils
+import ThreadModal from '/src/components/Thread/ThreadModal'
+import { animations } from '/src/components/Thread/animations'
 import { htmlDecode, renderDate, nFormatter } from '/src/utils/utils'
 
+//3rd party
 import Img from 'react-cool-img'
-import { Puff } from 'react-loading-icons'
-
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-
-//Fontawesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Thread = () => {
   const dispatch = useDispatch()
+
+  const data = useSelector(state => state.data.reddit.data)
+  const limit = useSelector(state => state.data.limit)
+  const modalData = useSelector(state => state.toggles.modalData)
+  const showModal = useSelector(state => state.toggles.showModal)
+
+  const refArr = useRef([])
+  refArr.current = []
+
+  const addToRefs = el => {
+    if (el && !refArr.current.includes(el)) {
+      refArr.current.push(el)
+    }
+  }
 
   useEffect(() => {
     fetch('https://www.reddit.com/search.json?q=web%20dev')
@@ -23,10 +40,18 @@ const Thread = () => {
       .then(data => {
         dispatch(fetchData(data))
       })
+    animations(refArr.current)
   }, [dispatch])
 
-  const data = useSelector(state => state.data.reddit.data)
-  const limit = useSelector(state => state.data.limit)
+  const setActiveModal = (index) => {
+    dispatch(setModalData({ activeModal: index }))
+    dispatch(toggleModal(true))
+  }
+
+  const setInactiveModal = (index) => {
+    dispatch(setModalData({ activeModal: null }))
+    dispatch(toggleModal(false))
+  }
 
   return (
     <>
@@ -41,20 +66,18 @@ const Thread = () => {
             {data !== undefined ? (
               data.children.slice(0, limit ? limit : data.children.length).map((child, i) => {
                 return (
-                  <Col xs='12' className='py-3 mb-3' key={i}>
+                  <Col xs='12' className='py-3 mb-3' key={i} ref={addToRefs}>
                     <h3>
                       <a href={child.data.url}>{child.data.title}</a>
                     </h3>
-                    <Img
-                      className='w-100'
-                      style={{
-                        backgroundColor: 'grey',
-                        width: '480',
-                        height: '320'
-                      }}
-                      src={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'http://placekitten.com/g/480/320'}
-                      alt=''
-                    />
+                    <div className='img-container' onClick={() => setActiveModal(i)}>
+                      <Img
+                        className='thread-img w-100 rounded'
+                        src={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'http://placekitten.com/g/480/320'}
+                        alt={''}
+                      />
+                    </div>
+                    <ThreadModal id={i} show={modalData.activeModal === i} onHide={() => setInactiveModal(i)} title={child.data.title} />
                     <hr />
                     <Row className='align-items-start justify-content-start justify-content-lg-between'>
                       <Col xs='12' lg='7' xl='8'>
@@ -97,12 +120,23 @@ const Thread = () => {
                   </Col>
                 )
               })
-            ) : <Puff className='loading' />
-            }
+            ) : (
+              <Col xs='12' className='py-3 mb-1' key={0} ref={addToRefs}>
+                <Col xs='12' className='loading-placeholder loading-pulse rounded'></Col>
+                <div className='img-container'>
+                  <Img className='thread-img rounded loading loading-pulse' src={null} alt={null} />
+                </div>
+              </Col>
+            )}
 
             <Col xs='12' className='text-center py-3'>
               <hr />
-              <button className='more-btn my-2 p-2 rounded' onClick={() => dispatch(limitDataResults(limit + 5))}>
+              <button
+                className='more-btn my-2 p-2 rounded'
+                onClick={() => {
+                  dispatch(limitDataResults(limit + 5))
+                }}
+              >
                 Show more results...
               </button>
             </Col>
@@ -111,10 +145,6 @@ const Thread = () => {
       </Col>
     </>
   )
-}
-
-Thread.propTypes = {
-  /*author: PropTypes.string,*/
 }
 
 export default Thread

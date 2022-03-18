@@ -1,12 +1,12 @@
 footer {
-    margin-top: 3rem;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
 
-    a {
+  a {
+    @include transition(all ease-in 0.2s);
+    &:hover {
+      color: $quadrary !important;
       @include transition(all ease-in 0.2s);
-      &:hover {
-        color: $quadrary !important;
-        @include transition(all ease-in 0.2s);
-      }
     }
-
+  }
 }
