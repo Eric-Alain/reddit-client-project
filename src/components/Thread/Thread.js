@@ -43,6 +43,10 @@ const Thread = () => {
     animations(refArr.current)
   }, [dispatch])
 
+  useEffect(() => {
+    animations(refArr.current)
+  })
+
   const setActiveModal = (index) => {
     dispatch(setModalData({ activeModal: index }))
     dispatch(toggleModal(true))
