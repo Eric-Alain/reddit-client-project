@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
+  const { site } = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {
@@ -23,15 +23,15 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header
-        title={data.site.siteMetadata?.title || `Reddit Client Project`}
-        author={data.site.siteMetadata?.author || `Eric Alain`}
-        siteUrl={data.site.siteMetadata?.siteUrl || `https://www.ericalain.ca`}
+        title={site.siteMetadata?.title || `Reddit Client Project`}
+        author={site.siteMetadata?.author || `Eric Alain`}
+        siteUrl={site.siteMetadata?.siteUrl || `https://www.ericalain.ca`}
       />
       <Container>
         <Row>{children}</Row>
       </Container>
-      <Scroll/>
-      <Footer author={data.site.siteMetadata?.author || `Eric Alain`} siteUrl={data.site.siteMetadata?.siteUrl || `https://www.ericalain.ca`} />
+      <Scroll />
+      <Footer author={site.siteMetadata?.author || `Eric Alain`} siteUrl={site.siteMetadata?.siteUrl || `https://www.ericalain.ca`} />
     </>
   )
 }
