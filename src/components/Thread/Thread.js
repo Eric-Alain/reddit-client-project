@@ -81,7 +81,13 @@ const Thread = () => {
                         alt={''}
                       />
                     </div>
-                    <ThreadModal id={i} show={modalData.activeModal === i} onHide={() => setInactiveModal(i)} title={child.data.title} />
+                    <ThreadModal
+                      id={i}
+                      show={modalData.activeModal === i}
+                      onHide={() => setInactiveModal(i)}
+                      title={child.data.title}
+                      img={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'http://placekitten.com/g/480/320'}
+                    />
                     <hr />
                     <Row className='align-items-start justify-content-start justify-content-lg-between'>
                       <Col xs='12' lg='7' xl='8'>

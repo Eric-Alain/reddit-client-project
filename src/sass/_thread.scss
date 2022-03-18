@@ -50,11 +50,6 @@
     @include transition(all ease 0.2s);
   }
 
-  .loading-placeholder {
-    height: 3rem;
-    background: fade-out($charcoal, 0.8);
-  }
-
   .img-container {
     cursor: pointer;
     max-height: 40rem;
@@ -67,6 +62,11 @@
         width: 100%;
       }
     }
+  }
+
+  .loading-placeholder {
+    height: 3rem;
+    background: fade-out($charcoal, 0.8);
   }
 
   .loading-pulse {

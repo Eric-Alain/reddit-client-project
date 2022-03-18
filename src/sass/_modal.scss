@@ -1,0 +1,36 @@
+.thread-modal {
+  max-width: 80%;
+  margin: 3rem auto auto auto;
+
+  @include lg {
+    max-width: 60%;
+  }
+
+  .modal-content {
+    background: $primary;
+
+    .modal-header {
+      border-bottom: none;
+
+      button {
+        outline: none;
+        border: 2px solid $primary;
+        background: $primary;
+        color: $quadrary;
+
+        &:hover {
+          background: $quadrary;
+          color: $primary;
+          @include transition(all ease 0.2s);
+        }
+
+        &:focus {
+          box-shadow: 0 0 20px $tertiary !important;
+          @include transition(all ease-in 0.2s);
+        }
+
+        @include transition(all ease 0.2s);
+      }
+    }
+  }
+}
