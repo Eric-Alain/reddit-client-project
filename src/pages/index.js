@@ -11,10 +11,10 @@ import Thread from '../components/Thread/Thread'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import { faRedditSquare } from '@fortawesome/free-brands-svg-icons'
 import { faCalendarDays, faMessage } from '@fortawesome/free-regular-svg-icons'
-import { faArrowUp, faBars, faList, faSearch, faTimes, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faAngleUp, faArrowUp, faBars, faList, faMoon, faSearch, faSun, faTimes, faWandMagicSparkles, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 config.autoAddCss = false
-library.add(faArrowUp, faBars, faCalendarDays, faList, faMessage, faRedditSquare, faSearch, faTimes, faXmark)
+library.add(faAngleDown, faAngleUp, faArrowUp, faBars, faCalendarDays, faList, faMessage, faMoon, faRedditSquare, faSearch, faSun, faTimes, faWandMagicSparkles, faXmark)
 
 const IndexPage = () => (
   <>

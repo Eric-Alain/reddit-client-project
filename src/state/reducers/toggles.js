@@ -1,7 +1,9 @@
-import { TOGGLE_EXPAND, SET_MODAL_DATA, TOGGLE_MODAL } from '/src/state/types/toggles'
+import { TOGGLE_EXPAND, TOGGLE_THEME_DROPDOWN, SET_THEME, SET_MODAL_DATA, TOGGLE_MODAL } from '/src/state/types/toggles'
 
 export const initialState = {
   expanded: false,
+  theme: "light",
+  dropdownActive: false,
   modalData: {},
   showModal: false
 }
@@ -14,6 +16,18 @@ const togglesReducer = (state = initialState, action) => {
       return {
         ...state,
         expanded: payload
+      }
+
+    case TOGGLE_THEME_DROPDOWN:
+      return {
+        ...state,
+        dropdownActive: payload
+      }
+
+    case SET_THEME:
+      return {
+        ...state,
+        theme: payload
       }
 
     case SET_MODAL_DATA:

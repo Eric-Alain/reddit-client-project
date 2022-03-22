@@ -5,12 +5,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchTyped } from '/src/state/actions/search'
 import { fetchData, limitDataResults } from '/src/state/actions/data'
-import { toggleExpanded } from '/src/state/actions/toggles'
+import { toggleExpanded, toggleThemeDropdown, setTheme } from '/src/state/actions/toggles'
 
 //3rd party
 import PropTypes from 'prop-types'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
+import Dropdown from 'react-bootstrap/Dropdown'
 import FormControl from 'react-bootstrap/FormControl'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Nav from 'react-bootstrap/Nav'
@@ -21,10 +22,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Header = ({ author, siteUrl, title }) => {
   //Redux
   const dispatch = useDispatch()
+  const dropdownActive = useSelector(state => state.toggles.dropdownActive)
   const expanded = useSelector(state => state.toggles.expanded)
-  const searchString = useSelector(state => state.search.query)
+  const searchString = useSelector(state => state.search.query)  
 
   //Handlers
+  const handleDropdownToggle = () => {
+    dispatch(toggleThemeDropdown(!dropdownActive))
+  }
+
+  const handleTheme = str => {
+    dispatch(setTheme(str))
+  }
+
   const handleToggle = () => {
     dispatch(toggleExpanded(!expanded))
   }
@@ -68,8 +78,31 @@ const Header = ({ author, siteUrl, title }) => {
       <Navbar collapseOnSelect expand='md'>
         <Container className='position-relative'>
           <Row className='vw-100'>
-            <Col xs='12' className='px-md-0'>
+            <Col xs='12' md='6' className='px-md-0'>
               <h2 className='mb-0'>{title}</h2>
+            </Col>
+            <Col xs='12' md='6' className='px-md-0 pb-md-2 align-self-end'>
+              <Row className='justify-content-start justify-content-md-end'>
+                <Col xs='auto'>
+                  <Dropdown as='div' onToggle={handleDropdownToggle}>
+                    <Dropdown.Toggle id='theme-selector'>
+                      <small>Themes</small>
+                      <FontAwesomeIcon icon={dropdownActive ? ['fas', 'angle-up'] : ['fas', 'angle-down']} size='1x' className='ms-2' />
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu align={{ md: 'end' }}>
+                      <Dropdown.Item as='button' onClick={() => handleTheme('light')}>
+                        <FontAwesomeIcon icon={['fas', 'sun']} size='1x' className='me-2' /> Light
+                      </Dropdown.Item>
+                      <Dropdown.Item as='button' onClick={() => handleTheme('dark')}>
+                        <FontAwesomeIcon icon={['fas', 'moon']} size='1x' className='me-2' /> Dark
+                      </Dropdown.Item>
+                      <Dropdown.Item as='button' onClick={() => handleTheme('unicorn')}>
+                        <FontAwesomeIcon icon={['fas', 'wand-magic-sparkles']} size='1x' className='me-2' /> Unicorn
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
+              </Row>
             </Col>
             <Col xs='12' sm='6' md='7' className='ps-md-0 align-self-end'>
               <Navbar.Text>

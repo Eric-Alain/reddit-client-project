@@ -1,8 +1,18 @@
-import { TOGGLE_EXPAND, SET_MODAL_DATA, TOGGLE_MODAL } from '/src/state/types/toggles'
+import { TOGGLE_EXPAND, TOGGLE_THEME_DROPDOWN, SET_THEME, SET_MODAL_DATA, TOGGLE_MODAL } from '/src/state/types/toggles'
 
 export const toggleExpanded = bool => ({
   type: TOGGLE_EXPAND,
   payload: bool
+})
+
+export const toggleThemeDropdown = bool => ({
+  type: TOGGLE_THEME_DROPDOWN,
+  payload: bool
+})
+
+export const setTheme = str => ({
+  type: SET_THEME,
+  payload: str
 })
 
 export const setModalData = obj => ({

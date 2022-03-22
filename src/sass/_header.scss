@@ -50,6 +50,54 @@ header {
 
       @include transition(all ease-in 0.2s);
     }
+
+    .dropdown {
+      .dropdown-toggle {
+        background: none !important;
+        outline: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        color: $quadrary !important;
+        padding: 0 0 0.25rem 0;
+        line-height: 0;
+
+        &:after {
+          content: unset;
+        }
+
+        &:focus,
+        &:hover {
+          border-bottom: 1px solid $quadrary !important;
+          @include transition(all ease-in 0.2s);
+        }
+
+        svg {
+          margin-bottom: -2px;
+        }
+
+        @include transition(all ease-in 0.2s);
+      }
+
+      .dropdown-menu {
+        margin-top: 0.25rem;
+        padding: 0;
+        background: $primary;
+        border-color: $quadrary;
+
+        .dropdown-item {
+          padding: 0.5rem;
+          line-height: 1;
+          color: $quadrary;
+
+          &:hover {
+            background: $quadrary;
+            color: $primary;
+          }
+        }
+      }
+    }
+
     .searchbar-container {
       margin-bottom: 0.25rem;
 

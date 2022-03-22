@@ -75,8 +75,8 @@ const Thread = () => {
             {data !== undefined ? (
               data.children.slice(0, limit ? limit : data.children.length).map((child, i) => {
                 return (
-                  <article>
-                    <Col xs='12' className='py-3 mb-3' key={i} ref={addToRefs}>
+                  <article key={i}>
+                    <Col xs='12' className='py-3 mb-3' ref={addToRefs}>
                       <h3>
                         <a href={child.data.url}>{child.data.title}</a>
                       </h3>

@@ -2,12 +2,15 @@
 /*VARIABLES*/
 /***********/
 
-// Color overrides
+//Enable bootstrap negative margin classes. NOTE: try to use sparingly
+$enable-negative-margins: true;
+
+//Color overrides
 $white: #fff;
 $black: black;
 $charcoal: #1c1c1c;
 
-// Palette definitions
+//Palette definitions
 $dark-navy: #223843 !default;
 $ice-white: #eff1f3 !default;
 $ice: #d6efff !default;
@@ -16,7 +19,7 @@ $blush: #d8b4a0 !default;
 $salmon: #fe654f !default;
 $sand: #fed18c !default;
 
-// Set color names to palette ranks
+//Set color names to palette ranks
 $primary: $dark-navy !default;
 $secondary: $ice-white !default;
 $tertiary: $salmon !default;
@@ -31,13 +34,13 @@ $gradient-list-1: $gradient-1 0%, $gradient-1 33%, $gradient-2 66%, $gradient-2 
 $gradient-list-1: $gradient-1 0%, $gradient-1 33%, $gradient-2 66%, $gradient-2 100%;
 $gradient-list-2: $gradient-3 0%, $gradient-4 100%;
 
-// Font overrides
+//Font overrides
 $font-family-sans-serif: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
   'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
 
 $font-family-base: $font-family-sans-serif !default;
 
-// Dimension variables
+//Dimension variables
 $navbar-height: 72px;
 
 //Small tablets and large smartphones (landscape view)
