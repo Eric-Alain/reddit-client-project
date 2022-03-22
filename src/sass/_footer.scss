@@ -46,3 +46,20 @@ footer {
     }
   }
 }
+
+/*********/
+/*UNICORN*/
+/*********/
+.unicorn {
+  footer {
+    p,
+    a {
+      color: $dark-primary;
+    }
+    a {
+      &:hover {
+        color: lighten($dark-tertiary, 20%) !important;
+      }
+    }
+  }
+}

@@ -130,3 +130,45 @@
     }
   }
 }
+
+/*********/
+/*UNICORN*/
+/*********/
+.unicorn {
+  #sidebar {
+    background: $dark-primary;
+    border: 1px solid $dark-secondary;
+    @include sm {
+      border: 1px solid $dark-secondary;
+      border-bottom: 1px solid $dark-secondary !important;
+    }
+    .loading {
+      g {
+        stroke: $dark-primary;
+      }
+    }
+    aside {
+      .subreddit-pill {
+        background: $dark-quadrary;
+        border: 1px solid $dark-quadrary;
+        p,
+        small {
+          color: $dark-primary;
+        }
+        .subreddit-img {
+          outline-color: $dark-primary;
+        }
+        &:hover {
+          background: $dark-primary;
+          p,
+          small {
+            color: $dark-quadrary;
+          }
+          .subreddit-img {
+            outline-color: $dark-quadrary;
+          }
+        }
+      }
+    }
+  }
+}

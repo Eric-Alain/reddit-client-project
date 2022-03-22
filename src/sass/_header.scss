@@ -261,3 +261,89 @@ header {
     }
   }
 }
+
+
+/*********/
+/*UNICORN*/
+/*********/
+.unicorn {
+  header {
+    nav {
+      background: $unicorn-primary;
+      h2,
+      .navbar-text {
+        color: $unicorn-secondary !important;
+      }
+      a {
+        color: $unicorn-secondary !important;
+      }
+      a {
+        &:hover {
+          color: $unicorn-tertiary !important;
+        }
+      }
+      .navbar-toggler {
+        background: $unicorn-primary;
+        border: 2px solid $unicorn-tertiary !important;
+        svg {
+          color: $unicorn-tertiary;
+        }
+        &:focus {
+          box-shadow: 0 0 20px $unicorn-tertiary !important;
+        }
+        &:hover {
+          background: $unicorn-tertiary;
+          svg {
+            color: $unicorn-primary;
+          }
+        }
+      }
+      .dropdown {
+        .dropdown-toggle {
+          color: $unicorn-secondary !important;
+          &:focus,
+          &:hover {
+            border-bottom: 1px solid $unicorn-secondary !important;
+          }
+        }
+        .dropdown-menu {
+          background: $unicorn-primary;
+          border-color: $unicorn-secondary;
+          .dropdown-item {
+            color: $unicorn-secondary;
+            &:hover {
+              background: $unicorn-secondary;
+              color: $unicorn-primary;
+            }
+          }
+        }
+      }
+      .searchbar-container {
+        .navbar-nav {
+          .input-group {
+            input {
+              background: $unicorn-primary;
+              border: 1px solid $unicorn-secondary;
+              color: $unicorn-secondary;
+              caret-color: $unicorn-secondary;
+            }
+            .input-group-text {
+              background: $unicorn-primary;
+              color: $unicorn-secondary;
+              border: 1px solid $unicorn-secondary;
+              .search-btn {
+                color: $unicorn-secondary;
+              }
+              &:hover {
+                background: $unicorn-secondary;
+                .search-btn {
+                  color: $unicorn-primary;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

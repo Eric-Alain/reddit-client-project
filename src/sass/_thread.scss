@@ -156,3 +156,51 @@
     }
   }
 }
+
+
+/*********/
+/*UNICORN*/
+/*********/
+.unicorn {
+  #thread {    
+    background: $dark-primary;
+    border: 1px solid $dark-secondary;
+
+    .loading {
+      g {
+        stroke: $dark-primary;
+      }
+    }
+    a {
+      .loading {
+        margin-top: 0;
+        g {
+          stroke: $dark-primary;
+        }
+      }
+    }
+    a {
+      color: $dark-quadrary;
+      &:hover {
+        color: $dark-tertiary;
+      }
+    }
+    .img-container {
+      img {
+        border: 1px solid $dark-secondary;
+      }
+    }
+    .more-btn {
+      border: 2px solid $dark-quadrary;
+      background: $dark-quadrary;
+      color: $dark-primary;
+      &:hover {
+        background: $dark-primary;
+        color: $dark-quadrary;
+      }
+      &:focus {
+        box-shadow: 0 0 20px $dark-tertiary !important;
+      }
+    }
+  }
+}
