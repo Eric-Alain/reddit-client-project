@@ -1,10 +1,6 @@
 //React
 import React from 'react'
 
-
-//Redux
-import { useSelector } from 'react-redux'
-
 //Components
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
@@ -28,10 +24,8 @@ const Layout = ({ children }) => {
     }
   `)
 
-  const theme = useSelector(state => state.toggles.theme)
-
   return (
-    <div className={theme}>
+    <>
       <Header
         title={site.siteMetadata?.title || `Reddit Client Project`}
         author={site.siteMetadata?.author || `Eric Alain`}
@@ -43,7 +37,7 @@ const Layout = ({ children }) => {
         </Container>
       </main>
       <Footer author={site.siteMetadata?.author || `Eric Alain`} siteUrl={site.siteMetadata?.siteUrl || `https://www.ericalain.ca`} />
-    </div>
+    </>
   )
 }
 

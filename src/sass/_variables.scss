@@ -12,6 +12,8 @@ $charcoal: #1c1c1c;
 
 //Palette definitions
 $dark-navy: #223843 !default;
+$dark-plum: #2a0042 !default;
+$evening-sky: #9246be !default;
 $ice-white: #eff1f3 !default;
 $ice: #d6efff !default;
 $lavender: #dbd3d8 !default;
@@ -19,20 +21,31 @@ $blush: #d8b4a0 !default;
 $salmon: #fe654f !default;
 $sand: #fed18c !default;
 
-//Set color names to palette ranks
-$primary: $dark-navy !default;
-$secondary: $ice-white !default;
-$tertiary: $salmon !default;
-$quadrary: $sand !default;
+//Set color names to light palette ranks
+$light-primary: $dark-navy !default;
+$light-secondary: $ice-white !default;
+$light-tertiary: $salmon !default;
+$light-quadrary: $sand !default;
 
-$gradient-1: $sand !default;
-$gradient-2: $salmon !default;
-$gradient-3: $dark-navy !default;
-$gradient-4: $sand !default;
+//Set light gradient start and end colors
+$light-gradient-start: $sand !default;
+$light-gradient-end: $salmon !default;
 
-$gradient-list-1: $gradient-1 0%, $gradient-1 33%, $gradient-2 66%, $gradient-2 100%;
-$gradient-list-1: $gradient-1 0%, $gradient-1 33%, $gradient-2 66%, $gradient-2 100%;
-$gradient-list-2: $gradient-3 0%, $gradient-4 100%;
+//Create light gradient rule
+$light-gradient-list: $light-gradient-start 0%, $light-gradient-start 33%, $light-gradient-end 66%, $light-gradient-end 100%;
+
+//Set color names to dark palette ranks
+$dark-primary: $lavender !default;
+$dark-secondary: $dark-navy !default;
+$dark-tertiary: $evening-sky !default;
+$dark-quadrary: $dark-plum !default;
+
+//Set light gradient start and end colors
+$dark-gradient-start: $charcoal !default;
+$dark-gradient-end: $dark-plum !default;
+
+//Create light gradient rule
+$dark-gradient-list: $dark-gradient-start 0%, $dark-gradient-start 15%, $dark-gradient-end 35%, $dark-gradient-end 100%;
 
 //Font overrides
 $font-family-sans-serif: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',

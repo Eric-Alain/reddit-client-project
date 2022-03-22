@@ -1,6 +1,9 @@
 //React
 import * as React from 'react'
 
+//Redux
+import { useSelector } from 'react-redux'
+
 //3rd party
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
@@ -21,6 +24,7 @@ function Seo({ description, lang, meta, title }) {
     `
   )
 
+  const theme = useSelector(state => state.toggles.theme)
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
 
@@ -28,6 +32,9 @@ function Seo({ description, lang, meta, title }) {
     <Helmet
       htmlAttributes={{
         lang
+      }}
+      bodyAttributes={{
+        class: theme
       }}
       title={title}
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}

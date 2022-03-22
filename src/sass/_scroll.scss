@@ -1,25 +1,58 @@
+/**********************************/
+/*ALL RELEVANT STYLES BEYOND COLOR*/
+/**********************************/
 #scroll-top {
   position: fixed;
   bottom: 0.25rem;
   right: 0.25rem;
-  
   button {
     outline: none;
-    border: 2px solid $primary;
-    background: $primary;
-    color: $quadrary;
-
     &:hover {
-      background: $quadrary;
-      color: $primary;
       @include transition(all ease 0.2s);
     }
-
     &:focus {
-      box-shadow: 0 0 20px $tertiary !important;
       @include transition(all ease-in 0.2s);
     }
-
     @include transition(all ease 0.2s);
+  }
+}
+
+/*******/
+/*LIGHT*/
+/*******/
+.light {
+  #scroll-top {
+    button {
+      border: 2px solid $light-primary;
+      background: $light-primary;
+      color: $light-quadrary;
+      &:hover {
+        background: $light-quadrary;
+        color: $light-primary;
+      }
+      &:focus {
+        box-shadow: 0 0 20px $light-tertiary !important;
+      }
+    }
+  }
+}
+
+/******/
+/*DARK*/
+/******/
+.dark {
+  #scroll-top {
+    button {
+      border: 2px solid $dark-primary;
+      background: $dark-quadrary;
+      color: $dark-primary;
+      &:hover {
+        background: $dark-primary;
+        color: $dark-quadrary;
+      }
+      &:focus {
+        box-shadow: 0 0 20px $dark-tertiary !important;
+      }
+    }
   }
 }

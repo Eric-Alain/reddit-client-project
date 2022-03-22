@@ -1,22 +1,13 @@
+/**********************************/
+/*ALL RELEVANT STYLES BEYOND COLOR*/
+/**********************************/
 #sidebar {
-  border: 1px solid $primary;
-  border-bottom: none;
+  border-bottom: none !important;
   border-radius: 0;
-  
-
   @include sm {
-    border: 1px solid $primary;
-    border-left: none;
+    border-left: none !important;
     border-radius: 0 0.28rem 0.28rem 0;
   }
-
-  .loading {
-    g {
-      stroke: $primary;
-    }
-  }
-
-
   aside {
     .subreddit-pill {
       @include lt-sm {
@@ -26,46 +17,116 @@
       @include xl {
         font-size: 1rem;
       }
-      background: $primary;
-      p,
-      small {
-        color: $quadrary;
-      }
-
       @include transition(all ease 0.2s);
       &:hover {
-        background: $quadrary;
-
-        p,
-        small {
-          color: $primary;
-        }
-        .subreddit-img {
-          outline-color: $primary;
-        }
         @include transition(all ease 0.2s);
       }
-
       button {
         outline: none;
         border: none;
         background: none;
       }
     }
-
     .subreddit-img {
       height: 22px;
       width: 22px;
+      border: 2px solid transparent;
+      outline-style: solid;
+      outline-width: 3px;
 
       @include xl {
         height: 32px;
         width: 32px;
       }
     }
-
     .subreddit-pill,
     .subreddit-img {
       border-radius: 1.5rem;
+    }
+  }
+}
+
+/*******/
+/*LIGHT*/
+/*******/
+.light {
+  #sidebar {
+    background: $light-secondary;
+    border: 1px solid $light-primary;
+    @include sm {
+      border: 1px solid $light-primary;
+      border-bottom: 1px solid $light-primary !important;
+    }
+    .loading {
+      g {
+        stroke: $light-primary;
+      }
+    }
+    aside {
+      .subreddit-pill {
+        background: $light-primary;
+        border: 1px solid $light-primary;
+        p,
+        small {
+          color: $light-quadrary;
+        }
+        .subreddit-img {
+          outline-color: $light-quadrary;
+        }
+
+        &:hover {
+          background: $light-quadrary;
+          p,
+          small {
+            color: $light-primary;
+          }
+          .subreddit-img {
+            outline-color: $light-primary;
+          }
+        }
+      }
+    }
+  }
+}
+
+/******/
+/*DARK*/
+/******/
+.dark {
+  #sidebar {
+    background: $dark-primary;
+    border: 1px solid $dark-secondary;
+    @include sm {
+      border: 1px solid $dark-secondary;
+      border-bottom: 1px solid $dark-secondary !important;
+    }
+    .loading {
+      g {
+        stroke: $dark-primary;
+      }
+    }
+    aside {
+      .subreddit-pill {
+        background: $dark-quadrary;
+        border: 1px solid $dark-quadrary;
+        p,
+        small {
+          color: $dark-primary;
+        }
+        .subreddit-img {
+          outline-color: $dark-primary;
+        }
+        &:hover {
+          background: $dark-primary;
+          p,
+          small {
+            color: $dark-quadrary;
+          }
+          .subreddit-img {
+            outline-color: $dark-quadrary;
+          }
+        }
+      }
     }
   }
 }

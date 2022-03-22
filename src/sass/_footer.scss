@@ -1,12 +1,48 @@
+/**********************************/
+/*ALL RELEVANT STYLES BEYOND COLOR*/
+/**********************************/
+
 footer {
   margin-top: 1rem;
   padding-bottom: 2rem;
-
   a {
     @include transition(all ease-in 0.2s);
     &:hover {
-      color: $quadrary !important;
       @include transition(all ease-in 0.2s);
+    }
+  }
+}
+
+/*******/
+/*LIGHT*/
+/*******/
+.light {
+  footer {
+    p,
+    a {
+      color: $light-primary;
+    }
+    a {
+      &:hover {
+        color: lighten($light-quadrary, 5%) !important;
+      }
+    }
+  }
+}
+
+/******/
+/*DARK*/
+/******/
+.dark {
+  footer {
+    p,
+    a {
+      color: $dark-primary;
+    }
+    a {
+      &:hover {
+        color: lighten($dark-tertiary, 20%) !important;
+      }
     }
   }
 }

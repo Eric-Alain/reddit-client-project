@@ -16,7 +16,7 @@ const ThreadModal = ({ show, onHide, img}) => {
         </button>
       </Modal.Header>
       <Modal.Body className="pt-0">
-        <Img className='w-100' src={img} alt={''} />
+        <Img className='w-100 rounded' src={img} alt={''} />
       </Modal.Body>
     </Modal>
   )

@@ -69,12 +69,12 @@ const Sidebar = () => {
           {subreddits !== undefined ? (
             subreddits.map((subreddit, i) => {
               return (
-                <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill border-1'>
+                <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill'>
                   <button className='w-100' onClick={() => handleClick(subreddit.display_name_prefixed)}>
                     <Row className='justify-content-start align-items-center'>
                       <Col xs='auto' className='ps-2 pe-0'>
                         <Img
-                          className='subreddit-img border-t bw-2 outline-4 ow-2'
+                          className='subreddit-img'
                           src={
                             subreddit.icon_img !== '' && subreddit.icon_img !== null && subreddit.icon_img !== undefined
                               ? subreddit.icon_img

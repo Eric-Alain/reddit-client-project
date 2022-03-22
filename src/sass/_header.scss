@@ -1,56 +1,35 @@
+/**********************************/
+/*ALL RELEVANT STYLES BEYOND COLOR*/
+/**********************************/
 header {
   @include sm {
     margin-bottom: 3rem;
   }
-
   nav {
-    background: $primary;
-
-    h2,
-    .navbar-text {
-      color: $quadrary !important;
-    }
-
-    a {
-      color: $secondary !important;
-    }
-
     a {
       @include transition(all ease-in 0.2s);
       &:hover {
-        color: $tertiary !important;
         @include transition(all ease-in 0.2s);
       }
     }
-
     .navbar-toggler {
-      border: 2px solid $quadrary !important;
       @include lt-sm {
         right: 1rem;
       }
-
       svg {
-        color: $quadrary;
         @include transition(all ease-in 0.2s);
       }
-
       &:focus {
-        box-shadow: 0 0 20px $tertiary !important;
         @include transition(all ease-in 0.2s);
       }
-
       &:hover {
-        background: $primary;
         svg {
-          color: $tertiary;
           @include transition(all ease-in 0.2s);
         }
         @include transition(all ease-in 0.2s);
       }
-
       @include transition(all ease-in 0.2s);
     }
-
     .dropdown {
       .dropdown-toggle {
         background: none !important;
@@ -58,88 +37,224 @@ header {
         border: none !important;
         border-radius: 0 !important;
         box-shadow: none !important;
-        color: $quadrary !important;
         padding: 0 0 0.25rem 0;
         line-height: 0;
-
         &:after {
           content: unset;
         }
-
         &:focus,
         &:hover {
-          border-bottom: 1px solid $quadrary !important;
           @include transition(all ease-in 0.2s);
         }
-
         svg {
           margin-bottom: -2px;
         }
-
         @include transition(all ease-in 0.2s);
       }
-
       .dropdown-menu {
         margin-top: 0.25rem;
         padding: 0;
-        background: $primary;
-        border-color: $quadrary;
-
         .dropdown-item {
           padding: 0.5rem;
           line-height: 1;
-          color: $quadrary;
-
-          &:hover {
-            background: $quadrary;
-            color: $primary;
-          }
         }
       }
     }
-
     .searchbar-container {
       margin-bottom: 0.25rem;
-
       .navbar-nav {
         .input-group {
           input {
-            background: $primary;
-            border: 1px solid $quadrary;
-            color: $quadrary;
-            caret-color: $quadrary;
-
             &:focus {
               box-shadow: none;
             }
           }
-
           .input-group-text {
-            background: $primary;
-            color: $quadrary;
-            border: 1px solid $quadrary;
             border-left: none;
-
             .search-btn {
               background: none;
               outline: none;
               border: none;
-              color: $quadrary;
               padding: 0;
               line-height: 0;
               @include transition(all ease-in 0.2s);
             }
-
             &:hover {
-              background: $quadrary;
               .search-btn {
-                color: $primary;
                 @include transition(all ease-in 0.2s);
               }
               @include transition(all ease-in 0.2s);
             }
-
             @include transition(all ease-in 0.2s);
+          }
+        }
+      }
+    }
+  }
+}
+
+/*******/
+/*LIGHT*/
+/*******/
+.light {
+  header {
+    nav {
+      background: $light-primary;
+      h2,
+      .navbar-text {
+        color: $light-quadrary !important;
+      }
+      a {
+        color: $light-secondary !important;
+      }
+      a {
+        &:hover {
+          color: $light-tertiary !important;
+        }
+      }
+      .navbar-toggler {
+        border: 2px solid $light-quadrary !important;
+        svg {
+          color: $light-quadrary;
+        }
+        &:focus {
+          box-shadow: 0 0 20px $light-tertiary !important;
+        }
+        &:hover {
+          background: $light-primary;
+          svg {
+            color: $light-tertiary;
+          }
+        }
+      }
+      .dropdown {
+        .dropdown-toggle {
+          color: $light-quadrary !important;
+          &:focus,
+          &:hover {
+            border-bottom: 1px solid $light-quadrary !important;
+          }
+        }
+        .dropdown-menu {
+          background: $light-primary;
+          border-color: $light-quadrary;
+          .dropdown-item {
+            color: $light-quadrary;
+            &:hover {
+              background: $light-quadrary;
+              color: $light-primary;
+            }
+          }
+        }
+      }
+      .searchbar-container {
+        .navbar-nav {
+          .input-group {
+            input {
+              background: $light-primary;
+              border: 1px solid $light-quadrary;
+              color: $light-quadrary;
+              caret-color: $light-quadrary;
+            }
+            .input-group-text {
+              background: $light-primary;
+              color: $light-quadrary;
+              border: 1px solid $light-quadrary;
+              .search-btn {
+                color: $light-quadrary;
+              }
+              &:hover {
+                background: $light-quadrary;
+                .search-btn {
+                  color: $light-primary;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/******/
+/*DARK*/
+/******/
+.dark {
+  header {
+    nav {
+      background: $dark-primary;
+      h2,
+      .navbar-text {
+        color: $dark-quadrary !important;
+      }
+      a {
+        color: $dark-secondary !important;
+      }
+      a {
+        &:hover {
+          color: $dark-tertiary !important;
+        }
+      }
+      .navbar-toggler {
+        background: $dark-quadrary;
+        border: 2px solid $dark-quadrary !important;
+        svg {
+          color: $dark-primary;
+        }
+        &:focus {
+          box-shadow: 0 0 20px $dark-tertiary !important;
+        }
+        &:hover {
+          background: $dark-primary;
+          svg {
+            color: $dark-quadrary;
+          }
+        }
+      }
+      .dropdown {
+        .dropdown-toggle {
+          color: $dark-quadrary !important;
+          &:focus,
+          &:hover {
+            border-bottom: 1px solid $dark-quadrary !important;
+          }
+        }
+        .dropdown-menu {
+          background: $dark-primary;
+          border-color: $dark-quadrary;
+          .dropdown-item {
+            color: $dark-quadrary;
+            &:hover {
+              background: $dark-quadrary;
+              color: $dark-primary;
+            }
+          }
+        }
+      }
+      .searchbar-container {
+        .navbar-nav {
+          .input-group {
+            input {
+              background: $dark-primary;
+              border: 1px solid $dark-quadrary;
+              color: $dark-quadrary;
+              caret-color: $dark-quadrary;
+            }
+            .input-group-text {
+              background: $dark-primary;
+              color: $dark-quadrary;
+              border: 1px solid $dark-quadrary;
+              .search-btn {
+                color: $dark-quadrary;
+              }
+              &:hover {
+                background: $dark-quadrary;
+                .search-btn {
+                  color: $dark-primary;
+                }
+              }
+            }
           }
         }
       }
