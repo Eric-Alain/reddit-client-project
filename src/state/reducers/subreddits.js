@@ -1,4 +1,4 @@
-import { FETCH_SUBREDDITS } from '/src/state/types/subreddits'
+import { FETCH_SUBREDDITS } from '../types/subreddits'
 
 export const initialState = {
 }

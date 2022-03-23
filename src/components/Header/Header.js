@@ -3,9 +3,9 @@ import React from 'react'
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { searchTyped } from '/src/state/actions/search'
-import { fetchData, limitDataResults } from '/src/state/actions/data'
-import { toggleExpanded, toggleThemeDropdown, setTheme } from '/src/state/actions/toggles'
+import { searchTyped } from '../../state/actions/search'
+import { fetchData, limitDataResults } from '../../state/actions/data'
+import { toggleExpanded, toggleThemeDropdown, setTheme } from '../../state/actions/toggles'
 
 //3rd party
 import PropTypes from 'prop-types'

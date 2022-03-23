@@ -1,4 +1,4 @@
-import { TOGGLE_EXPAND, TOGGLE_THEME_DROPDOWN, SET_THEME, SET_MODAL_DATA, TOGGLE_MODAL } from '/src/state/types/toggles'
+import { TOGGLE_EXPAND, TOGGLE_THEME_DROPDOWN, SET_THEME, SET_MODAL_DATA, TOGGLE_MODAL } from '../types/toggles'
 
 export const initialState = {
   expanded: false,

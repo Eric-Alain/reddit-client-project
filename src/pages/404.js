@@ -2,7 +2,7 @@
 import * as React from 'react'
 
 //Dank meme
-import meme from '/src/images/angry.svg'
+import meme from '../images/angry.svg'
 
 //Components
 import Layout from '../components/layout'

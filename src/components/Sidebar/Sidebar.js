@@ -3,12 +3,12 @@ import React, { useEffect } from 'react'
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchSubreddits } from '/src/state/actions/subreddits'
-import { searchTyped } from '/src/state/actions/search'
-import { fetchData, limitDataResults } from '/src/state/actions/data'
+import { fetchSubreddits } from '../../state/actions/subreddits'
+import { searchTyped } from '../../state/actions/search'
+import { fetchData, limitDataResults } from '../../state/actions/data'
 
 //Utils
-import { unique } from '/src/utils/utils'
+import { unique } from '../../utils/utils'
 
 //3rd party
 import Img from 'react-cool-img'

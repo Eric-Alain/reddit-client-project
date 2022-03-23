@@ -3,13 +3,13 @@ import React, { useEffect, useRef } from 'react'
 
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchData, limitDataResults } from '/src/state/actions/data'
-import { setModalData, toggleModal } from '/src/state/actions/toggles'
+import { fetchData, limitDataResults } from '../../state/actions/data'
+import { setModalData, toggleModal } from '../../state/actions/toggles'
 
 //Utils
-import ThreadModal from '/src/components/Thread/ThreadModal'
-import { animations } from '/src/components/Thread/animations'
-import { htmlDecode, renderDate, nFormatter } from '/src/utils/utils'
+import ThreadModal from '../../components/Thread/ThreadModal'
+import { animations } from '../../components/Thread/animations'
+import { htmlDecode, renderDate, nFormatter } from '../../utils/utils'
 
 //3rd party
 import Img from 'react-cool-img'

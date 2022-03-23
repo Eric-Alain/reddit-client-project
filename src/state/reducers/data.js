@@ -1,4 +1,4 @@
-import { FETCH_DATA, LIMIT_DATA_RESULTS } from '/src/state/types/data'
+import { FETCH_DATA, LIMIT_DATA_RESULTS } from '../types/data'
 
 export const initialState = {
   reddit: {},
