@@ -24,7 +24,7 @@ const Header = ({ author, siteUrl, title }) => {
   const dispatch = useDispatch()
   const dropdownActive = useSelector(state => state.toggles.dropdownActive)
   const expanded = useSelector(state => state.toggles.expanded)
-  const searchString = useSelector(state => state.search.query)  
+  const searchString = useSelector(state => state.search.query)
 
   //Handlers
   const handleDropdownToggle = () => {
@@ -78,12 +78,17 @@ const Header = ({ author, siteUrl, title }) => {
       <Navbar collapseOnSelect expand='md'>
         <Container className='position-relative'>
           <Row className='vw-100'>
-            <Col xs='12' md='6' className='px-md-0'>
+            <Col xs='12' md='8' lg='9' xl='10' className='px-md-0'>
               <h2 className='mb-0'>{title}</h2>
             </Col>
-            <Col xs='12' md='6' className='px-md-0 pb-md-2 align-self-end'>
-              <Row className='justify-content-start justify-content-md-end'>
-                <Col xs='auto'>
+            <Col xs='12' md='4' lg='3' xl='2' className='px-md-0 pb-md-2 align-self-end'>
+              <Row className='justify-content-start justify-content-md-end align-items-end'>
+                <Col xs={{ span: '6', order: 2 }} md={{ span: 'auto', order: 1 }} className='px-md-0'>
+                  <a href='https://github.com/Eric-Alain/reddit-client-project'>
+                    <FontAwesomeIcon icon={['fab', 'github']} size='2x' className='github-icon mx-2' />
+                  </a>
+                </Col>
+                <Col xs={{ span: 'auto', order: 1 }} md={{ span: 'auto', order: 2 }} className='pe-0 px-md-3'>
                   <Dropdown as='div' onToggle={handleDropdownToggle}>
                     <Dropdown.Toggle id='theme-selector'>
                       <small>Themes</small>
@@ -115,7 +120,7 @@ const Header = ({ author, siteUrl, title }) => {
               <Navbar.Toggle className='position-absolute top-0 right-0' aria-controls='responsive-navbar-nav' onClick={handleToggle}>
                 <FontAwesomeIcon icon={expanded ? ['fas', 'times'] : ['fas', 'bars']} size='lg' />
               </Navbar.Toggle>
-              <Navbar.Collapse className='justify-content-end mt-3 mt-md-auto' id='responsive-navbar-nav'>
+              <Navbar.Collapse className='justify-content-end mt-md-auto' id='responsive-navbar-nav'>
                 <Nav className='w-100'>
                   <InputGroup>
                     <FormControl

@@ -30,7 +30,19 @@ header {
       }
       @include transition(all ease-in 0.2s);
     }
+    .github-icon {
+      @include md {
+        float: right;
+      }
+      &:hover {
+        @include transition(all ease-in 0.2s);
+      }
+      @include transition(all ease-in 0.2s);
+    }
     .dropdown {
+      @include md {
+        float: right;
+      }
       .dropdown-toggle {
         background: none !important;
         outline: none !important;
@@ -127,6 +139,12 @@ header {
           }
         }
       }
+      .github-icon {
+        color: $light-quadrary;
+        &:hover {
+          color: $light-tertiary;
+        }
+      }
       .dropdown {
         .dropdown-toggle {
           color: $light-quadrary !important;
@@ -206,10 +224,16 @@ header {
           box-shadow: 0 0 20px $dark-tertiary !important;
         }
         &:hover {
-          background: $dark-primary;
+          background: $dark-quadrary;
           svg {
-            color: $dark-quadrary;
+            color: $dark-tertiary;
           }
+        }
+      }
+      .github-icon {
+        color: $dark-quadrary;
+        &:hover {
+          color: $dark-tertiary;
         }
       }
       .dropdown {
@@ -262,7 +286,6 @@ header {
   }
 }
 
-
 /*********/
 /*UNICORN*/
 /*********/
@@ -284,18 +307,24 @@ header {
       }
       .navbar-toggler {
         background: $unicorn-primary;
-        border: 2px solid $unicorn-tertiary !important;
+        border: 2px solid $unicorn-secondary !important;
         svg {
-          color: $unicorn-tertiary;
+          color: $unicorn-secondary;
         }
         &:focus {
           box-shadow: 0 0 20px $unicorn-tertiary !important;
         }
         &:hover {
-          background: $unicorn-tertiary;
+          background: $unicorn-secondary;
           svg {
-            color: $unicorn-primary;
+            color: $unicorn-tertiary;
           }
+        }
+      }
+      .github-icon {
+        color: $unicorn-secondary;
+        &:hover {
+          color: $unicorn-tertiary;
         }
       }
       .dropdown {

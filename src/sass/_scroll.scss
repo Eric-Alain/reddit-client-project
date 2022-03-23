@@ -62,16 +62,17 @@
 /*********/
 .unicorn {
   #scroll-top {
-    button {
-      border: 2px solid $dark-primary;
-      background: $dark-quadrary;
-      color: $dark-primary;
+    button {      
+      @include rainbow-background();
+      border: 2px solid $charcoal;
+      color: $charcoal;
       &:hover {
-        background: $dark-primary;
-        color: $dark-quadrary;
+        background: $unicorn-secondary;
+        color: $unicorn-tertiary;
+        border: 2px solid $unicorn-primary;
       }
       &:focus {
-        box-shadow: 0 0 20px $dark-tertiary !important;
+        box-shadow: 0 0 20px $unicorn-tertiary !important;
       }
     }
   }

@@ -78,7 +78,6 @@
     }
     a {
       .loading {
-        margin-top: 0;
         g {
           stroke: $light-primary;
         }
@@ -125,7 +124,6 @@
     }
     a {
       .loading {
-        margin-top: 0;
         g {
           stroke: $dark-primary;
         }
@@ -163,43 +161,41 @@
 /*********/
 .unicorn {
   #thread {    
-    background: $dark-primary;
-    border: 1px solid $dark-secondary;
-
+    background: $unicorn-secondary;
+    border: 1px solid $unicorn-primary;
     .loading {
       g {
-        stroke: $dark-primary;
+        stroke: $unicorn-primary;
       }
     }
     a {
       .loading {
-        margin-top: 0;
         g {
-          stroke: $dark-primary;
+          stroke: $unicorn-primary;
         }
       }
     }
     a {
-      color: $dark-quadrary;
+      color: $unicorn-tertiary;
       &:hover {
-        color: $dark-tertiary;
+        color: $unicorn-primary;
       }
     }
     .img-container {
       img {
-        border: 1px solid $dark-secondary;
+        border: 1px solid $unicorn-primary;
       }
     }
     .more-btn {
-      border: 2px solid $dark-quadrary;
-      background: $dark-quadrary;
-      color: $dark-primary;
+      border: 2px solid $unicorn-primary;
+      background: $unicorn-primary;
+      color: $unicorn-secondary;
       &:hover {
-        background: $dark-primary;
-        color: $dark-quadrary;
+        background: $unicorn-secondary;
+        color: $unicorn-tertiary;
       }
       &:focus {
-        box-shadow: 0 0 20px $dark-tertiary !important;
+        box-shadow: 0 0 20px $unicorn-tertiary !important;
       }
     }
   }

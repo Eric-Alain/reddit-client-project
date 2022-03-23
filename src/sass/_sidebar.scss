@@ -136,38 +136,20 @@
 /*********/
 .unicorn {
   #sidebar {
-    background: $dark-primary;
-    border: 1px solid $dark-secondary;
+    background: $unicorn-secondary;
+    border: 1px solid $unicorn-primary;
     @include sm {
-      border: 1px solid $dark-secondary;
-      border-bottom: 1px solid $dark-secondary !important;
+      border: 1px solid $unicorn-primary;
+      border-bottom: 1px solid $unicorn-primary !important;
     }
     .loading {
       g {
-        stroke: $dark-primary;
+        stroke: $unicorn-primary;
       }
     }
     aside {
       .subreddit-pill {
-        background: $dark-quadrary;
-        border: 1px solid $dark-quadrary;
-        p,
-        small {
-          color: $dark-primary;
-        }
-        .subreddit-img {
-          outline-color: $dark-primary;
-        }
-        &:hover {
-          background: $dark-primary;
-          p,
-          small {
-            color: $dark-quadrary;
-          }
-          .subreddit-img {
-            outline-color: $dark-quadrary;
-          }
-        }
+        @include rainbow-pills($r1, $r2, $r3, $r4, $r5, $r6);
       }
     }
   }

@@ -80,10 +80,10 @@
 /*********/
 
 //Opacity
-@mixin opacity($value){
-  $IEValue: $value*100;
+@mixin opacity($value) {
+  $IEValue: $value * 100;
   opacity: $value;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=' + $IEValue + ')';
   filter: alpha(opacity=$IEValue);
 }
 
@@ -97,18 +97,174 @@
 }
 
 //Linear gradient
-@mixin gradient($direction, $list) { 
+@mixin gradient($direction, $list) {
   background: -webkit-linear-gradient($direction, $list);
   background: -moz-linear-gradient($direction, $list);
   background: -o-linear-gradient($direction, $list);
-  background: linear-gradient($direction, $list);  
+  background: linear-gradient($direction, $list);
+}
+
+//Rainbow pills
+@mixin rainbow-pills($c1, $c2, $c3, $c4, $c5, $c6) {
+  &:nth-child(6n + 1) {
+    background: $c1;
+    border: 1px solid darken($c1, 30%);
+    .subreddit-img {
+      outline-color: darken($c1, 30%);
+    }
+  }
+  &:nth-child(6n + 2) {
+    background: $c2;
+    border: 1px solid darken($c2, 40%);
+    .subreddit-img {
+      outline-color: darken($c2, 30%);
+    }
+  }
+  &:nth-child(6n + 3) {
+    background: $c3;
+    border: 1px solid darken($c3, 30%);
+    .subreddit-img {
+      outline-color: darken($c3, 30%);
+    }
+  }
+  &:nth-child(6n + 4) {
+    background: $c4;
+    border: 1px solid darken($c4, 30%);
+    .subreddit-img {
+      outline-color: darken($c4, 30%);
+    }
+  }
+  &:nth-child(6n + 5) {
+    background: $c5;
+    border: 1px solid darken($c5, 30%);
+    .subreddit-img {
+      outline-color: darken($c5, 30%);
+    }
+  }
+  &:nth-child(6n + 6) {
+    background: $c6;
+    border: 1px solid darken($c6, 30%);
+    .subreddit-img {
+      outline-color: darken($c6, 30%);
+    }
+  }
+  &:hover {
+    &:nth-child(6n + 1) {
+      background: darken($c1, 30%);
+      small {
+        color: $white;
+      }
+      .subreddit-img {
+        outline-color: $c1;
+      }
+    }
+    &:nth-child(6n + 2) {
+      background: darken($c2, 30%);
+      small {
+        color: $black;
+      }
+      .subreddit-img {
+        outline-color: $c2;
+      }
+    }
+    &:nth-child(6n + 3) {
+      background: darken($c3, 30%);
+      small {
+        color: $black;
+      }
+      .subreddit-img {
+        outline-color: $c3;
+      }
+    }
+    &:nth-child(6n + 4) {
+      background: darken($c4, 30%);
+      small {
+        color: $white;
+      }
+      .subreddit-img {
+        outline-color: $c4;
+      }
+    }
+    &:nth-child(6n + 5) {
+      background: darken($c5, 30%);
+      small {
+        color: $white;
+      }
+      .subreddit-img {
+        outline-color: $c5;
+      }
+    }
+    &:nth-child(6n + 6) {
+      background: darken($c6, 30%);
+      small {
+        color: $white;
+      }
+      .subreddit-img {
+        outline-color: $c6;
+      }
+    }
+  }
+}
+
+@mixin rainbow-background() {
+  background: linear-gradient(124deg, #ff2400,  #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3, #ff2400,  #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+  background-size: 1200% 1200%;
+  -webkit-animation: rainbow 20s ease infinite;
+  -z-animation: rainbow 20s ease infinite;
+  -o-animation: rainbow 20s ease infinite;
+  animation: rainbow 20s ease infinite;
+
+  @-webkit-keyframes rainbow {
+    0% {
+      background-position: 0% 82%;
+    }
+    50% {
+      background-position: 100% 19%;
+    }
+    100% {
+      background-position: 0% 82%;
+    }
+  }
+  @-moz-keyframes rainbow {
+    0% {
+      background-position: 0% 82%;
+    }
+    50% {
+      background-position: 100% 19%;
+    }
+    100% {
+      background-position: 0% 82%;
+    }
+  }
+  @-o-keyframes rainbow {
+    0% {
+      background-position: 0% 82%;
+    }
+    50% {
+      background-position: 100% 19%;
+    }
+    100% {
+      background-position: 0% 82%;
+    }
+  }
+  @keyframes rainbow {
+    0% {
+      background-position: 0% 82%;
+    }
+    50% {
+      background-position: 100% 19%;
+    }
+    100% {
+      background-position: 0% 82%;
+    }
+  }
 }
 
 //Modify scrollbar styles
-@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
   // For Google Chrome
   &::-webkit-scrollbar {
-    width:  $size;
+    width: $size;
     height: $size;
   }
   &::-webkit-scrollbar-thumb {
@@ -126,9 +282,16 @@
 
 //Modify placeholder text styles
 @mixin placeholder {
-  ::-webkit-input-placeholder {@content}
-  :-moz-placeholder           {@content}
-  ::-moz-placeholder          {@content}
-  :-ms-input-placeholder      {@content}  
+  ::-webkit-input-placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+  :-ms-input-placeholder {
+    @content;
+  }
 }
-

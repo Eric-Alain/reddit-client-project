@@ -90,24 +90,24 @@
 .unicorn {
   .thread-modal {
     .modal-content {
-      background: $dark-quadrary;
+      background: $unicorn-primary;
       .modal-header {
         button {
-          border: 2px solid $dark-quadrary;
-          background: $dark-quadrary;
-          color: $dark-primary;
+          border: 2px solid $unicorn-primary;
+          background: $unicorn-primary;
+          color: $unicorn-secondary;
           &:hover {
-            background: $dark-primary;
-            color: $dark-quadrary;
+            background: $unicorn-secondary;
+            color: $unicorn-tertiary;
           }
           &:focus {
-            box-shadow: 0 0 20px $dark-tertiary !important;
+            box-shadow: 0 0 20px $unicorn-tertiary !important;
           }
         }
       }
       .modal-body {
         img {
-          border: 1px solid $dark-primary;
+          border: 1px solid $unicorn-secondary;
         }
       }
     }

@@ -2,7 +2,7 @@ import { TOGGLE_EXPAND, TOGGLE_THEME_DROPDOWN, SET_THEME, SET_MODAL_DATA, TOGGLE
 
 export const initialState = {
   expanded: false,
-  theme: "unicorn",
+  theme: "light",
   dropdownActive: false,
   modalData: {},
   showModal: false
