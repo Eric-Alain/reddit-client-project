@@ -15,7 +15,7 @@ describe('Header', () => {
     const tree = renderer
       .create(
         <Provider store={store}>
-          <Header siteUrl='Home' />
+          <Header author='Eric Alain' siteUrl='https://www.ericalain.ca' title='Reddit Client Project' />
         </Provider>
       )
       .toJSON()
