@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<header>
+  <nav
+    className="navbar navbar-expand-md navbar-light"
+  >
+    <div
+      className="position-relative container"
+    >
+      <div
+        className="vw-100 row"
+      >
+        <div
+          className="px-md-0 col-xl-10 col-lg-9 col-md-8 col-12"
+        >
+          <h2
+            className="mb-0"
+          />
+        </div>
+        <div
+          className="px-md-0 pb-md-2 align-self-end col-xl-2 col-lg-3 col-md-4 col-12"
+        >
+          <div
+            className="justify-content-start justify-content-md-end align-items-end row"
+          >
+            <div
+              className="px-md-0 col-md-auto col-6 order-md-1 order-2"
+            >
+              <a
+                href="https://github.com/Eric-Alain/reddit-client-project"
+              />
+            </div>
+            <div
+              className="pe-0 px-md-3 col-md-auto col-auto order-md-2 order-1"
+            >
+              <div
+                className="dropdown"
+              >
+                <button
+                  aria-expanded={false}
+                  className="dropdown-toggle btn btn-primary"
+                  disabled={false}
+                  id="theme-selector"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <small>
+                    Themes
+                  </small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="ps-md-0 align-self-end col-md-7 col-sm-6 col-12"
+        >
+          <span
+            className="navbar-text"
+          >
+            <small>
+              Original solution by: 
+              <a
+                href="Home"
+              />
+            </small>
+          </span>
+        </div>
+        <div
+          className="pe-md-0 searchbar-container col-md-5 col-sm-6 col-12"
+        >
+          <button
+            aria-controls="responsive-navbar-nav"
+            aria-label="Toggle navigation"
+            className="position-absolute top-0 right-0 navbar-toggler collapsed"
+            onClick={[Function]}
+            type="button"
+          />
+          <div
+            aria-expanded={null}
+            className="justify-content-end mt-md-auto navbar-collapse collapse"
+            id="responsive-navbar-nav"
+          >
+            <div
+              className="w-100 navbar-nav"
+              onKeyDown={[Function]}
+            >
+              <div
+                className="input-group"
+              >
+                <input
+                  aria-describedby="searchBar"
+                  aria-label="Search"
+                  className="lh-0 form-control"
+                  onChange={[Function]}
+                  onKeyDown={[Function]}
+                  placeholder="Search..."
+                  value=""
+                />
+                <span
+                  className="input-group-text"
+                  id="searchBar"
+                >
+                  <button
+                    className="search-btn"
+                    onClick={[Function]}
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+`;

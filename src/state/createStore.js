@@ -1,15 +1,15 @@
 //Redux
-import { createStore, combineReducers } from 'redux'
+import { createStore as reduxCreateStore, combineReducers } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 //Reducers
-import searchReducer from '/src/state/reducers/search'
-import dataReducer from '/src/state/reducers/data'
-import subredditsReducer from '/src/state/reducers/subreddits'
-import togglesReducer from '/src/state/reducers/toggles'
+import searchReducer from '../state/reducers/search'
+import dataReducer from '../state/reducers/data'
+import subredditsReducer from '../state/reducers/subreddits'
+import togglesReducer from '../state/reducers/toggles'
 
 //Create root reducer
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   search: searchReducer,
   data: dataReducer,
   subreddits: subredditsReducer,
@@ -17,8 +17,7 @@ const rootReducer = combineReducers({
 })
 
 //Create store, pass preloadedState via plugin
-const store = preloadedState => {
-  return createStore(rootReducer, preloadedState, composeWithDevTools())
+const createStore = preloadedState => {
+  return reduxCreateStore(rootReducer, preloadedState, composeWithDevTools())
 }
-
-export default store
+export default createStore
