@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer renders correctly 1`] = `
+<footer>
+  <div
+    className="px-sm-0 rounded container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-6"
+      >
+        <p
+          className="mb-0 py-3 lh-1"
+        >
+          Original solution by: 
+          <a
+            href="https://www.ericalain.ca"
+          >
+            Eric Alain
+          </a>
+        </p>
+      </div>
+      <div
+        className="text-end col-6"
+      >
+        <p
+          className="mb-0 py-3 lh-1"
+        >
+          Challenge project by:
+           
+          <a
+            href="https://www.codecademy.com/paths/front-end-engineer-career-path/tracks/fecp-22-portfolio-project-reddit-client/modules/wdcp-22-reddit-client/kanban_projects/reddit-client"
+          >
+            Codecademy.com
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+`;

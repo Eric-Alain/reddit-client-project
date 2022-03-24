@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Thread renders correctly 1`] = `
+<div
+  className="bg-2 col-xl-9 col-md-8 col-sm-7 col-12 order-xl-1 order-md-1 order-sm-1 order-2"
+  id="thread"
+>
+  <section>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <h2
+          className="mt-3 mb-2"
+        >
+          Thread
+        </h2>
+        <hr
+          className="my-0"
+        />
+      </div>
+      <article>
+        <div
+          className="py-3 mb-1 col-12"
+        >
+          <div
+            className="loading-placeholder loading-pulse rounded col-12"
+          />
+          <div
+            className="img-container"
+          >
+            <img
+              alt={null}
+              className="thread-img rounded loading loading-pulse no-js-"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+            />
+            <noscript>
+              <style>
+                .no-js- { display: none !important; }
+              </style>
+              <img
+                alt={null}
+                className="thread-img rounded loading loading-pulse"
+                src={null}
+              />
+            </noscript>
+          </div>
+        </div>
+      </article>
+      <div
+        className="text-center py-3 col-12"
+      >
+        <hr />
+        <button
+          className="more-btn my-2 p-2 rounded"
+          onClick={[Function]}
+        >
+          Show more results...
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+`;

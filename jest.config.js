@@ -1,3 +1,5 @@
+const esModules = ['gsap', 'gsap/Scrolltrigger', 'gatsby'].join('|')
+
 module.exports = {
   transform: {
     '^.+\\.jsx?$': `<rootDir>/jest-preprocess.js`
@@ -11,12 +13,11 @@ module.exports = {
     '^gatsby-plugin-utils/(.*)$': [`gatsby-plugin-utils/dist/$1`, `gatsby-plugin-utils/$1`] // Workaround for https://github.com/facebook/jest/issues/9771
   },
   testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
-  transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
+  transformIgnorePatterns: [`/node_modules/(?!${esModules})`],
   globals: {
     __PATH_PREFIX__: ``
   },
   testURL: `http://localhost`,
   testEnvironment: 'jsdom',
-  setupFiles: [`<rootDir>/loadershim.js`],
-  
+  setupFiles: [`<rootDir>/loadershim.js`]
 }
