@@ -40,7 +40,7 @@ const Thread = () => {
     dispatch(toggleModal(true))
   }
 
-  const setInactiveModal = index => {
+  const setInactiveModal = () => {
     dispatch(setModalData({ activeModal: null }))
     dispatch(toggleModal(false))
   }
@@ -89,7 +89,7 @@ const Thread = () => {
                       </div>
                       <ThreadModal
                         show={modalData.activeModal === i}
-                        onHide={() => setInactiveModal(i)}
+                        onHide={() => setInactiveModal()}
                         img={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'http://placekitten.com/g/480/320'}
                       />
                       <hr />

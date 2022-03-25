@@ -1,4 +1,4 @@
-const esModules = ['gsap', 'gsap/Scrolltrigger', 'gatsby'].join('|')
+const esModules = ['gsap', 'gsap/Scrolltrigger', 'gatsby', 'react-cool-img'].join('|')
 
 module.exports = {
   transform: {
