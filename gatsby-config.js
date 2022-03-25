@@ -40,8 +40,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `eric-alain-reddit-client-project`,
+        short_name: `ea-rcp`,
         start_url: `/`,
         theme_color: `#223843`,
         background_color: `#ffffff`,
