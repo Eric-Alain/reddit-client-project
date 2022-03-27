@@ -1,9 +1,17 @@
+//React
 import React from 'react'
-import renderer from 'react-test-renderer'
-import Scroll from '../Scroll/Scroll'
 
+//Redux
 import { Provider } from 'react-redux'
 import createStore from '../../state/createStore'
+
+//Components
+import Scroll from '../Scroll/Scroll'
+
+//Testing
+import renderer from 'react-test-renderer'
+
+//3rd party
 import registerIcons from '../../icons/icons'
 
 const store = createStore()

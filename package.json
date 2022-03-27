@@ -38,6 +38,7 @@
     "redux": "^4.1.2"
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.4",
     "babel-jest": "^27.5.1",
     "babel-preset-gatsby": "^2.10.1",
     "identity-obj-proxy": "^3.0.0",

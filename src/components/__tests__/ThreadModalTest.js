@@ -1,13 +1,21 @@
+//React
 import React from 'react'
 import ReactDOM from 'react-dom'
-import renderer from 'react-test-renderer'
-import ThreadModal from '../Thread/ThreadModal'
 
+//Redux
 import { Provider } from 'react-redux'
 import createStore from '../../state/createStore'
+
+//Components
+import ThreadModal from '../Thread/ThreadModal'
+
+//Testing
+import renderer from 'react-test-renderer'
+
+//3rd party
 import registerIcons from '../../icons/icons'
 
-(async () => {
+const intersectObserverContext = (async () => {
   if (!('IntersectionObserver' in window)) await import('intersection-observer')
 })()
 
