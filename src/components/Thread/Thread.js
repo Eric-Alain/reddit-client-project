@@ -63,7 +63,7 @@ const Thread = () => {
 
   return (
     <>
-      <Col xs={{ span: 12, order: 2 }} sm={{ span: 7, order: 1 }} md={{ span: 8, order: 1 }} xl={{ span: 9, order: 1 }} id='thread' className='bg-2'>
+      <Col xs={{ span: 10, order: 2 }} sm={{ span: 7, order: 1 }} md={{ span: 8, order: 1 }} xl={{ span: 9, order: 1 }} id='thread' className='bg-2'>
         <section>
           <Row>
             <Col xs='12'>
@@ -83,14 +83,14 @@ const Thread = () => {
                       <div className='img-container' onClick={() => setActiveModal(i)} onKeyDown={() => setActiveModal(i)} role='button' tabIndex='0'>
                         <Img
                           className='thread-img w-100 rounded'
-                          src={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'http://placekitten.com/g/480/320'}
+                          src={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'https://placekitten.com/g/480/320'}
                           alt={''}
                         />
                       </div>
                       <ThreadModal
                         show={modalData.activeModal === i}
                         onHide={() => setInactiveModal()}
-                        img={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'http://placekitten.com/g/480/320'}
+                        img={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'https://placekitten.com/g/480/320'}
                       />
                       <hr />
                       <Row className='align-items-start justify-content-start justify-content-lg-between'>

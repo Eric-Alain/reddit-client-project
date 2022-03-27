@@ -2,6 +2,7 @@
 /*ALL RELEVANT STYLES BEYOND COLOR*/
 /**********************************/
 header {
+  margin-bottom: 2rem;
   @include sm {
     margin-bottom: 3rem;
   }

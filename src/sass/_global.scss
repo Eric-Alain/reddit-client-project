@@ -41,7 +41,13 @@ body {
   #___gatsby {
     background-image: url('../images/unicorn.gif');
     background-repeat: repeat;
-    background-size: auto 12.5rem;
+    background-size: auto 2.19rem;
+    @include sm {
+      background-size: auto 5.25rem;
+    }
+    @include md {
+      background-size: auto 12.5rem;
+    }
   }
 
   @include placeholder {

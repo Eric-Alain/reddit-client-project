@@ -6,6 +6,12 @@
   @include sm {
     border-radius: 0.28rem 0 0 0.28rem;
   }
+  h3 {
+    font-size: calc(1rem + 0.6vw);
+    @include md {
+      font-size: calc(1.3rem + 0.6vw);
+    }
+  }
   .loading {
     margin-top: 1rem;
   }
@@ -113,7 +119,7 @@
 /*DARK*/
 /******/
 .dark {
-  #thread {    
+  #thread {
     background: $dark-primary;
     border: 1px solid $dark-secondary;
 
@@ -155,12 +161,11 @@
   }
 }
 
-
 /*********/
 /*UNICORN*/
 /*********/
 .unicorn {
-  #thread {    
+  #thread {
     background: $unicorn-secondary;
     border: 1px solid $unicorn-primary;
     .loading {

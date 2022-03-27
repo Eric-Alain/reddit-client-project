@@ -58,7 +58,7 @@ const Sidebar = () => {
   }, [dispatch])
 
   return (
-    <Col xs={{ span: 12, order: 1 }} sm={{ span: 5, order: 2 }} md={{ span: 4, order: 2 }} xl={{ span: 3, order: 2 }} id='sidebar' className='sidebar-border bg-2 pb-3'>
+    <Col xs={{ span: 10, order: 1 }} sm={{ span: 5, order: 2 }} md={{ span: 4, order: 2 }} xl={{ span: 3, order: 2 }} id='sidebar' className='sidebar-border bg-2 pb-3'>
       <aside>
         <Row className='mx-1 justify-content-between justify-content-md-start'>
           <Col xs='12' className='px-0'>

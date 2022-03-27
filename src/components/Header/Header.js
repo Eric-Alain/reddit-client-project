@@ -32,6 +32,7 @@ const Header = ({ author, siteUrl, title }) => {
   }
 
   const handleTheme = str => {
+    dispatch(toggleExpanded(false))
     dispatch(setTheme(str))
   }
 
