@@ -2,30 +2,347 @@
 import React from 'react'
 
 //Redux
-import { Provider } from 'react-redux'
+import * as Redux from 'react-redux'
 import createStore from '../../state/createStore'
 
 //Components
 import Header from '../Header/Header'
 
 //Testing
-import renderer from 'react-test-renderer'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 //3rd party
 import registerIcons from '../../icons/icons'
+import FormControl from 'react-bootstrap/FormControl'
+import InputGroup from 'react-bootstrap/InputGroup'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const store = createStore()
 registerIcons()
 
+const mockAuthor = 'Eric Alain'
+const mockSiteUrl = 'https://www.ericalain.ca'
+const mockTitle = 'Reddit Client Project'
+
 describe('Header', () => {
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <Provider store={store}>
-          <Header author='Eric Alain' siteUrl='https://www.ericalain.ca' title='Reddit Client Project' />
-        </Provider>
-      )
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+  /******/
+  /*TEXT*/
+  /******/
+  test("Displays the correct title, subtitle and link to author's site", () => {
+    render(
+      <Redux.Provider store={store}>
+        <Header author={mockAuthor} siteUrl={mockSiteUrl} title={mockTitle} />
+      </Redux.Provider>
+    )
+    //Find <h2> element, test if it has appropriate value
+    expect(
+      screen.getByText((content, node) => {
+        return node.tagName.toLowerCase() === 'h2' && content === `${mockTitle}`
+      })
+    ).toBeInTheDocument()
+
+    //Find <span> element, test if it has appropriate value
+    expect(
+      screen.getByText((content, node) => {
+        return node.tagName.toLowerCase() === 'span' && node.textContent === `Original solution by: ${mockAuthor}`
+      })
+    ).toBeInTheDocument()
+
+    //Find <a> element that links to Eric's site, test if it has appropriate href value
+    expect(
+      screen.getByText((content, node) => {
+        return node.tagName.toLowerCase() === 'a' && node.getAttribute('href') === `${mockSiteUrl}`
+      })
+    ).toBeInTheDocument()
   })
+
+  /*******/
+  /*ICONS*/
+  /*******/
+  test('Displays correct icons within the appropriate elements', async () => {
+    render(
+      <Redux.Provider store={store}>
+        <Header author={mockAuthor} siteUrl={mockSiteUrl} title={mockTitle} />
+      </Redux.Provider>
+    )
+
+    //Find the dropdown toggle button for the theme selector
+    const dropdown = screen.getByText((content, node) => {
+      return node.tagName.toLowerCase() === 'button' && node.getAttribute('id') === `theme-selector`
+    })
+
+    //Open it
+    fireEvent.click(dropdown)
+
+    //Find a <svg> element, check if it loads the GITHUB icon from FontAwesome
+    expect(
+      screen.getByText((content, node) => {
+        return (
+          node.tagName.toLowerCase() === 'svg' && node.getAttribute('data-prefix') === `fab` && node.getAttribute('data-icon') === `github` && node.classList.contains('fa-github')
+        )
+      })
+    ).toBeInTheDocument()
+
+    //Find a <svg> element, check if it loads the MAGNIFYING GLASS icon from FontAwesome
+    expect(
+      screen.getByText((content, node) => {
+        return (
+          node.tagName.toLowerCase() === 'svg' &&
+          node.getAttribute('data-prefix') === `fas` &&
+          node.getAttribute('data-icon') === `magnifying-glass` &&
+          node.classList.contains('fa-magnifying-glass')
+        )
+      })
+    ).toBeInTheDocument()
+
+    //Find a <svg> element, check if it loads the SUN icon from FontAwesome
+    expect(
+      screen.getByText((content, node) => {
+        return node.tagName.toLowerCase() === 'svg' && node.getAttribute('data-prefix') === `fas` && node.getAttribute('data-icon') === `sun` && node.classList.contains('fa-sun')
+      })
+    ).toBeInTheDocument()
+
+    //Find a <svg> element, check if it loads the MOON icon from FontAwesome
+    expect(
+      screen.getByText((content, node) => {
+        return node.tagName.toLowerCase() === 'svg' && node.getAttribute('data-prefix') === `fas` && node.getAttribute('data-icon') === `moon` && node.classList.contains('fa-moon')
+      })
+    ).toBeInTheDocument()
+
+    //Find a <svg> element, check if it loads the WAND MAGIC SPARKLES icon from FontAwesome
+    expect(
+      screen.getByText((content, node) => {
+        return (
+          node.tagName.toLowerCase() === 'svg' &&
+          node.getAttribute('data-prefix') === `fas` &&
+          node.getAttribute('data-icon') === `wand-magic-sparkles` &&
+          node.classList.contains('fa-wand-magic-sparkles')
+        )
+      })
+    ).toBeInTheDocument()
+  })
+
+  /*******/
+  /*STATE*/
+  /*******/
+  test('State changes when user types in the searchbar', () => {
+    //Create mock dispatch async functions for testing
+    const enterString = str =>
+      store.dispatch({
+        type: 'SEARCH_TYPED',
+        payload: str
+      })
+
+    //Create event handlers for component
+    const handleOnChange = event => {
+      enterString(event.target.value)
+    }
+
+    //Render a simplified version of header for testing redux calls
+    render(
+      <Redux.Provider store={store}>
+        <header>
+          <FormControl value={store.getState().search.query} onChange={handleOnChange} placeholder='Search...' aria-label='Search' aria-describedby='searchBar' />
+        </header>
+      </Redux.Provider>
+    )
+
+    /*React testing library search variables*/
+    //Input field
+    const searchBar = screen.getByPlaceholderText('Search...')
+
+    //Assert that search query state should be empty when we begin
+    expect(store.getState().search.query).toEqual('')
+
+    /*Fire events in fake DOM*/
+    //Enter new value into search bar
+    fireEvent.change(searchBar, { target: { value: 'Hello world!' } })
+
+    //Assert that search query state should match what we typed in it
+    expect(store.getState().search.query).toEqual('Hello world!')
+
+    //Reset some redux store values
+    enterString('')
+  })
+
+  test('State changes to dummy data when user types in searchbar, clicks search button', () => {
+    //Create mock dispatch functions for testing
+    const getData = obj =>
+      store.dispatch({
+        type: 'FETCH_DATA',
+        payload: obj
+      })
+
+    const enterString = str =>
+      store.dispatch({
+        type: 'SEARCH_TYPED',
+        payload: str
+      })
+
+    const limitResults = num =>
+      store.dispatch({
+        type: 'LIMIT_DATA_RESULTS',
+        payload: num
+      })
+
+    //Create event handlers for component
+    const handleOnChange = event => {
+      enterString(event.target.value)
+    }
+
+    const handleClick = (obj, num) => {
+      getData(obj)
+      enterString('')
+      limitResults(num)
+    }
+
+    //Mock fake data from file that we can pretend to fetch
+    const mockData = jest.createMockFromModule('../../../__mocks__/redux-mock-data.js').state
+
+    //Render a simplified version of header for testing redux calls
+    render(
+      <Redux.Provider store={store}>
+        <header>
+          <InputGroup>
+            <FormControl value={store.getState().search.query} onChange={handleOnChange} placeholder='Search...' aria-label='Search' aria-describedby='searchBar' />
+            <InputGroup.Text id='searchBar'>
+              <button className='search-btn' onClick={() => handleClick(mockData.data.reddit, 10)}>
+                <FontAwesomeIcon icon={['fas', 'search']} />
+              </button>
+            </InputGroup.Text>
+          </InputGroup>
+        </header>
+      </Redux.Provider>
+    )
+
+    //React testing library search variables
+    //Input field
+    const searchBar = screen.getByPlaceholderText('Search...')
+
+    //Search button
+    const searchButton = screen.getByText((content, node) => {
+      return node.tagName.toLowerCase() === 'button' && node.classList.contains('search-btn')
+    })
+
+    //Assert that search query state should be empty when we begin
+    expect(store.getState().search.query).toEqual('')
+
+    //Fire events in fake DOM
+    //Enter new value into search bar
+    fireEvent.change(searchBar, { target: { value: 'Hello world!' } })
+
+    //Assert that search query state should match what we typed in it
+    expect(store.getState().search.query).toEqual('Hello world!')
+
+    //Click search button
+    fireEvent(
+      searchButton,
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true
+      })
+    )
+
+    //Assert that clicking the search button will fetch data and add it to redux store
+    expect(store.getState().data.reddit).toEqual(mockData.data.reddit)
+
+    //Assert that search query state should revert to empty when we click the search button
+    expect(store.getState().search.query).toEqual('')
+
+    //Assert that clicking the search button sets the results limit to a designated number
+    expect(store.getState().data.limit).toEqual(10)
+
+    console.log(store.getState())
+    //Reset some redux store values
+    getData({})
+    enterString('')
+    limitResults(5)
+    console.log(store.getState())
+  })
+
+
+  test('State changes to dummy data when user types in searchbar, hit "Enter" key', () => {
+    //Create mock dispatch functions for testing
+    const getData = obj =>
+      store.dispatch({
+        type: 'FETCH_DATA',
+        payload: obj
+      })
+
+    const enterString = str =>
+      store.dispatch({
+        type: 'SEARCH_TYPED',
+        payload: str
+      })
+
+    const limitResults = num =>
+      store.dispatch({
+        type: 'LIMIT_DATA_RESULTS',
+        payload: num
+      })
+
+    //Create event handlers for component
+    const handleOnChange = event => {
+      enterString(event.target.value)
+    }
+
+    const handleKeyDown = (obj, num) => {
+      getData(obj)
+      enterString('')
+      limitResults(num)
+    }
+
+    //Mock fake data from file that we can pretend to fetch
+    const mockData = jest.createMockFromModule('../../../__mocks__/redux-mock-data.js').state
+
+    //Render a simplified version of header for testing redux calls
+    render(
+      <Redux.Provider store={store}>
+        <header>
+          <InputGroup>
+            <FormControl
+              value={store.getState().search.query}
+              onChange={handleOnChange}
+              onKeyDown={() => handleKeyDown(mockData.data.reddit, 10)}
+              placeholder='Search...'
+              aria-label='Search'
+              aria-describedby='searchBar'
+            />            
+          </InputGroup>
+        </header>
+      </Redux.Provider>
+    )
+
+    //React testing library search variables
+    //Input field
+    const searchBar = screen.getByPlaceholderText('Search...')
+
+    //Assert that search query state should be empty when we begin
+    expect(store.getState().search.query).toEqual('')
+
+    //Fire events in fake DOM
+    //Enter new value into search bar
+    fireEvent.change(searchBar, { target: { value: 'Hello world!' } })
+
+    //Assert that search query state should match what we typed in it
+    expect(store.getState().search.query).toEqual('Hello world!')
+
+    //Hits "Enter" key
+    fireEvent.keyDown(searchBar, { key: 'Enter', code: 'Enter', charCode: 13 })
+
+    //Assert that clicking the search button will fetch data and add it to redux store
+    expect(store.getState().data.reddit).toEqual(mockData.data.reddit)
+
+    //Assert that search query state should revert to empty when we click the search button
+    expect(store.getState().search.query).toEqual('')
+
+    //Assert that clicking the search button sets the results limit to a designated number
+    expect(store.getState().data.limit).toEqual(10)
+
+    //Reset some redux store values
+    getData({})
+    enterString('')
+    limitResults(5)
+  })
+
 })
