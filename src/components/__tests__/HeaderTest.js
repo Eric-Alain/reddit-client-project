@@ -13,6 +13,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 
 //3rd party
 import registerIcons from '../../icons/icons'
+import Dropdown from 'react-bootstrap/Dropdown'
 import FormControl from 'react-bootstrap/FormControl'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -252,14 +253,11 @@ describe('Header', () => {
     //Assert that clicking the search button sets the results limit to a designated number
     expect(store.getState().data.limit).toEqual(10)
 
-    console.log(store.getState())
     //Reset some redux store values
     getData({})
     enterString('')
     limitResults(5)
-    console.log(store.getState())
   })
-
 
   test('State changes to dummy data when user types in searchbar, hit "Enter" key', () => {
     //Create mock dispatch functions for testing
@@ -307,7 +305,7 @@ describe('Header', () => {
               placeholder='Search...'
               aria-label='Search'
               aria-describedby='searchBar'
-            />            
+            />
           </InputGroup>
         </header>
       </Redux.Provider>
@@ -345,4 +343,77 @@ describe('Header', () => {
     limitResults(5)
   })
 
+  test('State changes when user picks theme from theme selector', () => {
+    //Create mock dispatch function for testing
+    const setTheme = str => {
+      store.dispatch({
+        type: 'SET_THEME',
+        payload: str
+      })
+    }
+
+    const toggleThemeDropdown = bool =>
+      store.dispatch({
+        type: 'TOGGLE_THEME_DROPDOWN',
+        payload: bool
+      })
+
+    //Create event handler for component
+    const handleTheme = str => {
+      setTheme(str)
+    }
+
+    const handleDropdownToggle = () => {
+      toggleThemeDropdown(!store.getState().toggles.dropdownActive)
+    }
+
+    //Render a simplified version of header for testing redux calls
+    render(
+      <header>
+        <Dropdown as='div'>
+          <Dropdown.Toggle id='theme-selector' onToggle={handleDropdownToggle}>
+            <small>Themes</small>
+          </Dropdown.Toggle>
+          <Dropdown.Menu align={{ md: 'end' }}>
+            <Dropdown.Item as='button' onClick={() => handleTheme('light')}>
+              <FontAwesomeIcon icon={['fas', 'sun']} size='1x' className='me-2' /> Light
+            </Dropdown.Item>
+            <Dropdown.Item as='button' onClick={() => handleTheme('dark')}>
+              <FontAwesomeIcon icon={['fas', 'moon']} size='1x' className='me-2' /> Dark
+            </Dropdown.Item>
+            <Dropdown.Item as='button' onClick={() => handleTheme('unicorn')}>
+              <FontAwesomeIcon icon={['fas', 'wand-magic-sparkles']} size='1x' className='me-2' /> Unicorn
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </header>
+    )
+
+    //React testing library search variables
+    //Dropdown toggle button theme selector
+    const dropdown = screen.getByText((content, node) => {
+      return node.tagName.toLowerCase() === 'button' && node.getAttribute('id') === `theme-selector`
+    })
+
+    //Open dropdown, find and click the light theme option, assert that clicking this option sets the theme state to 'light'
+    fireEvent.click(dropdown)
+    const sun = document.querySelectorAll('.dropdown-item')[0]
+    fireEvent.click(sun)
+    expect(store.getState().toggles.theme).toEqual('light')
+
+    //Open dropdown, find and click the dark theme option, assert that clicking this option sets the theme state to 'dark'
+    fireEvent.click(dropdown)
+    const moon = document.querySelectorAll('.dropdown-item')[1]
+    fireEvent.click(moon)
+    expect(store.getState().toggles.theme).toEqual('dark')
+
+    //Open dropdown, find and click the unicorn theme option, assert that clicking this option sets the theme state to 'unicorn'
+    fireEvent.click(dropdown)
+    const wandMagicSparkles = document.querySelectorAll('.dropdown-item')[2]
+    fireEvent.click(wandMagicSparkles)
+    expect(store.getState().toggles.theme).toEqual('unicorn')
+
+    //Reset redux store value
+    setTheme('light')
+  })
 })
