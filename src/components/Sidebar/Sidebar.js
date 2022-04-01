@@ -11,6 +11,7 @@ import { fetchData, limitDataResults } from '../../state/actions/data'
 import { unique } from '../../utils/utils'
 
 //3rd party
+import axios from 'axios'
 import Img from 'react-cool-img'
 import { Puff } from 'react-loading-icons'
 import Col from 'react-bootstrap/Col'
@@ -23,38 +24,39 @@ const Sidebar = () => {
 
   //Handler
   const handleClick = str => {
-    fetch(encodeURI(`https://www.reddit.com/${str}.json`))
-      .then(response => response.json())
-      .then(data => {
-        dispatch(fetchData(data))
+    //Async ensures that we are waiting for our fetch to complete before proceeding
+    const asyncFetch = async () => {
+      await axios.get(encodeURI(`https://www.reddit.com/${str}.json`)).then(res => {
+        dispatch(fetchData(res.data))
       })
+    }
+    asyncFetch()
     dispatch(searchTyped(''))
     dispatch(limitDataResults(5))
   }
 
   //UseEffect
   useEffect(() => {
-    fetch('https://www.reddit.com/r/popular.json?geo_filter=CA&limit=30')
-      .then(response => response.json())
-      .then(data => {
-        let subredditNameArr = unique(data.data.children.map(subreddit => subreddit.data.subreddit_name_prefixed))
+    //Async ensures that we are waiting for our fetch to complete before proceeding
+    const asyncFetch = async () => {
+      await axios.get('https://www.reddit.com/r/popular.json?geo_filter=CA&limit=30').then(res => {
+        let subredditNameArr = unique(res.data.data.children.map(subreddit => subreddit.data.subreddit_name_prefixed))
         subredditNameArr.length = 20
         subredditNameArr.sort()
 
         let subredditDataArr = []
-
-        subredditNameArr.forEach(name => {
-          fetch(`https://www.reddit.com/${name}/about.json?limit=1`)
-            .then(response => response.json())
-            .then(data => {
-              subredditDataArr.push(data.data)
-
-              if (subredditDataArr.length === 20) {
-                dispatch(fetchSubreddits(subredditDataArr))
-              }
-            })
+        
+        subredditNameArr.forEach(async name => {
+          await axios.get(`https://www.reddit.com/${name}/about.json?limit=1`).then(res => {
+            subredditDataArr.push(res.data.data)
+            if (subredditDataArr.length === 20) {
+              dispatch(fetchSubreddits(subredditDataArr))
+            }
+          })
         })
       })
+    }
+    asyncFetch()
   }, [dispatch])
 
   return (

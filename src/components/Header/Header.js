@@ -8,6 +8,7 @@ import { fetchData, limitDataResults } from '../../state/actions/data'
 import { toggleExpanded, toggleThemeDropdown, setTheme } from '../../state/actions/toggles'
 
 //3rd party
+import axios from 'axios'
 import PropTypes from 'prop-types'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
@@ -50,11 +51,13 @@ const Header = ({ author, siteUrl, title }) => {
         alert('Please enter a query.')
         return
       }
-      fetch(encodeURI(`https://www.reddit.com/search.json?q=${searchString}`))
-        .then(response => response.json())
-        .then(data => {
-          dispatch(fetchData(data))
-        })
+      //Async ensures that we are waiting for our fetch to complete before proceeding
+      const asyncFetch = async () => {
+        await axios.get(encodeURI(`https://www.reddit.com/search.json?q=${searchString}`)).then(res => {
+            dispatch(fetchData(res.data))
+          })
+      }
+      asyncFetch()
       dispatch(searchTyped(''))
       dispatch(limitDataResults(4))
     } else return
@@ -65,11 +68,13 @@ const Header = ({ author, siteUrl, title }) => {
       alert('Please enter a query.')
       return
     }
-    fetch(encodeURI(`https://www.reddit.com/search.json?q=${searchString}`))
-      .then(response => response.json())
-      .then(data => {
-        dispatch(fetchData(data))
+    //Async ensures that we are waiting for our fetch to complete before proceeding
+    const asyncFetch = async () => {
+      await axios.get(encodeURI(`https://www.reddit.com/search.json?q=${searchString}`)).then(res => {
+        dispatch(fetchData(res.data))
       })
+    }
+    asyncFetch()
     dispatch(searchTyped(''))
     dispatch(limitDataResults(4))
   }

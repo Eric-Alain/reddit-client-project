@@ -12,6 +12,7 @@ import { animations } from '../../components/Thread/animations'
 import { htmlDecode, renderDate, nFormatter } from '../../utils/utils'
 
 //3rd party
+import axios from 'axios'
 import Img from 'react-cool-img'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -47,11 +48,13 @@ const Thread = () => {
 
   //UseEffects
   useEffect(() => {
-    fetch('https://www.reddit.com/search.json?q=web%20dev')
-      .then(response => response.json())
-      .then(data => {
-        dispatch(fetchData(data))
+    //Async ensures that we are waiting for our fetch to complete before proceeding
+    const asyncFetch = async () => {
+      await axios.get('https://www.reddit.com/search.json?q=web%20dev').then(res => {
+        dispatch(fetchData(res.data))
       })
+    }
+    asyncFetch()
     animations(refArr.current)
   }, [dispatch])
 

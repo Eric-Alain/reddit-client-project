@@ -121,8 +121,8 @@ describe('Thread', () => {
     expect(screen.getByAltText('thread-img')).toBeInTheDocument()
 
     //Assert that there should be an appropriate src value for our <img> element
-    //We expect that the image src gets modified by the react-cool-img component, so we test for that value instead of original string provided
-    expect(screen.getByAltText('thread-img').src).toEqual('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
+    //We expect that the image src gets modified by the react-cool-img component, so we test for the unique class name provided to it that is reflective of the src
+    expect(screen.getByAltText('thread-img').classList.value).toMatch(' no-js-8a6g0bai9lp81')
   })
 
   test('<article> element has: a reddit icon, user name and link to user', () => {
@@ -299,7 +299,7 @@ describe('Thread', () => {
     expect(document.querySelector('.modal-body img')).toBeInTheDocument()
 
     //Assert that there should be an appropriate src value for our <img> element
-    //We expect that the image src gets modified by the react-cool-img component, so we test for that value instead of original string provided
-    expect(document.querySelector('.modal-body img').src).toEqual('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==')
+    //We expect that the image src gets modified by the react-cool-img component, so we test for the unique class name provided to it that is reflective of the src
+    expect(document.querySelector('.modal-body img').classList.value).toMatch(' no-js-8a6g0bai9lp81')
   })
 })
