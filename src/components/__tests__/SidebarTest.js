@@ -7,11 +7,11 @@ import createStore from '../../state/createStore'
 
 //Components
 import Sidebar from '../Sidebar/Sidebar'
-import SidebarMapper from '../__test-components__/SidebarMapper'
 
 //Testing
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, waitForElement } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import axiosMock from 'axios'
 
 const intersectObserverContext = (async () => {
   if (!('IntersectionObserver' in window)) await import('intersection-observer')
@@ -19,36 +19,26 @@ const intersectObserverContext = (async () => {
 
 const store = createStore()
 
-/*
-const minimalComponent = (
-  <Redux.Provider store={store}>
-    <aside>
-      <h2>Subreddits</h2>
-      <SidebarMapper data={store.getState().subreddits} handleClick={handleClick} />
-    </aside>
-  </Redux.Provider>
-)*/
-
-const subreddits = [
-  {
-    display_name: 'AskReddit',
-    icon_img: 'https://b.thumbs.redditmedia.com/EndDxMGB-FTZ2MGtjepQ06cQEkZw_YQAsOUudpb9nSQ.png',
-    display_name_prefixed: 'r/AskReddit'
+const subreddits = {
+  data: {
+    data: {
+      children: [
+        {
+          display_name: 'AskReddit',
+          icon_img: 'https://b.thumbs.redditmedia.com/EndDxMGB-FTZ2MGtjepQ06cQEkZw_YQAsOUudpb9nSQ.png',
+          display_name_prefixed: 'r/AskReddit'
+        }
+      ]
+    }
   }
-]
+}
 
 describe('Sidebar', () => {
- 
-  test('Displays a title', () => {
-   
-    render(
-      <Redux.Provider store={store}>
-        <Sidebar />
-      </Redux.Provider>
-    )
+  test('Displays a title', async () => {
+    //axiosMock.get.mockResolvedValueOnce({ children: subreddits })
 
     //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-   /* render(
+    /* render(
       <Redux.Provider store={store}>
         <Sidebar />
       </Redux.Provider>
@@ -59,6 +49,24 @@ describe('Sidebar', () => {
         return node.tagName.toLowerCase() === 'h2' && content === 'Subreddits'
       })
     ).toBeInTheDocument()*/
+
+    render(
+      <Redux.Provider store={store}>
+        <Sidebar subreddits={subreddits} />
+      </Redux.Provider>
+    )
+
+    // element to be rendered.
+    const resolvedSpan = await waitForElement(() =>
+      screen.getByText((content, node) => {
+        return node.tagName.toLowerCase() === 'button' && node.textContent === 'AskReddit'
+      })
+    )
+    console.log(resolvedSpan)
+
+    // Now with the resolvedSpan in hand, we can ensure it has the correct content
+    expect(resolvedSpan).toHaveTextContent('AskReddit')
+
     screen.debug()
   })
 

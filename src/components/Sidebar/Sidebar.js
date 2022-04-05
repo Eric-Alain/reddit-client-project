@@ -43,12 +43,15 @@ const Sidebar = () => {
         let subredditNameArr = unique(res.data.data.children.map(subreddit => subreddit.data.subreddit_name_prefixed))
         subredditNameArr.length = 20
         subredditNameArr.sort()
-
         let subredditDataArr = []
-        
         subredditNameArr.forEach(async name => {
           await axios.get(`https://www.reddit.com/${name}/about.json?limit=1`).then(res => {
-            subredditDataArr.push(res.data.data)
+            subredditDataArr.push(
+              {
+                name: res.data.data.display_name,
+                namePrefixed: res.data.data.display_name_prefixed,
+                image: res.data.data.icon_img
+              })
             if (subredditDataArr.length === 20) {
               dispatch(fetchSubreddits(subredditDataArr))
             }
@@ -72,21 +75,21 @@ const Sidebar = () => {
             subreddits.map((subreddit, i) => {
               return (
                 <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill'>
-                  <button className='w-100' onClick={() => handleClick(subreddit.display_name_prefixed)}>
+                  <button className='w-100' onClick={() => handleClick(subreddit.namePrefixed)}>
                     <Row className='justify-content-start align-items-center'>
                       <Col xs='auto' className='ps-2 pe-0'>
                         <Img
                           className='subreddit-img'
                           src={
-                            subreddit.icon_img !== '' && subreddit.icon_img !== null && subreddit.icon_img !== undefined
-                              ? subreddit.icon_img
+                            subreddit.image !== '' && subreddit.image !== null && subreddit.image !== undefined
+                              ? subreddit.image
                               : 'https://logodownload.org/wp-content/uploads/2018/02/reddit-logo-16.png'
                           }
                           alt=''
                         />
                       </Col>
                       <Col xs='auto' className='ps-2 ps-md-auto'>
-                        <small>{subreddit.display_name}</small>
+                        <small>{subreddit.name}</small>
                       </Col>
                     </Row>
                   </button>

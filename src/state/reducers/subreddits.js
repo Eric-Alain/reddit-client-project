@@ -1,6 +1,7 @@
 import { FETCH_SUBREDDITS } from '../types/subreddits'
 
 export const initialState = {
+  children: []
 }
 
 const subredditsReducer = (state = initialState, action) => {
@@ -8,9 +9,7 @@ const subredditsReducer = (state = initialState, action) => {
 
   switch (type) {
     case FETCH_SUBREDDITS:
-      return {
-        children: payload
-      }
+      return { ...state, children: payload }
 
     default:
       return state

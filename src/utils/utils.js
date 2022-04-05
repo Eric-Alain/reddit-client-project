@@ -39,7 +39,7 @@ export const nFormatter = (num, digits) => {
   return item ? (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol : '0'
 }
 
-export const unique = (arr) => {
+export const unique = arr => {
   let seen = {}
   return arr.filter(item => {
     return seen.hasOwnProperty(item) ? false : (seen[item] = true)
