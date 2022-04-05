@@ -1,7 +1,7 @@
 import { FETCH_DATA, LIMIT_DATA_RESULTS } from '../types/data'
 
 export const initialState = {
-  reddit: {},
+  reddit: [],
   limit: 5
 }
 

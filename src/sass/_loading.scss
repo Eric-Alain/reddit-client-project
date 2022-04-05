@@ -1,0 +1,62 @@
+/**********************************/
+/*ALL RELEVANT STYLES BEYOND COLOR*/
+/**********************************/
+#loading-overlay {
+  .modal-content {
+    background: transparent;
+    border: none;
+    .loading {
+      height: 12rem;
+      width: 12rem;
+      padding: 1rem;
+    }
+  }
+}
+
+/*******/
+/*LIGHT*/
+/*******/
+.light {
+  #loading-overlay {
+    .modal-content {
+      .loading {
+        background: $light-primary;
+        g {
+          stroke: $light-quadrary;
+        }
+      }
+    }
+  }
+}
+
+/******/
+/*DARK*/
+/******/
+.dark {
+  #loading-overlay {
+    .modal-content {
+      .loading {
+        background: $dark-quadrary;
+        g {
+          stroke: $dark-primary;
+        }
+      }
+    }
+  }
+}
+
+/*********/
+/*UNICORN*/
+/*********/
+.unicorn {
+  #loading-overlay {
+    .modal-content {
+      .loading {
+        background: $unicorn-primary;
+        g {
+          stroke: $unicorn-secondary;
+        }
+      }
+    }
+  }
+}

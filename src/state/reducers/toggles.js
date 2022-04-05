@@ -1,11 +1,12 @@
-import { TOGGLE_EXPAND, TOGGLE_THEME_DROPDOWN, SET_THEME, SET_MODAL_DATA, TOGGLE_MODAL } from '../types/toggles'
+import { TOGGLE_EXPAND, TOGGLE_THEME_DROPDOWN, SET_THEME, SET_MODAL_DATA, TOGGLE_MODAL, IS_LOADING } from '../types/toggles'
 
 export const initialState = {
   expanded: false,
   theme: "light",
   dropdownActive: false,
   modalData: {},
-  showModal: false
+  showModal: false,
+  isLoading: true
 }
 
 const togglesReducer = (state = initialState, action) => {
@@ -40,6 +41,12 @@ const togglesReducer = (state = initialState, action) => {
       return {
         ...state,
         showModal: payload
+      }
+
+    case IS_LOADING:
+      return {
+        ...state,
+        isLoading: payload
       }
 
     default:

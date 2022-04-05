@@ -4,15 +4,15 @@ import React, { useEffect, useRef } from 'react'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchData, limitDataResults } from '../../state/actions/data'
-import { setModalData, toggleModal } from '../../state/actions/toggles'
+import { setModalData, toggleModal, isLoading } from '../../state/actions/toggles'
 
 //Utils
 import ThreadModal from '../../components/Thread/ThreadModal'
 import { animations } from '../../components/Thread/animations'
 import { htmlDecode, renderDate, nFormatter } from '../../utils/utils'
+import { threadFetch } from '../../utils/fetches'
 
 //3rd party
-import axios from 'axios'
 import Img from 'react-cool-img'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -21,7 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Thread = () => {
   //Redux
   const dispatch = useDispatch()
-  const data = useSelector(state => state.data.reddit.data)
+  const data = useSelector(state => state.data.reddit)
   const limit = useSelector(state => state.data.limit)
   const modalData = useSelector(state => state.toggles.modalData)
 
@@ -49,12 +49,11 @@ const Thread = () => {
   //UseEffects
   useEffect(() => {
     //Async ensures that we are waiting for our fetch to complete before proceeding
-    const asyncFetch = async () => {
-      await axios.get('https://www.reddit.com/search.json?q=web%20dev').then(res => {
-        dispatch(fetchData(res.data))
-      })
-    }
-    asyncFetch()
+    threadFetch('Web Dev').then(res => {
+      dispatch(fetchData(res))
+      dispatch(isLoading(false))
+    })
+
     animations(refArr.current)
   }, [dispatch])
 
@@ -76,24 +75,24 @@ const Thread = () => {
 
             {/*Map data to DOM once available, limit results based on state limit*/}
             {data !== undefined ? (
-              data.children.slice(0, limit ? limit : data.children.length).map((child, i) => {
+              data.slice(0, limit ? limit : data.length).map((child, i) => {
                 return (
                   <article key={i}>
                     <Col xs='12' className='py-3 mb-3' ref={addToRefs}>
                       <h3>
-                        <a href={child.data.url}>{child.data.title}</a>
+                        <a href={child.url}>{child.title}</a>
                       </h3>
                       <div className='img-container' onClick={() => setActiveModal(i)} onKeyDown={() => setActiveModal(i)} role='button' tabIndex='0'>
                         <Img
                           className='thread-img w-100 rounded'
-                          src={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'https://placekitten.com/g/480/320'}
+                          src={child.preview !== undefined ? htmlDecode(child.preview.images[0].source.url.toString()) : 'https://placekitten.com/g/480/320'}
                           alt={''}
                         />
                       </div>
                       <ThreadModal
                         show={modalData.activeModal === i}
                         onHide={() => setInactiveModal()}
-                        img={child.data.preview !== undefined ? htmlDecode(child.data.preview.images[0].source.url.toString()) : 'https://placekitten.com/g/480/320'}
+                        img={child.preview !== undefined ? htmlDecode(child.data.images[0].source.url.toString()) : 'https://placekitten.com/g/480/320'}
                       />
                       <hr />
                       <Row className='align-items-start justify-content-start justify-content-lg-between'>
@@ -104,9 +103,8 @@ const Thread = () => {
                             </Col>
                             <Col xs='auto' className='ps-0'>
                               <small>
-                                <a href={`https://www.reddit.com/user/${child.data.author}`}>{child.data.author}</a> |{' '}
-                                <a href={`https://www.reddit.com/${child.data.subreddit_name_prefixed}`}>{child.data.subreddit_name_prefixed}</a>:{' '}
-                                {nFormatter(child.data.subreddit_subscribers, 1)}
+                                <a href={`https://www.reddit.com/user/${child.author}`}>{child.author}</a> |{' '}
+                                <a href={`https://www.reddit.com/${child.subredditNamePrefixed}`}>{child.subredditNamePrefixed}</a>: {nFormatter(child.subredditSubscribers, 1)}
                               </small>
                             </Col>
                           </Row>
@@ -117,7 +115,7 @@ const Thread = () => {
                               <FontAwesomeIcon icon={['far', 'calendar-days']} size='1x' />
                             </Col>
                             <Col xs='auto' className='ps-0'>
-                              <small>{renderDate(child.data.created_utc)}</small>
+                              <small>{renderDate(child.createdUtc)}</small>
                             </Col>
                           </Row>
                         </Col>
@@ -128,7 +126,7 @@ const Thread = () => {
                             </Col>
                             <Col xs='auto' className='ps-0'>
                               <small>
-                                <a href={`https://www.reddit.com${child.data.permalink}`}>{child.data.num_comments}</a>
+                                <a href={`https://www.reddit.com${child.permalink}`}>{child.numComments}</a>
                               </small>
                             </Col>
                           </Row>

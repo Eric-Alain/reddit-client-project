@@ -5,10 +5,12 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchTyped } from '../../state/actions/search'
 import { fetchData, limitDataResults } from '../../state/actions/data'
-import { toggleExpanded, toggleThemeDropdown, setTheme } from '../../state/actions/toggles'
+import { toggleExpanded, toggleThemeDropdown, setTheme, isLoading } from '../../state/actions/toggles'
+
+//Utils
+import { threadFetch } from '../../utils/fetches'
 
 //3rd party
-import axios from 'axios'
 import PropTypes from 'prop-types'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
@@ -45,21 +47,24 @@ const Header = ({ author, siteUrl, title }) => {
     dispatch(searchTyped(event.target.value))
   }
 
+  const handleFetch = () => {
+    dispatch(isLoading(true))
+    threadFetch(searchString).then(res => {
+      dispatch(fetchData(res))
+      dispatch(searchTyped(''))
+      dispatch(limitDataResults(4))
+      //Search result is too quick, add timeout to reverting loading component, so user knows the search is working
+      setTimeout(() => dispatch(isLoading(false)), 500)
+    })
+  }
+
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
       if (searchString === '' || searchString === undefined || searchString === null) {
         alert('Please enter a query.')
         return
       }
-      //Async ensures that we are waiting for our fetch to complete before proceeding
-      const asyncFetch = async () => {
-        await axios.get(encodeURI(`https://www.reddit.com/search.json?q=${searchString}`)).then(res => {
-            dispatch(fetchData(res.data))
-          })
-      }
-      asyncFetch()
-      dispatch(searchTyped(''))
-      dispatch(limitDataResults(4))
+      handleFetch()
     } else return
   }
 
@@ -68,15 +73,7 @@ const Header = ({ author, siteUrl, title }) => {
       alert('Please enter a query.')
       return
     }
-    //Async ensures that we are waiting for our fetch to complete before proceeding
-    const asyncFetch = async () => {
-      await axios.get(encodeURI(`https://www.reddit.com/search.json?q=${searchString}`)).then(res => {
-        dispatch(fetchData(res.data))
-      })
-    }
-    asyncFetch()
-    dispatch(searchTyped(''))
-    dispatch(limitDataResults(4))
+    handleFetch()
   }
 
   return (

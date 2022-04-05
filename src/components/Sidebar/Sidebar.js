@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchSubreddits } from '../../state/actions/subreddits'
 import { searchTyped } from '../../state/actions/search'
 import { fetchData, limitDataResults } from '../../state/actions/data'
+import { isLoading } from '../../state/actions/toggles'
 
 //Utils
-import { unique } from '../../utils/utils'
+import { threadFromSubredditFetch, fetchPopularSubredditsList, fetchSubredditData } from '../../utils/fetches'
 
 //3rd party
-import axios from 'axios'
 import Img from 'react-cool-img'
 import { Puff } from 'react-loading-icons'
 import Col from 'react-bootstrap/Col'
@@ -24,42 +24,22 @@ const Sidebar = () => {
 
   //Handler
   const handleClick = str => {
+    dispatch(isLoading(true))
     //Async ensures that we are waiting for our fetch to complete before proceeding
-    const asyncFetch = async () => {
-      await axios.get(encodeURI(`https://www.reddit.com/${str}.json`)).then(res => {
-        dispatch(fetchData(res.data))
-      })
-    }
-    asyncFetch()
-    dispatch(searchTyped(''))
-    dispatch(limitDataResults(5))
+    threadFromSubredditFetch(str).then(res => {
+      dispatch(fetchData(res))
+      dispatch(searchTyped(''))
+      dispatch(limitDataResults(5))
+      dispatch(isLoading(false))
+    })
   }
 
   //UseEffect
   useEffect(() => {
     //Async ensures that we are waiting for our fetch to complete before proceeding
-    const asyncFetch = async () => {
-      await axios.get('https://www.reddit.com/r/popular.json?geo_filter=CA&limit=30').then(res => {
-        let subredditNameArr = unique(res.data.data.children.map(subreddit => subreddit.data.subreddit_name_prefixed))
-        subredditNameArr.length = 20
-        subredditNameArr.sort()
-        let subredditDataArr = []
-        subredditNameArr.forEach(async name => {
-          await axios.get(`https://www.reddit.com/${name}/about.json?limit=1`).then(res => {
-            subredditDataArr.push(
-              {
-                name: res.data.data.display_name,
-                namePrefixed: res.data.data.display_name_prefixed,
-                image: res.data.data.icon_img
-              })
-            if (subredditDataArr.length === 20) {
-              dispatch(fetchSubreddits(subredditDataArr))
-            }
-          })
-        })
-      })
-    }
-    asyncFetch()
+    fetchPopularSubredditsList().then(res => {
+      fetchSubredditData(res, dispatch, fetchSubreddits)
+    })
   }, [dispatch])
 
   return (
