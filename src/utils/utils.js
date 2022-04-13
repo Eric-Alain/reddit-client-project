@@ -45,3 +45,11 @@ export const unique = arr => {
     return seen.hasOwnProperty(item) ? false : (seen[item] = true)
   })
 }
+
+export const prioritizePostsWithImages = obj => {
+  return obj.sort((a, b) => {
+    var aVal = a.previewImage === undefined ? 0 : 1
+    var bVal = b.previewImage === undefined ? 0 : 1
+    return bVal - aVal
+  })
+}

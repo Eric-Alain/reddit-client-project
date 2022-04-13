@@ -52,20 +52,9 @@ describe('Sidebar', () => {
 
     render(
       <Redux.Provider store={store}>
-        <Sidebar subreddits={subreddits} />
+        <Sidebar />
       </Redux.Provider>
     )
-
-    // element to be rendered.
-    const resolvedSpan = await waitForElement(() =>
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'button' && node.textContent === 'AskReddit'
-      })
-    )
-    console.log(resolvedSpan)
-
-    // Now with the resolvedSpan in hand, we can ensure it has the correct content
-    expect(resolvedSpan).toHaveTextContent('AskReddit')
 
     screen.debug()
   })

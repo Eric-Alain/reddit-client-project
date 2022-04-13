@@ -8,6 +8,7 @@
     max-width: 60%;
   }
   .modal-content {
+    border-radius: 0.25rem;
     .modal-header {
       border-bottom: none;
       button {
@@ -31,6 +32,7 @@
   .thread-modal {
     .modal-content {
       background: $light-primary;
+      border: 1px solid $light-quadrary;
       .modal-header {
         button {
           border: 2px solid $light-primary;
@@ -61,6 +63,7 @@
   .thread-modal {
     .modal-content {
       background: $dark-quadrary;
+      border: 1px solid $dark-primary;
       .modal-header {
         button {
           border: 2px solid $dark-quadrary;
@@ -91,6 +94,7 @@
   .thread-modal {
     .modal-content {
       background: $unicorn-primary;
+      border: 1px solid $unicorn-secondary;
       .modal-header {
         button {
           border: 2px solid $unicorn-primary;

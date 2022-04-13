@@ -40,7 +40,30 @@
     cursor: pointer;
     max-height: 40rem;
     overflow: hidden;
+    position: relative;
+    .img-undefined {
+      background: rgba(0, 0, 0, 0.25);
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      &.show {
+        display: flex;
+      }
+      &.hide {
+        display: none;
+      }
+      .img-undefined-text {
+        font-size: calc(1rem - 0.6vw);
+        margin: 0;
+        padding: 1rem 2rem;
+        line-height: 1;
 
+        @include md {
+          font-size: 1rem;
+          padding: 1rem 2rem;
+        }
+      }
+    }
     .thread-img {
       &.loading {
         height: 30rem;
@@ -96,6 +119,13 @@
       }
     }
     .img-container {
+      .img-undefined {
+        .img-undefined-text {
+          color: $light-quadrary;
+          background: fade-out($light-primary, 0.2);
+          border: 1px solid $light-quadrary;
+        }
+      }
       .thread-img {
         border: 1px solid $light-primary;
       }
@@ -142,7 +172,14 @@
       }
     }
     .img-container {
-      img {
+      .img-undefined {
+        .img-undefined-text {
+          color: $dark-primary;
+          background: fade-out($dark-quadrary, 0.2);
+          border: 1px solid $dark-primary;
+        }
+      }
+      .thread-img {
         border: 1px solid $dark-secondary;
       }
     }
@@ -187,7 +224,14 @@
       }
     }
     .img-container {
-      img {
+      .img-undefined {
+        .img-undefined-text {
+          color: $unicorn-tertiary;
+          background: fade-out($unicorn-secondary, 0.2);
+          border: 1px solid $unicorn-tertiary;
+        }
+      }
+      .thread-img {
         border: 1px solid $unicorn-primary;
       }
     }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { unique } from './utils'
+import { unique, prioritizePostsWithImages } from './utils'
 
 export const threadFetch = async str => {
   try {
@@ -13,12 +13,13 @@ export const threadFetch = async str => {
         permalink: item.data.permalink,
         previewImage: item.data.preview,
         subredditNamePrefixed: item.data.subreddit_name_prefixed,
-        subredditSubscribers: item.data.subreddit_subcribers,
+        subredditSubscribers: item.data.subreddit_subscribers,
         title: item.data.title,
         url: item.data.url
       }
     })
-    return resObj
+    //Sort the array so that posts with a preview image are on top, looks nicer
+    return prioritizePostsWithImages(resObj)
   } catch (error) {
     console.log(error)
   }
@@ -28,20 +29,21 @@ export const threadFromSubredditFetch = async str => {
   try {
     //Fetch and use object destructing to collect response
     const { data: res } = await axios.get(encodeURI(`https://www.reddit.com/${str}.json`))
-    const resObj = res.data.children.map(item => {
+    const resObj = res.data.children.map(subredditItem => {
       return {
-        author: item.data.author,
-        createdUtc: item.data.created_utc,
-        numComments: item.data.num_comments,
-        permalink: item.data.permalink,
-        previewImage: item.data.preview,
-        subredditNamePrefixed: item.data.subreddit_name_prefixed,
-        subredditSubscribers: item.data.subreddit_subcribers,
-        title: item.data.title,
-        url: item.data.url
+        author: subredditItem.data.author,
+        createdUtc: subredditItem.data.created_utc,
+        numComments: subredditItem.data.num_comments,
+        permalink: subredditItem.data.permalink,
+        previewImage: subredditItem.data.preview,
+        subredditNamePrefixed: subredditItem.data.subreddit_name_prefixed,
+        subredditSubscribers: subredditItem.data.subreddit_subscribers,
+        title: subredditItem.data.title,
+        url: subredditItem.data.url
       }
     })
-    return resObj
+    //Sort the array so that posts with a preview image are on top, looks nicer
+    return prioritizePostsWithImages(resObj)
   } catch (error) {
     console.log(error)
   }
