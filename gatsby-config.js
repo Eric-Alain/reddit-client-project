@@ -182,6 +182,7 @@ module.exports = {
           }
         }
       }
-    }
+    },
+    `gatsby-plugin-netlify`
   ]
 }
