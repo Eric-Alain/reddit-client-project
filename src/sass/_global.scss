@@ -12,6 +12,10 @@ body {
   scroll-behavior: smooth;
 }
 
+#___gatsby {
+  min-height: 100vh;
+}
+
 //Theme based overrides
 .light {
   #___gatsby {

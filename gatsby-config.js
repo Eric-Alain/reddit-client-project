@@ -37,7 +37,7 @@ module.exports = {
         theme_color: `#223843`,
         background_color: `#ffffff`,
         display: `minimal-ui`,
-        icon: `src/images/reddit-logo.png` // This path is relative to the root of the site.
+        icon: `src/images/reddit-logo.svg` // This path is relative to the root of the site.
       }
     },
     {

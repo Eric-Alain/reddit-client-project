@@ -8,6 +8,9 @@ import { searchTyped } from '../../state/actions/search'
 import { fetchData, limitDataResults } from '../../state/actions/data'
 import { isLoading } from '../../state/actions/toggles'
 
+//Local image
+import redditLogo from '../../images/reddit-logo.svg'
+
 //Utils
 import { threadFromSubredditFetch, fetchPopularSubredditsList, fetchSubredditData } from '../../utils/fetches'
 
@@ -56,19 +59,15 @@ const Sidebar = () => {
               return (
                 <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill'>
                   <button className='w-100' onClick={() => handleClick(subreddit.namePrefixed)}>
-                    <Row className='justify-content-start align-items-center'>
-                      <Col xs='auto' className='ps-2 pe-0'>
+                    <Row className='justify-content-start align-items-center flex-nowrap overflow-hidden'>
+                      <Col xs='auto' className='ps-2 pe-0 py-1'>
                         <Img
                           className='subreddit-img'
-                          src={
-                            subreddit.image !== '' && subreddit.image !== null && subreddit.image !== undefined
-                              ? subreddit.image
-                              : 'https://logodownload.org/wp-content/uploads/2018/02/reddit-logo-16.png'
-                          }
+                          src={subreddit.image !== '' && subreddit.image !== null && subreddit.image !== undefined ? subreddit.image : redditLogo}
                           alt=''
                         />
                       </Col>
-                      <Col xs='auto' className='ps-2 ps-md-auto'>
+                      <Col xs='auto' className='ps-2 ps-md-auto pe-0'>
                         <small>{subreddit.name}</small>
                       </Col>
                     </Row>

@@ -28,15 +28,16 @@
       }
     }
     .subreddit-img {
-      height: 22px;
-      width: 22px;
+      height: 20px;
+      width: 20px;
       border: 2px solid transparent;
       outline-style: solid;
-      outline-width: 3px;
+      outline-width: 1px;
 
       @include xl {
         height: 32px;
         width: 32px;
+        outline-width: 3px;
       }
     }
     .subreddit-pill,
