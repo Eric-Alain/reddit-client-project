@@ -51,12 +51,7 @@ exports.sourceNodes = async ({ actions }) => {
     }
   })
 
-  //Filter out duplicates
-  let uniqueResults = [...new Map(await results.map(result => [result['namePrefixed'], result])).values()]
-
-  //Sort in desired order
-  uniqueResults.sort((a, b) => (a.namePrefixed > b.namePrefixed ? 1 : b.namePrefixed > a.namePrefixed ? -1 : 0))
-
+  
   /***************/
   /*NODE CREATION*/
   /***************/
@@ -65,7 +60,7 @@ exports.sourceNodes = async ({ actions }) => {
   const { createNode } = actions
 
   //Loop over array of data that we fetched earlier
-  uniqueResults.forEach((obj, i) => {
+  results.forEach((obj, i) => {
     // Create your node object
     const node = {
       id: `${i}`,

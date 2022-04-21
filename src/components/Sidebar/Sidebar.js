@@ -28,7 +28,7 @@ const Sidebar = () => {
 
   const subredditData = useStaticQuery(graphql`
     query subredditQuery {
-      allImageSharp(limit: 20, sort: { fields: parent___parent___id, order: ASC }) {
+      allImageSharp(limit: 20) {
         edges {
           node {
             gatsbyImageData(placeholder: DOMINANT_COLOR, blurredOptions: { toFormat: WEBP }, webpOptions: { quality: 50 })
@@ -47,6 +47,22 @@ const Sidebar = () => {
   `)
 
   const subreddits = subredditData.allImageSharp.edges
+
+  //Filter out duplicates
+  let uniqueSubreddits = [...new Map(subreddits.map(result => [result.node.parent.parent['namePrefixed'], result])).values()]
+
+  //Set desired length of array
+  uniqueSubreddits.length = 20;
+
+  //Sort in desired order
+  uniqueSubreddits.sort((a, b) =>
+    a.node.parent.parent.name.toLowerCase() > b.node.parent.parent.name.toLowerCase()
+      ? 1
+      : b.node.parent.parent.name.toLowerCase() > a.node.parent.parent.name.toLowerCase()
+      ? -1
+      : 0
+  )
+
 
   //Handler
   const handleClick = str => {
@@ -69,14 +85,14 @@ const Sidebar = () => {
             <hr className='mt-0' />
           </Col>
           {/*Map data to DOM once available, limit results based on state limit*/}
-          {subreddits !== undefined ? (
-            subreddits.map((subreddit, i) => {
+          {uniqueSubreddits !== undefined ? (
+            uniqueSubreddits.map((subreddit, i) => {
               const image = subreddit.node.gatsbyImageData
               const name = subreddit.node.parent.parent.name
               const namePrefixed = subreddit.node.parent.parent.namePrefixed
 
               return (
-                <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill'>
+                <Col xs='6' sm='12' key={i} className='mb-3 px-1 subreddit-pill'>
                   <button className='w-100' onClick={() => handleClick(namePrefixed)}>
                     <Row className='justify-content-start align-items-center flex-nowrap overflow-hidden'>
                       <Col xs='auto' className='ps-2 pe-0 py-1'>
