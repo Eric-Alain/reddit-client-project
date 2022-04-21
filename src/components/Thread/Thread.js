@@ -9,7 +9,7 @@ import { setModalData, toggleModal, isLoading } from '../../state/actions/toggle
 //Utils
 import ThreadModal from '../../components/Thread/ThreadModal'
 import { animations } from '../../components/Thread/animations'
-import { htmlDecode, renderDate, nFormatter } from '../../utils/utils'
+import { renderDate, nFormatter, getSmallestImage } from '../../utils/utils'
 import { threadFetch } from '../../utils/fetches'
 
 //3rd party
@@ -76,27 +76,29 @@ const Thread = () => {
             {/*Map data to DOM once available, limit results based on state limit*/}
             {data !== undefined ? (
               data.slice(0, limit ? limit : data.length).map((child, i) => {
-                //console.log(child.previewImage)
+
                 return (
                   <article key={i}>
                     <Col xs='12' className='py-3 mb-3' ref={addToRefs}>
                       <h3>
                         <a href={child.url}>{child.title}</a>
                       </h3>
-                      <div className='img-container' onClick={() => setActiveModal(i)} onKeyDown={() => setActiveModal(i)} role='button' tabIndex='0'>
+                      <div className='img-container' onClick={() => setActiveModal(i)} onKeyDown={() => setActiveModal(i)} role='button' aria-label='preview-image' tabIndex='0'>
                         <div className={`img-undefined justify-content-center align-items-center ${!child.previewImage ? 'show' : 'hide'}`}>
                           <p className='img-undefined-text rounded'>Preview image unavailable</p>
                         </div>
                         <Img
                           className='thread-img w-100 rounded'
-                          src={child.previewImage !== undefined ? htmlDecode(child.previewImage.images[0].source.url.toString()) : 'https://placekitten.com/g/480/320'}
+                          src={child.previewImage !== undefined ? getSmallestImage(child.previewImage) : 'https://placekitten.com/g/480/320'}
                           alt={''}
+                          height={280}
+                          width={160}
                         />
                       </div>
                       <ThreadModal
                         show={modalData.activeModal === i}
                         onHide={() => setInactiveModal()}
-                        img={child.previewImage !== undefined ? htmlDecode(child.previewImage.images[0].source.url.toString()) : 'https://placekitten.com/g/480/320'}
+                        img={child.previewImage !== undefined ? getSmallestImage(child.previewImage) : 'https://placekitten.com/g/480/320'}
                       />
                       <hr />
                       <Row className='align-items-start justify-content-start justify-content-lg-between'>

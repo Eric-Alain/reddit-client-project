@@ -53,3 +53,11 @@ export const prioritizePostsWithImages = obj => {
     return bVal - aVal
   })
 }
+
+export const getSmallestImage = (obj) => {
+  try {
+    return htmlDecode(obj.images[0].resolutions[3].url.toString())
+  } catch {
+    return htmlDecode(obj.images[0].source.url.toString())
+  }
+}

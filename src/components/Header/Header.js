@@ -87,7 +87,7 @@ const Header = ({ author, siteUrl, title }) => {
             <Col xs='12' md='4' lg='3' xl='2' className='px-md-0 pb-md-2 align-self-end'>
               <Row className='justify-content-start justify-content-md-end align-items-end'>
                 <Col xs={{ span: '6', order: 2 }} md={{ span: 'auto', order: 1 }} className='px-md-0'>
-                  <a href='https://github.com/Eric-Alain/reddit-client-project'>
+                  <a href='https://github.com/Eric-Alain/reddit-client-project' aria-label='github'>
                     <FontAwesomeIcon icon={['fab', 'github']} size='2x' className='github-icon mx-2' />
                   </a>
                 </Col>

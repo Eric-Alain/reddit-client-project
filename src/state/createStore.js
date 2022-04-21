@@ -6,14 +6,12 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 //Reducers
 import searchReducer from '../state/reducers/search'
 import dataReducer from '../state/reducers/data'
-import subredditsReducer from '../state/reducers/subreddits'
 import togglesReducer from '../state/reducers/toggles'
 
 //Create root reducer
 const rootReducer = combineReducers({
   search: searchReducer,
   data: dataReducer,
-  subreddits: subredditsReducer,
   toggles: togglesReducer
 })
 

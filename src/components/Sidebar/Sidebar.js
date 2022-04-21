@@ -1,9 +1,12 @@
 //React
-import React, { useEffect } from 'react'
+import React from 'react'
+
+//Gatsby
+import { useStaticQuery, graphql } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 
 //Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchSubreddits } from '../../state/actions/subreddits'
+import { useDispatch } from 'react-redux'
 import { searchTyped } from '../../state/actions/search'
 import { fetchData, limitDataResults } from '../../state/actions/data'
 import { isLoading } from '../../state/actions/toggles'
@@ -12,10 +15,9 @@ import { isLoading } from '../../state/actions/toggles'
 import redditLogo from '../../images/reddit-logo.svg'
 
 //Utils
-import { threadFromSubredditFetch, fetchPopularSubredditsList, fetchSubredditData } from '../../utils/fetches'
+import { threadFromSubredditFetch } from '../../utils/fetches'
 
 //3rd party
-import Img from 'react-cool-img'
 import { Puff } from 'react-loading-icons'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -23,7 +25,28 @@ import Row from 'react-bootstrap/Row'
 const Sidebar = () => {
   //Redux
   const dispatch = useDispatch()
-  const subreddits = useSelector(state => state.subreddits.children)
+
+  const subredditData = useStaticQuery(graphql`
+    query subredditQuery {
+      allImageSharp(limit: 20, sort: { fields: parent___parent___id, order: ASC }) {
+        edges {
+          node {
+            gatsbyImageData(placeholder: DOMINANT_COLOR, blurredOptions: { toFormat: WEBP }, webpOptions: { quality: 50 })
+            parent {
+              parent {
+                ... on SubbreditData {
+                  name
+                  namePrefixed
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const subreddits = subredditData.allImageSharp.edges
 
   //Handler
   const handleClick = str => {
@@ -37,14 +60,6 @@ const Sidebar = () => {
     })
   }
 
-  //UseEffect
-  useEffect(() => {
-    //Async ensures that we are waiting for our fetch to complete before proceeding
-    fetchPopularSubredditsList().then(res => {
-      fetchSubredditData(res, dispatch, fetchSubreddits)
-    })
-  }, [dispatch])
-
   return (
     <Col xs={{ span: 10, order: 1 }} sm={{ span: 5, order: 2 }} md={{ span: 4, order: 2 }} xl={{ span: 3, order: 2 }} id='sidebar' className='sidebar-border bg-2 pb-3'>
       <aside>
@@ -56,19 +71,19 @@ const Sidebar = () => {
           {/*Map data to DOM once available, limit results based on state limit*/}
           {subreddits !== undefined ? (
             subreddits.map((subreddit, i) => {
+              const image = subreddit.node.gatsbyImageData
+              const name = subreddit.node.parent.parent.name
+              const namePrefixed = subreddit.node.parent.parent.namePrefixed
+
               return (
                 <Col xs='6' sm='12' key={i} className='mb-3 p-1 subreddit-pill'>
-                  <button className='w-100' onClick={() => handleClick(subreddit.namePrefixed)}>
+                  <button className='w-100' onClick={() => handleClick(namePrefixed)}>
                     <Row className='justify-content-start align-items-center flex-nowrap overflow-hidden'>
                       <Col xs='auto' className='ps-2 pe-0 py-1'>
-                        <Img
-                          className='subreddit-img'
-                          src={subreddit.image !== '' && subreddit.image !== null && subreddit.image !== undefined ? subreddit.image : redditLogo}
-                          alt=''
-                        />
+                        <GatsbyImage className='subreddit-img' image={image ? image : redditLogo} alt='' />
                       </Col>
                       <Col xs='auto' className='ps-2 ps-md-auto pe-0'>
-                        <small>{subreddit.name}</small>
+                        <small>{name}</small>
                       </Col>
                     </Row>
                   </button>

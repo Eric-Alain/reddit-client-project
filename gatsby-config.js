@@ -37,7 +37,10 @@ module.exports = {
         theme_color: `#223843`,
         background_color: `#ffffff`,
         display: `minimal-ui`,
-        icon: `src/images/reddit-logo.svg` // This path is relative to the root of the site.
+        icon: `src/images/reddit-logo.svg`, // This path is relative to the root of the site.
+        icon_options: {
+          purpose: `any maskable`
+        }
       }
     },
     {
@@ -53,6 +56,13 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`
+      }
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'SubbreditData',
+        imagePath: 'imageUrl'
       }
     },
     `gatsby-transformer-sharp`,

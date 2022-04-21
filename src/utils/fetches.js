@@ -84,9 +84,11 @@ export const fetchSubredditData = (arr, fn1, fn2) => {
         //Not necessary to do it this way, but adds a little more control
         if (subredditDataArr.length === 20) {
           fn1(fn2(subredditDataArr))
+          return
         }
       })
     })
+    return subredditDataArr
   } catch (error) {
     console.log(error)
   }

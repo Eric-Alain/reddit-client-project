@@ -11,12 +11,17 @@ const ThreadModal = ({ show, onHide, img}) => {
   return (
     <Modal show={show} onHide={onHide} dialogClassName='thread-modal' keyboard={false}>
       <Modal.Header className='justify-content-end mx-3 py-1 px-0'>
-        <button className="lh-0 rounded" onClick={onHide}>
+        <button className='lh-0 rounded' onClick={onHide}>
           <FontAwesomeIcon className='modal-close' icon={['fas', 'xmark']} size='2x' />
         </button>
       </Modal.Header>
-      <Modal.Body className="pt-0">
-        <Img className='w-100 rounded' src={img} alt={''} />
+      <Modal.Body className='pt-0'>
+        <div className='modal-img-container'>
+          <div className={`img-undefined justify-content-center align-items-center ${/placekitten/.test(img) ? 'show' : 'hide'}`}>
+            <p className='img-undefined-text rounded'>Preview image unavailable</p>
+          </div>
+          <Img className='w-100 rounded' src={img} alt={''} />
+        </div>
       </Modal.Body>
     </Modal>
   )
