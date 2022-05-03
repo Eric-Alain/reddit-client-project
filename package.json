@@ -70,7 +70,7 @@
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "jest --verbose",
+    "test": "jest --verbose --runInBand",
     "rimraf": "npx rimraf ./**/node_modules ./**/package-lock.json"
   },
   "overrides": {

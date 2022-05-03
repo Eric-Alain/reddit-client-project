@@ -30,7 +30,7 @@ exports.sourceNodes = async ({ actions }) => {
   /***********/
 
   //Fetch our data
-  const { data: res } = await axios.get('https://www.reddit.com/r/popular.json?geo_filter=CA&limit=50')
+  const { data: res } = await axios.get('https://www.reddit.com/r/popular.json?geo_filter=CA&limit=60')
 
   //Nested fetch with result from previous fetch
   const responses = await Promise.all(

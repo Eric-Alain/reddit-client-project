@@ -6,9 +6,8 @@ describe('Redux state', () => {
     state = rootReducer(undefined, {})
     expect(state).toEqual({
       search: { query: '' },
-      data: { reddit: {}, limit: 5 },
-      subreddits: {},
-      toggles: { expanded: false, theme: 'light', dropdownActive: false, modalData: {}, showModal: false }
+      data: { reddit: [], limit: 5 },
+      toggles: { expanded: false, theme: 'light', dropdownActive: false, modalData: {}, showModal: false, isLoading: true }
     })
   })
 })

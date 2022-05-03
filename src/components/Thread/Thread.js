@@ -24,7 +24,7 @@ const Thread = () => {
   const data = useSelector(state => state.data.reddit)
   const limit = useSelector(state => state.data.limit)
   const modalData = useSelector(state => state.toggles.modalData)
-
+  
   //Refs
   const refArr = useRef([])
   refArr.current = []
@@ -53,7 +53,6 @@ const Thread = () => {
       dispatch(fetchData(res))
       dispatch(isLoading(false))
     })
-
     animations(refArr.current)
   }, [dispatch])
 

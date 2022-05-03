@@ -6,10 +6,10 @@ import * as Redux from 'react-redux'
 import createStore from '../../state/createStore'
 
 //Components
-import ThreadMapper from '../__test-components__/ThreadMapper'
+import Thread from '../Thread/Thread'
 
 //Testing
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 //3rd party
 import registerIcons from '../../icons/icons'
@@ -21,285 +21,335 @@ const intersectObserverContext = (async () => {
 const store = createStore()
 registerIcons()
 
-//Mock fake data object to simulate fetch using a variable
-//For whatever reason, we can seem to pass it to state and then map the state object, so needs to be done manually like this.
-const mockData = {
-  children: [
-    {
-      data: {
-        author: 'xk4rimx',
-        created_utc: 1648239758,
-        num_comments: 277,
-        permalink: '/r/ProgrammerHumor/comments/tny6wb/stdcout_hello_world_stdendl/',
-        preview: {
-          images: [
-            {
-              source: {
-                url: 'https://preview.redd.it/8a6g0bai9lp81.jpg?auto=webp&amp;s=b9534e4c5e0719a8f658447380eeea8bf450a02b'
-              }
-            }
-          ]
-        },
-        subreddit: 'ProgrammerHumor',
-        subreddit_name_prefixed: 'r/ProgrammerHumor',
-        subreddit_subscribers: 1834896,
-        thumbnail: 'https://b.thumbs.redditmedia.com/ZO5fvP9zWLoX-fD4NIc1UjWOP_-QLmP4xMjblTW2Bdc.jpg',
-        title: 'std::cout &lt;&lt; "Hello, world!" &lt;&lt; std::endl',
-        url: 'https://i.redd.it/8a6g0bai9lp81.jpg'
-      }
-    }
-  ]
-}
+//Work around for GSAP bug when testing
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn()
+  }))
+})
 
-const minimalComponent = (
-  <Redux.Provider store={store}>
-    <section>
-      <h2>Thread</h2>
-      <ThreadMapper data={mockData} />
-    </section>
-  </Redux.Provider>
-)
+/***************/
+/*NOTES TO SELF*/
+/***************/
+//When using waitFor():
+//  - Insert all assertions within the function call
+//  - Try to avoid multiple waitFor() calls within a single test() call
+//  - Ensure you are RETURNING the waitFor() call, otherwise you will receive an error message about overlapping act() calls
 
 describe('Thread', () => {
   /******/
   /*TEXT*/
   /******/
   test('Displays a title', () => {
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-    render(minimalComponent)
-    //Find <h2> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'h2' && content === 'Thread'
-      })
-    ).toBeInTheDocument()
-  })
-
-  test('Has a <section> element with a nested <article> element', () => {
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-    render(minimalComponent)
-
-    //Find <section> element, test if it is present
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'section'
-      })
-    ).toBeInTheDocument()
-
-    //Find <article> element, test if it is present
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'article'
-      })
-    ).toBeInTheDocument()
-  })
-
-  test('<article> element has: subheading with appropriate href value', () => {
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-    render(minimalComponent)
-
-    //Find <h3> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'h3' && node.textContent === 'std::cout &lt;&lt; "Hello, world!" &lt;&lt; std::endl'
-      })
-    ).toBeInTheDocument()
-
-    //Find nested <a> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'a' && node.getAttribute('href') === 'https://i.redd.it/8a6g0bai9lp81.jpg'
-      })
-    ).toBeInTheDocument()
-  })
-
-  test('<article> element has: img tag with appropriate src attribute value', () => {
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-    render(minimalComponent)
-
-    //Assert that there should be an <img> element in doc
-    expect(screen.getByAltText('thread-img')).toBeInTheDocument()
-
-    //Assert that there should be an appropriate src value for our <img> element
-    //We expect that the image src gets modified by the react-cool-img component, so we test for the unique class name provided to it that is reflective of the src
-    expect(screen.getByAltText('thread-img').classList.value).toMatch(' no-js-8a6g0bai9lp81')
-  })
-
-  test('<article> element has: a reddit icon, user name and link to user', () => {
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-    render(minimalComponent)
-
-    //Assert that REDDIT-SQUARE icon is present in <article> element
-    expect(
-      screen.getByText((content, node) => {
-        return (
-          node.tagName.toLowerCase() === 'svg' &&
-          node.getAttribute('data-prefix') === `fab` &&
-          node.getAttribute('data-icon') === `reddit-square` &&
-          node.classList.contains('fa-reddit-square')
-        )
-      })
-    ).toBeInTheDocument()
-
-    //Find <a> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'a' && node.textContent === 'xk4rimx'
-      })
-    ).toBeInTheDocument()
-
-    //Find nested <a> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'a' && node.getAttribute('href') === `https://www.reddit.com/user/xk4rimx`
-      })
-    ).toBeInTheDocument()
-  })
-
-  test('<article> element has: link to subreddit with appropriately formatted number of subscribers', () => {
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-    render(minimalComponent)
-
-    //Find <a> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'a' && node.textContent === 'r/ProgrammerHumor'
-      })
-    ).toBeInTheDocument()
-
-    //Find <span> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'span' && node.textContent === '1.8M'
-      })
-    ).toBeInTheDocument()
-
-    //Find nested <a> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'a' && node.getAttribute('href') === 'https://www.reddit.com/r/ProgrammerHumor'
-      })
-    ).toBeInTheDocument()
-  })
-
-  test('<article> element has: a calendar icon with the creation date of the reddit feed', () => {
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-    render(minimalComponent)
-
-    //Assert that REDDIT-SQUARE icon is present in <article> element
-    expect(
-      screen.getByText((content, node) => {
-        return (
-          node.tagName.toLowerCase() === 'svg' &&
-          node.getAttribute('data-prefix') === `far` &&
-          node.getAttribute('data-icon') === `calendar-days` &&
-          node.classList.contains('fa-calendar-days')
-        )
-      })
-    ).toBeInTheDocument()
-
-    //Find <small> element, test if it has appropriate value
-    //We expect that the date format gets modified by a helper function in the component, so we test for that value instead of original number provided
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'small' && node.textContent === 'Fri, March 25, 2022'
-      })
-    ).toBeInTheDocument()
-  })
-
-  test('<article> element has: a message bubble icon, displays appropriate number of comments and links to reddit feed', () => {
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
-    render(minimalComponent)
-
-    //Assert that REDDIT-SQUARE icon is present in <article> element
-    expect(
-      screen.getByText((content, node) => {
-        return (
-          node.tagName.toLowerCase() === 'svg' &&
-          node.getAttribute('data-prefix') === `far` &&
-          node.getAttribute('data-icon') === `message` &&
-          node.classList.contains('fa-message')
-        )
-      })
-    ).toBeInTheDocument()
-
-    //Find <small> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'small' && node.textContent === '277'
-      })
-    ).toBeInTheDocument()
-
-    //Find <a> element, test if it has appropriate value
-    expect(
-      screen.getByText((content, node) => {
-        return node.tagName.toLowerCase() === 'a' && node.getAttribute('href') === 'https://www.reddit.com/r/ProgrammerHumor/comments/tny6wb/stdcout_hello_world_stdendl/'
-      })
-    ).toBeInTheDocument()
-  })
-
-  test('Clicking image makes modal appear', () => {
-    //Create mock dispatch functions for testing
-    const setModalData = obj =>
-      store.dispatch({
-        type: 'SET_MODAL_DATA',
-        payload: obj
-      })
-
-    const toggleModal = bool =>
-      store.dispatch({
-        type: 'TOGGLE_MODAL',
-        payload: bool
-      })
-
-    //Create event handlers for component, pass as props for sub component
-    //Handlers
-    const setActiveModal = index => {
-      setModalData({ activeModal: index })
-      toggleModal(true)
-    }
-
-    const setInactiveModal = () => {
-      setModalData({ activeModal: null })
-      toggleModal(true)
-    }
-    store.dispatch({
-      type: 'SET_MODAL_DATA',
-      payload: { activeModal: null }
-    })
-
-    const modalData = store.getState().toggles.modalData
-
-    //Render a minimal version of thread, we keep the map function, but are only feeding it a single array item for testing (see redux-mock-data.js)
     render(
       <Redux.Provider store={store}>
-        <section>
-          <h2>Thread</h2>
-          <ThreadMapper data={mockData} setActiveModal={setActiveModal} setInactiveModal={setInactiveModal} modalData={modalData} />
-        </section>
+        <Thread />
+      </Redux.Provider>
+    )
+    //Await component useEffect hook to resolve, find <h2> element, assert that it has appropriate value
+    return waitFor(() => {
+      expect(
+        screen.getByText((content, node) => {
+          return node.tagName.toLowerCase() === 'h2' && content === 'Thread'
+        })
+      ).toBeInTheDocument()
+    })
+  })
+
+  test('Has a <section> element', () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
       </Redux.Provider>
     )
 
-    //Identify button for opening modal, in this case a div
-    const imageModalButton = screen.getByTestId('img-container')
+    //Await component useEffect hook to resolve, find <section> element, assert that it has appropriate value
+    return waitFor(() => {
+      expect(
+        screen.getByText((content, node) => {
+          return node.tagName.toLowerCase() === 'section'
+        })
+      ).toBeInTheDocument()
+    })
+  })
 
-    //Click it
-    fireEvent.click(imageModalButton)
+  test('<section> element has 5 nested <article> elements', () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
+      </Redux.Provider>
+    )
 
-    //Assert that XMARK icon is present in modal
-    expect(
-      screen.getByText((content, node) => {
-        return (
-          node.tagName.toLowerCase() === 'svg' && node.getAttribute('data-prefix') === `fas` && node.getAttribute('data-icon') === `xmark` && node.classList.contains('fa-xmark')
-        )
+    //Await component useEffect hook to resolve, find <article> elements nested in <section> element
+    //Assert that appropriate amount of <article> elements are present
+    return waitFor(() => {
+      const articles = screen.getAllByText((content, node) => {
+        return node.tagName.toLowerCase() === 'article'
       })
-    ).toBeInTheDocument()
+      expect(articles.length).toEqual(5)
+    })
+  })
 
-    //Assert that there should be an <img> element in modal
-    expect(document.querySelector('.modal-body img')).toBeInTheDocument()
+  test('<article> elements have:\n\t\u2022 Subheading with defined text\n\t\u2022 Appropriate href value', () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
+      </Redux.Provider>
+    )
 
-    //Assert that there should be an appropriate src value for our <img> element
-    //We expect that the image src gets modified by the react-cool-img component, so we test for the unique class name provided to it that is reflective of the src
-    expect(document.querySelector('.modal-body img').classList.value).toMatch(' no-js-8a6g0bai9lp81')
+    //Await component useEffect hook to resolve, find <article> elements nested in <section> element
+    return waitFor(() => {
+      const articles = screen.getAllByText((content, node) => {
+        return node.tagName.toLowerCase() === 'article'
+      })
+
+      //Run through all visible articles
+      articles.forEach(article => {
+        //Get heading innerHTML (is a link in this case)
+        const articleHeading = article.querySelector('h3 a')
+
+        //Assert that the element is defined
+        expect(articleHeading.innerHTML).toBeDefined()
+
+        //Assert that the innerHTML of the link is a string
+        expect(typeof articleHeading.innerHTML === 'string').toBe(true)
+
+        //Assert that the href attribute of the link matches a basic regex for URLs
+        expect(articleHeading.getAttribute('href')).toMatch(/^https:\/\/.*?$/gm)
+      })
+    })
+  })
+
+  test('<article> elements have:\n\t\u2022 <img> element\n\t\u2022 <img> element has appropriate src value', () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
+      </Redux.Provider>
+    )
+
+    //Await component useEffect hook to resolve, find <article> elements nested in <section> element
+    return waitFor(() => {
+      const articles = screen.getAllByText((content, node) => {
+        return node.tagName.toLowerCase() === 'article'
+      })
+
+      //Run through all visible articles
+      articles.forEach(article => {
+        //Get heading innerHTML (is a link in this case)
+        const articleImage = article.querySelector('div.img-container img.thread-img')
+
+        //Assert that the element is defined
+        expect(articleImage).toBeDefined()
+
+        //Assert that the src of the image is defined
+        expect(articleImage.getAttribute('src')).toBeDefined()
+
+        //Assert that the src of the image is a string
+        expect(typeof articleImage.getAttribute('src') === 'string').toBe(true)
+
+        //Assert that the src attribute of the image matches a basic regex for expected file types
+        //Or empty data attribute set by GSAP when images are below the fold
+        expect(articleImage.getAttribute('src')).toMatch(/^https:\/\/.*?\.[jpg|jpeg|png|apng|gif|webp|avif|svg].*?$|^data:.*?$/gm)
+      })
+    })
+  })
+
+  test("<article> elements have:\n\t\u2022 A reddit icon\n\t\u2022 A user name\n\t\u2022 A link to user's page", () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
+      </Redux.Provider>
+    )
+
+    //Await component useEffect hook to resolve, find <article> elements nested in <section> element
+    return waitFor(() => {
+      const articles = screen.getAllByText((content, node) => {
+        return node.tagName.toLowerCase() === 'article'
+      })
+
+      //Run through all visible articles
+      articles.forEach(article => {
+        //Get the reddit square icon
+        const redditSquareIcon = article.querySelector('svg[data-icon="reddit-square"]')
+        //Assert that the icon is in the document
+        expect(redditSquareIcon).toBeInTheDocument()
+
+        //Get the user text field
+        const user = article.querySelector('div.ps-0.col-auto small').querySelectorAll('a')[0]
+        //Assert that a user text is defined
+        expect(user.innerHTML).toBeDefined()
+        //Assert that a user text is of type string
+        expect(typeof user.innerHTML === 'string').toBe(true)
+        //Assert that href value is defined
+        expect(user.getAttribute('href')).toBeDefined()
+        //Assert that href value is of type string
+        expect(typeof user.getAttribute('href') === 'string').toBe(true)
+        //Assert that the string being passed matches the basic form of user URLs
+        expect(user.getAttribute('href')).toMatch(/^https:\/\/www\.reddit\.com\/user\/.*?$/gm)
+
+        //Get the subreddit text field
+        const subreddit = article.querySelector('div.ps-0.col-auto small').querySelectorAll('a')[1]
+        //Assert that a subreddit is defined
+        expect(subreddit.innerHTML).toBeDefined()
+        //Assert that a subreddit text is of type string
+        expect(typeof subreddit.innerHTML === 'string').toBe(true)
+        //Assert that the string being passed matches the basic form of subreddit
+        expect(subreddit.innerHTML).toMatch(/^r\/.*?$/gm)
+        //Assert that href value is defined
+        expect(subreddit.getAttribute('href')).toBeDefined()
+        //Assert that href value is of type string
+        expect(typeof subreddit.getAttribute('href') === 'string').toBe(true)
+        //Assert that the string being passed matches the basic form of subreddit URLs
+        expect(subreddit.getAttribute('href')).toMatch(/^https:\/\/www\.reddit\.com\/r\/.*?$/gm)
+
+        //Get the userAndSubreddit text field
+        const userAndSubredditText = article.querySelector('div.ps-0.col-auto small')
+        //Assert that the string ends with the number of subscribers in desired format
+        expect(userAndSubredditText.innerHTML).toMatch(/^.*?: \d+\.\d+[a-zA-Z]$/gm)
+      })
+    })
+  })
+
+  test('<article> elements have:\n\t\u2022 A calendar icon\n\t\u2022 Creation date of the reddit feed', () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
+      </Redux.Provider>
+    )
+
+    //Await component useEffect hook to resolve, find <article> elements nested in <section> element
+    return waitFor(() => {
+      const articles = screen.getAllByText((content, node) => {
+        return node.tagName.toLowerCase() === 'article'
+      })
+
+      //Run through all visible articles
+      articles.forEach(article => {
+        //Get the calendar icon
+        const calendarDaysIcon = article.querySelector('svg[data-icon="calendar-days"]')
+        //Assert that the icon is in the document
+        expect(calendarDaysIcon).toBeInTheDocument()
+
+        //Get the date text field
+        const date = article.querySelector('div.col-lg-auto.col-12 div.ps-0.col-auto small')
+        //Assert that a date text is defined
+        expect(date.innerHTML).toBeDefined()
+        //Assert that a date text is of type string
+        expect(typeof date.innerHTML === 'string').toBe(true)
+        //Assert that the string being passed matches the basic desired date format
+        expect(date.innerHTML).toMatch(/^[a-zA-Z]+, [a-zA-Z]+ \d+, \d+$/gm)
+      })
+    })
+  })
+
+  test('<article> elements have:\n\t\u2022 A message bubble icon\n\t\u2022 Number of comments\n\t\u2022 Link to the reddit comment feed', () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
+      </Redux.Provider>
+    )
+
+    //Await component useEffect hook to resolve, find <article> elements nested in <section> element
+    return waitFor(() => {
+      const articles = screen.getAllByText((content, node) => {
+        return node.tagName.toLowerCase() === 'article'
+      })
+
+      //Run through all visible articles
+      articles.forEach(article => {
+        //Get the message icon
+        const calendarDaysIcon = article.querySelector('svg[data-icon="message"]')
+        //Assert that the icon is in the document
+        expect(calendarDaysIcon).toBeInTheDocument()
+
+        //Get the comments text field
+        const comments = article.querySelector('div.col-lg-auto.col-12 div.ps-0.col-auto small a')
+        //Assert that a comment text is defined
+        expect(comments.innerHTML).toBeDefined()
+        //Assert that the comment text is of type number
+        expect(typeof comments.innerHTML === 'string').toBe(true)
+        //Assert that the string being passed matches the basic desired number format
+        expect(comments.innerHTML).toMatch(/^\d+$/gm)
+
+        //Assert that the comment's href attribute is defined
+        expect(comments.getAttribute('href')).toBeDefined()
+        //Assert that the comment's href attribute is of type string
+        expect(typeof comments.getAttribute('href') === 'string').toBe(true)
+        //Assert that the string being passed matches the basic desired URL format
+        expect(comments.getAttribute('href')).toMatch(/^https:\/\/www\.reddit\.com\/r\/.*?\/comments\/.*?$/gm)
+      })
+    })
+  })
+
+  test('Clicking the "Show more results..." button reveals more <article> elements', () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
+      </Redux.Provider>
+    )
+
+    //Await component useEffect hook to resolve
+    return waitFor(() => {
+      const articles = screen.getAllByText((content, node) => {
+        return node.tagName.toLowerCase() === 'article'
+      })
+
+      const moreButton = screen.getByText((content, node) => {
+        return node.tagName.toLowerCase() === 'button' && node.textContent === 'Show more results...'
+      })
+
+      //Click show more button
+      fireEvent.click(moreButton)
+
+      //Assert that initial amount of <article> elements should be 10 after clicking show more button
+      expect(articles.length).toEqual(10)
+    })
+  })
+
+  test('Modals:\n\t\u2022 Clicking on an image <div> will make a modal appear\n\t\u2022 Clicking on modals close button will make a modal disappear', () => {
+    render(
+      <Redux.Provider store={store}>
+        <Thread />
+      </Redux.Provider>
+    )
+
+    //Await component useEffect hook to resolve
+    return waitFor(() => {
+      const articles = screen.getAllByText((content, node) => {
+        return node.tagName.toLowerCase() === 'article'
+      })
+
+      articles.forEach(article => {
+        //Get the image <div> element
+        const imageDiv = article.querySelector('div.img-container')
+        //Click the image <div> element
+        fireEvent.click(imageDiv)
+
+        /******************/
+        /*UNFORTUNATE NOTE*/
+        /******************/
+        //Since Bootstrap modals insert the modal HTML right at the bottom of the <body> tag in the DOM,
+        //we can't use the screen variable to find our modal, seeing as it was placed outside of the component that we rendered.
+        //This means we need to use document.querySelector() to find the modal, which is a more expensive (time consuming), operation.
+        //Ah well...
+
+        //Get active modal element found in DOM, the 'show' class is of particular importance here
+        const activeModal = document.querySelector('div.fade.modal.show')
+        //Assert that the modal is, in fact, in the doc
+        expect(activeModal).toBeInTheDocument()
+
+        //Get the close button of the active modal
+        const activeModalClose = document.querySelector('div.fade.modal.show button')
+        fireEvent.click(activeModalClose)
+      })
+    })
   })
 })
