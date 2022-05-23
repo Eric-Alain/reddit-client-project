@@ -213,7 +213,7 @@ describe('Thread', () => {
         //Get the userAndSubreddit text field
         const userAndSubredditText = article.querySelector('div.ps-0.col-auto small')
         //Assert that the string ends with the number of subscribers in desired format
-        expect(userAndSubredditText.innerHTML).toMatch(/^.*?: \d+\.\d+[a-zA-Z]$/gm)
+        expect(userAndSubredditText.innerHTML).toMatch(/^.*?: \d+\.*\d*[a-zA-Z]*$/gm)
       })
     })
   })

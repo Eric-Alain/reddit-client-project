@@ -7,15 +7,39 @@ import createStore from '../../state/createStore'
 
 //Components
 import Header from '../Header/Header'
+import Thread from '../Thread/Thread'
 
 //Testing
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 //3rd party
+import Dropdown from 'react-bootstrap/Dropdown'
+import FormControl from 'react-bootstrap/FormControl'
+import InputGroup from 'react-bootstrap/InputGroup'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import registerIcons from '../../icons/icons'
+
+const intersectObserverContext = (async () => {
+  if (!('IntersectionObserver' in window)) await import('intersection-observer')
+})()
 
 const store = createStore()
 registerIcons()
+
+//Work around for GSAP bug when testing
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn()
+  }))
+})
 
 const mockAuthor = 'Eric Alain'
 const mockSiteUrl = 'https://www.ericalain.ca'
@@ -142,14 +166,8 @@ describe('Header', () => {
 
       //Assert that search query state should match what we typed in it
       expect(store.getState().search.query).toEqual('Hello world!')
-
-      //Reset some redux store values
-      //Enter new value into search bar
-      fireEvent.change(searchBar, { target: { value: '' } })
     })
   })
-  /*
-  
 
   test('State changes to dummy data when user types in searchbar, clicks search button', () => {
     //Create mock dispatch functions for testing
@@ -209,9 +227,6 @@ describe('Header', () => {
     const searchButton = screen.getByText((content, node) => {
       return node.tagName.toLowerCase() === 'button' && node.classList.contains('search-btn')
     })
-
-    //Assert that search query state should be empty when we begin
-    expect(store.getState().search.query).toEqual('')
 
     //Fire events in fake DOM
     //Enter new value into search bar
@@ -299,9 +314,6 @@ describe('Header', () => {
     //React testing library search variables
     //Input field
     const searchBar = screen.getByPlaceholderText('Search...')
-
-    //Assert that search query state should be empty when we begin
-    expect(store.getState().search.query).toEqual('')
 
     //Fire events in fake DOM
     //Enter new value into search bar
@@ -400,5 +412,5 @@ describe('Header', () => {
 
     //Reset redux store value
     setTheme('light')
-  })*/
+  })
 })
