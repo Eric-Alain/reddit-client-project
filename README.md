@@ -1,8 +1,6 @@
 #Codecademy challenge solution - Build Your Own Reddit App
-==========================================================
 
 ##Project description
----------------------
 
 This is my attempt at applying what I've learned about React and Redux in the Codecademy challenge titled "Build Your Own Reddit App" using the Reddit JSON API.
 
@@ -28,7 +26,6 @@ With this app, you are able to:
 - Change themes if you don't like the current one - to each their own!
 
 ##Technologies
---------------
 
 - Reddit JSON API
 - React for component-based architecture
@@ -42,7 +39,6 @@ With this app, you are able to:
 - React-testing-library (which employs the use of JEST) for testing
 
 ##Requirements
---------------
 
 - [x] Write unit tests for your components using Jest
 - [x] Write end-to-end tests for your application
