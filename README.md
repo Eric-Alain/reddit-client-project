@@ -4,9 +4,9 @@
 
 This is my attempt at applying what I've learned about React and Redux in the Codecademy challenge titled "Build Your Own Reddit App" using the Reddit JSON API.
 
-[Here is my solution](https://eric-alain-reddit-client-project.netlify.app){:target="_blank"}.
+[Here is my solution](https://eric-alain-reddit-client-project.netlify.app).
 
-You also can view the [example project](https://reddit-client.netlify.app/){:target="_blank"} that they provide in order to compare to my solution.
+You also can view the [example project](https://reddit-client.netlify.app/) that they provide in order to compare to my solution.
 
 My solution, in essence, is pretty comparable to the one provided, with the exception of some added features:
 
@@ -52,7 +52,7 @@ With this app, you are able to:
 - [x] Users are delighted with a cohesive design system
 - [x] Users are delighted with animations and transitions
 - [x] Users are able to leave an error state
-- [x] [Get 90+ scores on Lighthouse](https://pagespeed.web.dev/report?url=https%3A%2F%2Feric-alain-reddit-client-project.netlify.app%2F){:target="_blank"}
+- [x] [Get 90+ scores on Lighthouse](https://pagespeed.web.dev/report?url=https%3A%2F%2Feric-alain-reddit-client-project.netlify.app%2F)
 - [x] Get a custom domain name and use it for your application
 - [x] Set up a CI/CD workflow to automatically deploy your application when the master branch in the repository changes
 - [x] Make your application a progressive web app
@@ -61,4 +61,4 @@ With this app, you are able to:
 
 I hope that this solution helps to inspire you to create something great. At the bare minimum, I hope it can help you overcome some hurdles if you are stumped anywhere.
 
-You can check me out [here](https://www.ericalain.ca){:target="_blank"}.
+You can check me out [here](https://www.ericalain.ca).
